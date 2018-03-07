@@ -47,28 +47,17 @@ function InOutQuint(t) {
 }
 
 function draw(startTime) {
+
   const time = ( .001 * (performance.now()-startTime) ) % loopDuration;
   const t = time * 2 * Math.PI / loopDuration;
   const f = .75 + .25 * InOutQuint( .5 + .5 * Math.sin( t ));
   const f2 = 1 + 2 * InOutQuint( .5 + .5 * Math.cos( t ));
 
-  //cube.rotation.x = time * Math.PI;
-  cube.scale.x = f;
-  cube.scale.y = f2;
-  cube.scale.z = f;
-
-  //cube2.rotation.x = time * Math.PI;
-  cube2.scale.x = f2;
-  cube2.scale.y = f;
-  cube2.scale.z = f;
-
-  //cube3.rotation.x = time * Math.PI;
-  cube3.scale.x = f;
-  cube3.scale.y = f;
-  cube3.scale.z = f2;
+  cube.scale.set(f,f2,f);
+  cube2.scale.set(f2,f,f);
+  cube3.scale.set(f,f,f2);
 
   group.rotation.y = Math.PI / 2 * InOutQuint( time / loopDuration );
- // group.rotation.x = 2 * Math.PI * Maf.smoothStep( 0, 1, time / loopDuration );
 
   renderer.render(scene, camera);
 }
