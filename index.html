@@ -14,54 +14,60 @@
 
 <script src="js/CCapture.all.min.js"></script>
 
-<script type="module">
+<script>
 
 'use strict';
 
-import {draw, loopDuration} from './loops/2.js';
-
-var capturer = new CCapture( {
-  verbose: false,
-  display: true,
-  framerate: 60,
-  motionBlurFrames: ( 960 / 60 ),
-  quality: 99,
-  format: 'gif',
-  timeLimit: loopDuration,
-  frameLimit: 0,
-  autoSaveTime: 0,
-  workersPath: 'js/'
-} );
-
-function capture() {
-  capturer.start();
+async function loadModule() {
+  const num = window.location.hash.substr(1);
+  const module = await import(`./loops/${num}.js`);
+  return module;
 }
 
-document.getElementById('start').addEventListener('click', capture);
+async function init() {
+  const module = await loadModule();
 
-function get2DCanvasContext() {
-  const canvas = document.createElement('canvas');
-  canvas.width = 800;
-  canvas.height = 800;
-  canvas.style.width = '400px';
-  canvas.style.height = '400px';
-  document.body.appendChild(canvas);
-  return canvas.getContext('2d');
-}
+  function get2DCanvasContext() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 800;
+    canvas.style.width = '400px';
+    canvas.style.height = '400px';
+    document.body.appendChild(canvas);
+    return canvas.getContext('2d');
+  }
 
-const context = get2DCanvasContext();
+  const context = get2DCanvasContext();
 
-function init() {
+  const capturer = new CCapture( {
+    verbose: false,
+    display: true,
+    framerate: 60,
+    motionBlurFrames: ( 960 / 60 ),
+    quality: 99,
+    format: 'gif',
+    timeLimit: module.loopDuration,
+    frameLimit: 0,
+    autoSaveTime: 0,
+    workersPath: 'js/'
+  } );
+
+  function capture() {
+    capturer.start();
+  }
+
+  document.getElementById('start').addEventListener('click', capture);
+
+  function update() {
+    requestAnimationFrame(update);
+    if (!skip) module.draw(context);
+    capturer.capture(context.canvas);
+  }
+
   update();
 }
 
 window.skip = false;
-
-function update() {
-  requestAnimationFrame(update);
-  if (!skip) draw(context);
-  capturer.capture(context.canvas);
-}
 
 window.addEventListener('load', init);
 </script>
