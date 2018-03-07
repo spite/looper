@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Looper</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="css/styles.css" media="screen" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Slab" rel="stylesheet">
+
+  </head>
+  <body>
+<input type="button" id="start" value="Record"/>
+
+<script src="js/CCapture.all.min.js"></script>
+
+<script type="module">
+
+'use strict';
+
+import {draw, loopDuration} from './loops/2.js';
+
+var capturer = new CCapture( {
+  verbose: false,
+  display: true,
+  framerate: 60,
+  motionBlurFrames: ( 960 / 60 ),
+  quality: 99,
+  format: 'gif',
+  timeLimit: loopDuration,
+  frameLimit: 0,
+  autoSaveTime: 0,
+  workersPath: 'js/'
+} );
+
+function capture() {
+  capturer.start();
+}
+
+document.getElementById('start').addEventListener('click', capture);
+
+function get2DCanvasContext() {
+  const canvas = document.createElement('canvas');
+  canvas.width = 800;
+  canvas.height = 800;
+  canvas.style.width = '400px';
+  canvas.style.height = '400px';
+  document.body.appendChild(canvas);
+  return canvas.getContext('2d');
+}
+
+const context = get2DCanvasContext();
+
+function init() {
+  update();
+}
+
+window.skip = false;
+
+function update() {
+  requestAnimationFrame(update);
+  if (!skip) draw(context);
+  capturer.capture(context.canvas);
+}
+
+window.addEventListener('load', init);
+</script>
+
+  </body>
+</html>
