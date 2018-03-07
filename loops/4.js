@@ -1,4 +1,4 @@
-import {renderer, getCamera} from '/modules/three.js';
+import {renderer, getCamera} from '../modules/three.js';
 const canvas = renderer.domElement;
 const camera = getCamera();
 const scene = new THREE.Scene();
