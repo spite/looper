@@ -27,18 +27,6 @@ async function loadModule() {
 async function init() {
   const module = await loadModule();
 
-  function get2DCanvasContext() {
-    const canvas = document.createElement('canvas');
-    canvas.width = 800;
-    canvas.height = 800;
-    canvas.style.width = '400px';
-    canvas.style.height = '400px';
-    document.body.appendChild(canvas);
-    return canvas.getContext('2d');
-  }
-
-  const context = get2DCanvasContext();
-
   const capturer = new CCapture( {
     verbose: false,
     display: true,
@@ -52,16 +40,18 @@ async function init() {
     workersPath: 'js/'
   } );
 
+  let startTime = 0;
   function capture() {
     capturer.start();
+    startTime = performance.now();
   }
 
   document.getElementById('start').addEventListener('click', capture);
 
   function update() {
     requestAnimationFrame(update);
-    if (!skip) module.draw(context);
-    capturer.capture(context.canvas);
+    if (!skip) module.draw(startTime);
+    capturer.capture(module.canvas);
   }
 
   update();

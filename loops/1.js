@@ -1,3 +1,8 @@
+import context from '/modules/context2d.js';
+const canvas = context.canvas;
+
+const loopDuration = 1;
+
 function drawCircle(ctx, x, y, fx, fy) {
   ctx.beginPath();
   ctx.ellipse(x,y, 50*fx, 50*fy, 0, 0, 2 * Math.PI);
@@ -14,8 +19,7 @@ function drawCircle(ctx, x, y, fx, fy) {
 
 const CIRCLES = 5;
 
-function draw(context) {
-  const canvas = context.canvas;
+function draw() {
   context.fillStyle = '#fff';
   context.fillRect(0,0,canvas.width, canvas.height);
   for (let j=0; j<CIRCLES; j++) {
@@ -33,5 +37,4 @@ function draw(context) {
   }
 }
 
-const loopDuration = 1;
-export { draw, loopDuration };
+export { draw, loopDuration, canvas };

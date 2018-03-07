@@ -1,8 +1,10 @@
+import context from '/modules/context2d.js';
+const canvas = context.canvas;
+
 const loopDuration = 1;
 const LINES = 50;
 
-function draw(context) {
-  const canvas = context.canvas;
+function draw() {
   context.fillStyle = '#fff';
   context.lineWidth = 1;
   context.fillRect(0,0,canvas.width, canvas.height);
@@ -26,4 +28,4 @@ function draw(context) {
   }
 }
 
-export { draw, loopDuration };
+export { draw, loopDuration, canvas };

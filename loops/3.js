@@ -1,16 +1,18 @@
+import context from '/modules/context2d.js';
+const canvas = context.canvas;
+
 const loopDuration = 1;
 
-function draw(context) {
-  const canvas = context.canvas;
+function draw() {
   context.fillStyle = '#fff';
   context.lineWidth = 1;
   context.fillRect(0,0,canvas.width, canvas.height);
   const time = ( .001 * performance.now() ) % loopDuration;
-  
+
   const d = 32;
   const w = canvas.width;
   const h = canvas.height;
-    
+
   context.fillStyle = '#000000';
   for( var y = -.5*h; y < 2*h; y+=d ){
     for( var x = -.5*w; x < 2*w; x+=d ){
@@ -26,4 +28,4 @@ function draw(context) {
   }
 }
 
-export { draw, loopDuration };
+export { draw, loopDuration, canvas };
