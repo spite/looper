@@ -1,6 +1,8 @@
 # looper
 Looperepool, a tool to create looperinos
 
+Demo: https://spite.github.io/looper/#4 (Chrome only)
+
 Steps:
 
 - Point a web server to the root folder of the project, for example in port 8000
