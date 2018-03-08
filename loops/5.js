@@ -48,23 +48,17 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const loopDuration = 1;
 
-function timeF(time) {
-  const f = time / loopDuration;
-  if (f<.5) return f * 2;
-  return (.5-(f-.5))*2;
-}
-
 function draw(startTime) {
 
-  const time = ( .001 * (performance.now()-startTime) ) % loopDuration;
+  const time = ( .001 * (performance.now()-startTime)) % loopDuration;
   let f = 0;
   let f2 = 1;
   let ry = 0;
   if (time < .5 * loopDuration ) {
-    f = 1 - easings.OutQuad( time / .5 * loopDuration );
+    f = 1 - easings.OutQuad( time / (.5 * loopDuration ));
   } else {
-    f2 = 1 + 2 * easings.OutQuad(( time - .5 ) / .5 * loopDuration);
-    ry = Math.PI / 2 * easings.InOutQuint(( time - .5 ) / .5 * loopDuration);
+    f2 = 1 + 2 * easings.OutQuad(( time - .5 * loopDuration ) / (.5 * loopDuration));
+    ry = Math.PI / 2 * easings.InOutQuint(( time - .5 * loopDuration ) / (.5 * loopDuration));
   }
 
   cubes.forEach( cube => {
