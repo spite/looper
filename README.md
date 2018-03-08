@@ -1,7 +1,7 @@
 # looper
 Looperepool, a tool to create looperinos
 
-Demo: https://spite.github.io/looper/#4 (Chrome only)
+Demo: https://spite.github.io/looper/#4 (Chrome and Safari Tech Preview only)
 
 Steps:
 
