@@ -1,26 +1,25 @@
 import {renderer, getCamera} from '../modules/three.js';
 import easings from '../modules/easings.js';
 import {Curves} from '../third_party/THREE.CurveExtras.js';
-import RoundedBoxGeometry from '../third_party/three-rounded-box.js';
+import RoundedCylinderGeometry from '../modules/three-rounded-cylinder.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();
 const scene = new THREE.Scene();
 const group = new THREE.Group();
 
-const material = new THREE.MeshStandardMaterial({metalness: 0, roughness: 1});
-const geometry = new RoundedBoxGeometry(1,1,1,.1,2);
+const material = new THREE.MeshStandardMaterial({metalness: 0, roughness: .1});
 
 const curve = new THREE.Curves.GrannyKnot();
 
 const SPHERES = 72;
 const spheres = [];
 for (let j=0; j<SPHERES; j++) {
+  const r = .5 + Math.random();
+  const geometry = new RoundedCylinderGeometry(.25*r,.25*r,.1,10);
   const mesh = new THREE.Mesh(geometry, material.clone());
   group.add(mesh);
-  const r = .5 + Math.random();
   mesh.material.color = new THREE.Color().setHSL(.8 + .2 * (r-.5),.5,1 - (.25 + .5 * (r-.5)));
-  mesh.scale.setScalar(.5*r);
   mesh.castShadow = mesh.receiveShadow = true;
   spheres.push(mesh);
 }
@@ -58,7 +57,7 @@ function draw(startTime) {
   spheres.forEach( (sphere,id) => {
     const t = ( time / loopDuration + id/SPHERES ) % 1;
     curve.getPoint( t, sphere.position);
-    curve.getPoint( (t + .1)%1, next);
+    curve.getPoint( (t + .1/loopDuration)%1, next);
     sphere.position.multiplyScalar(.08);
     sphere.lookAt(next.multiplyScalar(.08));
   })
