@@ -1,15 +1,15 @@
 import {renderer, getCamera} from '../modules/three.js';
 import easings from '../modules/easings.js';
-import RoundedBoxGeometry from '../third_party/three-rounded-box.js';
-import noise from '../third_party/perlin.js';
+import RoundedExtrudedPolygonGeometry from '../modules/three-rounded-extruded-polygon.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();
 const scene = new THREE.Scene();
 const group = new THREE.Group();
 
-const material = new THREE.MeshStandardMaterial({color: 0x808080, metalness: 0, roughness: .1});
-const geometry = new RoundedBoxGeometry(.75,.75,.75,.05,2);
+const SIDES = 6;
+const material = new THREE.MeshStandardMaterial({color: 0x808080, metalness: 0, roughness: .5});
+const geometry = new RoundedExtrudedPolygonGeometry(.5,.5,SIDES,1,.05,.05,5);
 
 const SIZE = 10;
 const cubes = [];
@@ -49,7 +49,7 @@ renderer.setClearColor(0xffffff,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 3;
+const loopDuration = 2.6;
 
 function draw(startTime) {
 
@@ -58,13 +58,14 @@ function draw(startTime) {
   cubes.forEach( c => {
     const offset1 = .5 * Math.PI * c.mesh.position.y / SIZE + .1 * c.mesh.position.x;
     const offset2 = .5 * Math.PI * c.mesh.position.x / SIZE + .1 * c.mesh.position.y;
-    c.mesh.rotation.x = 2 * Math.PI * time / loopDuration + offset1;
+    c.mesh.rotation.z = Math.PI / SIDES + ( 2 * Math.PI * time / SIDES ) * easings.InOutQuint(time/loopDuration);
     c.mesh.rotation.y = 2 * Math.PI * time / loopDuration + offset2;
-    const scale = .5 + .75 * easings.InOutQuad(.5 + .5 * Math.cos(2*c.mesh.rotation.x));
+    const scale = .5 + .5 * easings.InOutQuad(.5 + .5 * Math.cos(2*c.mesh.rotation.y));
+    c.mesh.position.z = -2 + 4 * scale;
     c.mesh.scale.setScalar(scale);
     const hue = .5 + .25 * Math.cos(c.mesh.rotation.y);
     const hue2 = .5 + .25 * Math.sin(c.mesh.rotation.x);
-    c.mesh.material.color.setHSL(.5+(hue+hue2)/2,.6,.5);
+    c.mesh.material.color.setHSL(.5+(hue+hue2)/2,.55,.5);
   });
 
   renderer.render(scene, camera);
