@@ -74,7 +74,7 @@ group.rotation.x = Math.PI / 2;
 
 const pivotText = new THREE.Group();
 const loader = new THREE.FontLoader();
-loader.load( '/fonts/helvetiker_regular.typeface.json', function ( font ) {
+loader.load( './fonts/helvetiker_regular.typeface.json', function ( font ) {
 
   const textGeo = new THREE.TextGeometry( 'π', {
     font: font,
