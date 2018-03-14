@@ -29,12 +29,12 @@ mesh.rotation.x = Math.PI / 2;
 circle.add(mesh);
 
 const ptr = new THREE.Mesh(
-  new RoundedCylinderGeometry(.25,1,.05),
+  new RoundedCylinderGeometry(.25,10,.05),
   material.clone()
 );
-ptr.material.color.setHex(0xdedede);
+ptr.material.color.setHex(0x0000b7);
 ptr.scale.setScalar(.25);
-ptr.position.z = -.125;
+ptr.position.z = -1.25;
 ptr.position.y = 2.125;
 ptr.castShadow = ptr.receiveShadow = true;
 circle.add(ptr);
@@ -72,21 +72,35 @@ group.add(lines);
 scene.add(group);
 group.rotation.x = Math.PI / 2;
 
-var loader = new THREE.FontLoader();
+const pivotText = new THREE.Group();
+const loader = new THREE.FontLoader();
 loader.load( '../fonts/helvetiker_regular.typeface.json', function ( font ) {
-  var textShape = new THREE.BufferGeometry();
-  var message = 'π';
-  var shapes = font.generateShapes( message, 2, 2 );
-  var geometry = new THREE.ShapeGeometry( shapes );
-  geometry.computeBoundingBox();
-  textShape.fromGeometry( geometry );
-  const text = new THREE.Mesh( textShape, material.clone() );
-  text.material.color.setHex(0xffffff)
+
+  const textGeo = new THREE.TextGeometry( 'π', {
+    font: font,
+    size: 2,
+    height: 1,
+    curveSegments: 10,
+    bevelThickness: .05,
+    bevelSize: .05,
+    bevelSegments: 5,
+    bevelEnabled: true
+  });
+  textGeo.computeBoundingBox();
+  textGeo.computeVertexNormals();
+  textGeo.computeFaceNormals();
+
+  const text = new THREE.Mesh( textGeo, material.clone() );
+  text.material.color.setHex(0x40daff);
+  text.material.roughness = .2;
   text.castShadow = text.receiveShadow = true;
-  text.position.x = -1;
-  text.position.y = -1;
-  text.lookAt(camera.position);
-  scene.add(text);
+  text.position.x = -.75;
+  text.position.y = -.75;
+  text.position.z = -.5;
+  text.rotation.x = -.1;
+  pivotText.add(text);
+  pivotText.lookAt(camera.position);
+  scene.add(pivotText);
 });
 
 const directionalLight = new THREE.DirectionalLight( 0xffffff, .5 );
@@ -107,7 +121,7 @@ scene.add( light );
 
 camera.position.set(6,6,6);
 camera.lookAt(group.position);
-renderer.setClearColor(0xdedede,1);
+renderer.setClearColor(0xffffff,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -122,8 +136,13 @@ function draw(startTime) {
   line2.position.x = time * lineLength / loopDuration - 1.5*lineLength;
   line3.position.x = time * lineLength / loopDuration + .5*lineLength;
 
-  group.rotation.z = time * 2 * Math.PI / loopDuration;
+  group.rotation.y = .3;
+  group.rotation.z = Math.PI / 2 - 0* Math.PI/4;
+  group.rotation.x = -Math.PI / 8;
   group.rotation.y = time * 2 * Math.PI / loopDuration;
+
+  //const d = 10 + 6 * easings.InOutBack(.5 + .5 * Math.sin(time * 2 * Math.PI / loopDuration - Math.PI/2),2);
+  //camera.position.normalize().multiplyScalar(d);
 
   renderer.render(scene, camera);
 }
