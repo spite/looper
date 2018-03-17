@@ -41,8 +41,9 @@ scene.add(ambientLight);
 const light = new THREE.HemisphereLight( 0xcefeff, 0xb3eaf0, .5 );
 scene.add( light );
 
-camera.position.set(0,0,14);
-camera.lookAt(group.position);
+camera.position.set(-4,4,12);
+const target = new THREE.Vector3(-.25,.25,0);
+camera.lookAt(target);
 renderer.setClearColor(0xffffff,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -58,7 +59,7 @@ function draw(startTime) {
   cylinders.forEach( (sphere,id) => {
     const leaf = Math.floor(id/(CYLS/3));
     const subT = id % (CYLS/3);
-    const t = subT / (CYLS/3) + 4*( time / loopDuration ) / (CYLS/3);
+    const t = subT / (CYLS/3) + 8 *( time / loopDuration ) / (CYLS/3);
     const a = leaf * 2 * Math.PI / 3;
     m.makeRotationZ(a);
     curve.getPoint( t, sphere.position);
