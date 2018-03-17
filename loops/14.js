@@ -75,13 +75,12 @@ function draw(startTime) {
 
     const s = Maf.parabola((2*t%1),2);
     sphere.scale.setScalar(.3+2*s);
+    //sphere.scale.z = 1 + .5 / sphere.scale.z;
     sphere.material.color.setHSL(0.43472222222 + .025  - .05 * s,1,.31 - .05 * s);
 
-    group.rotation.z = -time * (2 * Math.PI / 3 ) / loopDuration;
   })
 
- // group.rotation.y = time * 2 * Math.PI / loopDuration;
-
+  group.rotation.z = -time * (2 * Math.PI / 3 ) / loopDuration;
   renderer.render(scene, camera);
 }
 
