@@ -53,10 +53,6 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const loopDuration = 2;
 
-function parabola( x, k ) {
-  return Math.pow( 4 * x * ( 1 - x ), k );
-}
-
 const s = 4;
 const DEPTH = 5;
 
@@ -68,7 +64,7 @@ function draw(startTime) {
     c.mesh.position.x = .5 -.5 * DEPTH + t * DEPTH;
     const n = .25 + .25 * (noise.perlin3(s*t,s*c.mesh.position.y,s*c.mesh.position.z));
     const tz = ( c.mesh.position.z + .5 * SIZE ) / SIZE;
-    const finalScale = 1.5 * parabola(t,1)*n;
+    const finalScale = 1.5 * Maf.parabola(t,1)*n;
     c.mesh.material.color.setHSL(.5 + .25 * finalScale,.4 + .1 * tz,.4 + .1 * tz)
     c.mesh.scale.setScalar(finalScale);
   })
