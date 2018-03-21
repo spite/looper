@@ -6,7 +6,6 @@ function getWebGLRenderer() {
   const canvas = renderer.domElement;
   canvas.style.width = '400px';
   canvas.style.height = '400px';
-  document.body.appendChild(canvas);
   return renderer;
 }
 

@@ -27,11 +27,19 @@
 async function loadModule() {
   const num = window.location.hash.substr(1) || 1;
   const module = await import(`./loops/${num}.js`);
+  document.body.appendChild(module.canvas);
   return module;
 }
 
 async function init() {
   let module = await loadModule();
+
+  async function reload() {
+    if (module && module.canvas) {
+      document.body.removeChild(module.canvas);
+    }
+    module = await loadModule();
+  }
 
   const capturer = new CCapture( {
     verbose: false,
@@ -63,7 +71,7 @@ async function init() {
   update();
 
   window.addEventListener('hashchange', async e => {
-    module = await loadModule();
+    reload();
   })
 }
 

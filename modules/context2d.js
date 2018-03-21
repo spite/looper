@@ -4,7 +4,6 @@ function get2DCanvasContext() {
   canvas.height = 800;
   canvas.style.width = '400px';
   canvas.style.height = '400px';
-  document.body.appendChild(canvas);
   return canvas.getContext('2d');
 }
 
