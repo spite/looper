@@ -1,3 +1,5 @@
+import THREE from '../third_party/three.js';
+
 function RoundedCylinderGeometry(radius, length, bevelSize, bevelSteps, steps = 1 ) {
 
   var circleRadius = radius;

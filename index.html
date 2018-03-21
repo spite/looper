@@ -18,8 +18,6 @@
       </div>
     </header>
 
-<script src="js/three.min.js"></script>
-<script src="js/Maf.js"></script>
 <script src="js/CCapture.all.min.js"></script>
 
 <script>
@@ -33,7 +31,7 @@ async function loadModule() {
 }
 
 async function init() {
-  const module = await loadModule();
+  let module = await loadModule();
 
   const capturer = new CCapture( {
     verbose: false,
@@ -63,11 +61,16 @@ async function init() {
   }
 
   update();
+
+  window.addEventListener('hashchange', async e => {
+    module = await loadModule();
+  })
 }
 
 window.skip = false;
 
 window.addEventListener('load', init);
+
 </script>
 
   </body>

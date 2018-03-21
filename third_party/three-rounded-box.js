@@ -1,3 +1,5 @@
+import THREE from '../third_party/three.js';
+
 /**
  * @author pailhead / http://dusanbosnjak.com
  */

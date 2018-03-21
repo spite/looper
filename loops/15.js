@@ -1,3 +1,4 @@
+import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
 import noise from '../third_party/perlin.js';
 

@@ -1,3 +1,4 @@
+import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
 import easings from '../modules/easings.js';
 import RoundedCylinderGeometry from '../modules/three-rounded-cylinder.js';

@@ -1,3 +1,4 @@
+import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
 import easings from '../modules/easings.js';
 import RoundedExtrudedPolygonGeometry from '../modules/three-rounded-extruded-polygon.js';

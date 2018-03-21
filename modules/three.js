@@ -1,3 +1,5 @@
+import THREE from '../third_party/three.js';
+
 function getWebGLRenderer() {
   const renderer = new THREE.WebGLRenderer({antialias: true});
   renderer.setSize(800, 800);

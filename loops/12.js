@@ -1,7 +1,9 @@
+import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
 import easings from '../modules/easings.js';
 import RoundedExtrudedPolygonGeometry from '../modules/three-rounded-extruded-polygon.js';
 import noise from '../third_party/perlin.js';
+import Maf from '../modules/maf.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();

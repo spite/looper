@@ -1,3 +1,5 @@
+import THREE from '../third_party/three.js';
+
 function RoundedExtrudedPolygonGeometry(radius, length, sides, steps = 1, bevelThickness = .01, bevelSize = .01, bevelSteps = 1 ) {
 
   var polygonShape = new THREE.Shape();

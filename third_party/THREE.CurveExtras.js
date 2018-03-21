@@ -1,3 +1,5 @@
+import THREE from '../third_party/three.js';
+
 /*
  * A bunch of parametric curves
  * @author zz85

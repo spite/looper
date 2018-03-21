@@ -1,3 +1,5 @@
+import THREE from '../third_party/three.js';
+
 function RoundedFlatTorus(radius1, radius2, radius3 ) {
 
   const cx = radius1;
