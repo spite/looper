@@ -17,7 +17,7 @@ function draw(startTime) {
   const n = 30 + 90 * easings.InOutQuad(.5 + .5 * Math.cos(time*2*Math.PI/loopDuration));
 
   context.save();
-  context.translate(.5*canvas.width, .5*canvas.height);
+  context.translate(.5*canvas.width-20, .5*canvas.height-5);
   context.fillStyle = '#000';
   for (let a=0; a<2*Math.PI; a+=2*Math.PI/n) {
     context.save();
