@@ -33,6 +33,7 @@
     Maf.VERSION = '1.0.0';
 
     Maf.PI = Math.PI;
+    Maf.TAU = 2 * Maf.PI;
 
     // https://www.opengl.org/sdk/docs/man/html/clamp.xhtml
 
