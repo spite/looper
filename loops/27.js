@@ -38,7 +38,7 @@ for (let j = 0; j <= 1*Math.PI; j +=Math.PI/72 ) {
 }
 
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
-const strokeTexture = new THREE.TextureLoader().load( '../assets/stroke.png' );
+const strokeTexture = new THREE.TextureLoader().load( '/assets/stroke.png' );
 
 const circles = [];
 const SIDES = 72;
