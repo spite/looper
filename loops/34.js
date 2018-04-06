@@ -101,8 +101,6 @@ function draw(startTime) {
   group.position.y = Maf.mix(0,-1,t);
   group.position.z = Maf.mix(0,-1,t);
 
-  //group.rotation.y = t * 2 * Math.PI;
-
   renderer.render(scene, camera);
 }
 
