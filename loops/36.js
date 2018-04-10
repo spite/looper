@@ -109,9 +109,6 @@ function draw(startTime) {
     group.add(mesh);
   });
 
- // group.rotation.y = time * Maf.TAU / loopDuration;
- // group.rotation.x = time * Maf.TAU / loopDuration;
-
   renderer.render(scene, camera);
 }
 
