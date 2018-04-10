@@ -61,7 +61,7 @@ function draw(startTime) {
 
   context.restore();
 
-  doChromaticAberration(canvas);
+  doChromaticAberration(canvas,1.01);
 }
 
 export { draw, loopDuration, canvas };
