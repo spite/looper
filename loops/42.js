@@ -89,7 +89,6 @@ float pattern(float v, float v2) {
 }
 
 const mesh = new THREE.Mesh(
-//  new THREE.TorusBufferGeometry(3,1.5,36,200),
   new THREE.TorusKnotBufferGeometry(2.5,1,200,36),
   getMaterial()
 );
