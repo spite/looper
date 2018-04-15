@@ -173,7 +173,7 @@ renderer.setClearColor(0xffffff,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 2.5;
 const cameraOffset = new THREE.Vector3();
 
 function draw(startTime) {
