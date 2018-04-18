@@ -81,7 +81,7 @@ float pattern(vec3 pos) {
 }
 
 const numblobs = 10;
-const resolution = 100;
+const resolution = 64;
 const material = getMaterial();
 const effect = new MarchingCubes( resolution, material, true, true );
 effect.position.set( 0, 0, 0 );
