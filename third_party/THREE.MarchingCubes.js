@@ -17,6 +17,8 @@ function MarchingCubes( resolution, material, enableUvs, enableColors ) {
   var vlist = new Float32Array( 12 * 3 );
   var nlist = new Float32Array( 12 * 3 );
 
+  this.invalidate = false;
+
   this.enableUvs = enableUvs !== undefined ? enableUvs : false;
   this.enableColors = enableColors !== undefined ? enableColors : false;
 
@@ -46,6 +48,7 @@ function MarchingCubes( resolution, material, enableUvs, enableColors ) {
     this.zd = this.size2;
 
     this.field = new Float32Array( this.size3 );
+    this.field2 = new Float32Array( this.size3 );
     this.normal_cache = new Float32Array( this.size3 * 3 );
 
     // immediate render mode simulator
@@ -642,6 +645,8 @@ function MarchingCubes( resolution, material, enableUvs, enableColors ) {
 
   this.reset = function () {
 
+    this.invalidate = true;
+
     var i;
 
     // wipe the normal cache
@@ -655,8 +660,46 @@ function MarchingCubes( resolution, material, enableUvs, enableColors ) {
 
   };
 
+  this.cage = function() {
+
+    this.addPlaneX(.5,12);
+    this.addPlaneY(.5,12);
+    this.addPlaneZ(.5,12);
+
+    for ( var i = 0; i < this.size3; i++ ) {
+      this.field2[i] = this.field[i] + this.field[this.size3-1-i];
+    }
+    for ( var i = 0; i < this.size3; i++ ) {
+      this.field[i] = this.field2[i];
+    }
+
+    return;
+    var strength = 2;
+    var subtract = 12;
+
+    for ( var i = 0; i < this.size3; i ++ ) {
+      var x = i % this.size;
+      var y = Math.floor(i/this.size) % this.size;
+      var z = Math.floor(i/(this.size*this.size)) % this.size;
+      //if (x===0 || y === 0 || z === 0 || x === this.size-1 || y === this.size-1 || z === this.size-1 ) {
+      if (x===this.size-1 ) {
+        var xdiv = x / this.size;
+        var xx = xdiv * xdiv;
+        var val = strength / ( 0.0001 + xx ) - subtract;
+        if (val>0) this.field[i] = val;
+      }
+    }
+
+  }
+
   this.render = function ( renderCallback ) {
 
+    if (!this.invalidate) {
+      renderCallback(this);
+      return;
+    }
+
+    this.invalidate = true;
     this.begin();
 
     // Triangulate. Yeah, this is slow.
