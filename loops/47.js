@@ -81,7 +81,7 @@ float pattern(vec2 v) {
   return material;
 }
 
-const resolution = 32;
+const resolution = 64;
 const material = getMaterial();
 const effect = new MarchingCubes( resolution, material, true, true );
 effect.position.set( 0, 0, 0 );
