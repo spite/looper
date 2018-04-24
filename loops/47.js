@@ -2,7 +2,6 @@ import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
 import {MarchingCubes} from '../third_party/THREE.MarchingCubes.js';
 import Maf from '../modules/maf.js';
-import easings from '../modules/easings.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();
