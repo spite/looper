@@ -9,7 +9,7 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 
 function getMaterial() {
-  const material = new THREE.MeshStandardMaterial({color: 0x5186a6, metalness: .1, roughness: .1, transparent: true, alphaTest: .5, side: THREE.DoubleSide, opacity: 1});
+  const material = new THREE.MeshStandardMaterial({color: 0xb70000, metalness: .1, roughness: .5, transparent: true, alphaTest: .5, side: THREE.DoubleSide, opacity: 1});
   material.onBeforeCompile = (shader) =>{
     shader.vertexShader = shader.vertexShader.replace(
       `varying vec3 vViewPosition;`,
@@ -46,7 +46,7 @@ float pattern(vec3 pos){
       `vec4 diffuseColor = vec4( diffuse, opacity );`,
       `vec4 diffuseColor = vec4( diffuse, opacity );
       float strip = pattern(pos);
-      diffuseColor.rgb = vec3(244., 158., 66.)/255.;
+      diffuseColor.rgb = vec3(1.);
       float s = 1.;
       if(mod(2.*opacity+gl_FragCoord.x+gl_FragCoord.y,2.*s) < s ) {
         discard;
@@ -121,7 +121,7 @@ mesh.castShadow = mesh.receiveShadow = true;
 mesh.customDepthMaterial = getDepthMaterial();
 group.add(mesh);
 
-const material2 = new THREE.MeshStandardMaterial({color: 0xff5656, metalness: .1, roughness: .1});
+const material2 = new THREE.MeshStandardMaterial({color: 0xb70000, metalness: .1, roughness: .1});
 const mesh2 = new THREE.Mesh(effect.generateGeometry(), material2);
 mesh2.scale.set( 5, 5, 5 );
 mesh2.castShadow = mesh2.receiveShadow = true;
@@ -165,11 +165,11 @@ camera.fov = 90;
 camera.updateProjectionMatrix();
 camera.position.set(6,6,6);
 camera.lookAt(new THREE.Vector3(0,0,0));
-renderer.setClearColor(0xffffff,1);
+renderer.setClearColor(0,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 8;
+const loopDuration = 4;
 const cameraOffset = new THREE.Vector3();
 
 const tmpVector = new THREE.Vector3();
