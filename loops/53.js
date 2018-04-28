@@ -95,7 +95,7 @@ float pattern(vec3 pos){
   return material;
 }
 
-const resolution = 100;
+const resolution = 50;
 const material = new THREE.MeshBasicMaterial();
 const effect = new MarchingCubes( resolution, material, true, true );
 effect.position.set(0,0,0);
