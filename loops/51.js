@@ -29,14 +29,14 @@ function getMaterial() {
   varying vec2 vUv;
 
 #define M_PI 3.1415926535897932384626433832795
-#define M_TAU 2.*M_PI
+#define M_TAU (2.*M_PI)
 
 float pattern(vec3 pos){
   float r = sqrt(dot(pos,pos));
   float theta = acos(pos.z/r);
   float phi = atan(pos.y,pos.x);
   float v = theta / M_TAU;
-  float m1 = .5+.5*sin(v*M_TAU*4.);
+  float m1 = .5+.5*sin(v*M_TAU*32.);
   float res = m1;
   return res + .25;
 }
