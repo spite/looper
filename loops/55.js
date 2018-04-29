@@ -46,7 +46,7 @@ diffuseColor.rgb = texture2D(map, vN).rgb;
   return material;
 }
 
-const resolution = 100;
+const resolution = 50;
 const effect = new MarchingCubes( resolution, new THREE.MeshBasicMaterial(), false, false );
 effect.position.set(0,0,0);
 effect.init( resolution );
