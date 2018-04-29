@@ -46,7 +46,7 @@ diffuseColor.rgb = texture2D(map, vN).rgb;
   return material;
 }
 
-const resolution = 50;
+const resolution = 100;
 const effect = new MarchingCubes( resolution, new THREE.MeshBasicMaterial(), false, false );
 effect.position.set(0,0,0);
 effect.init( resolution );
@@ -54,7 +54,7 @@ effect.init( resolution );
 const material = getMaterial(0x808080, .5);
 const mesh = new THREE.Mesh(effect.generateBufferGeometry(), material);
 mesh.castShadow = mesh.receiveShadow = true;
-mesh.scale.set( 5, 5, 5 );
+mesh.scale.setScalar(6);
 group.add(mesh);
 
 scene.add(group);
@@ -62,7 +62,7 @@ scene.add(group);
 const directionalLight = new THREE.DirectionalLight( 0xffffff, .5 );
 directionalLight.position.set(-1,1,1);
 const r = 7;
-directionalLight.shadow.camera.near = .001;
+directionalLight.shadow.camera.near = -2;
 directionalLight.shadow.camera.far = 10;
 directionalLight.shadow.camera.left = -r;
 directionalLight.shadow.camera.right = r;
@@ -74,7 +74,7 @@ scene.add( directionalLight );
 
 const directionalLight2 = new THREE.DirectionalLight( 0xffffff, .5 );
 directionalLight2.position.set(1,2,1);
-directionalLight2.shadow.camera.near = .001;
+directionalLight2.shadow.camera.near = -2;
 directionalLight2.shadow.camera.far = 10;
 directionalLight2.shadow.camera.left = -r;
 directionalLight2.shadow.camera.right = r;
@@ -93,7 +93,7 @@ scene.add( light );
 camera.zoom = 1.;
 camera.fov = 90;
 camera.updateProjectionMatrix();
-camera.position.set(6,6,6);
+camera.position.set(0,0,6);
 camera.lookAt(new THREE.Vector3(0,0,0));
 renderer.setClearColor(0,1);
 renderer.shadowMap.enabled = true;
@@ -119,7 +119,7 @@ function draw(startTime) {
   const time = ( .001 * (performance.now()-startTime)) % loopDuration;
   const t = time / loopDuration;
 
-  const isolation = 400 + 100 * Math.cos(4.*t*Maf.TAU);
+  const isolation = 800 + 200 * Math.cos(4.*t*Maf.TAU);
   effect.isolation = isolation;
   effect.reset();
 
@@ -140,7 +140,7 @@ function draw(startTime) {
   mesh.geometry = effect.generateBufferGeometry();
 
   group.rotation.z = t*Maf.TAU;
-  group.rotation.x = t*Maf.TAU;
+  group.rotation.y = t*Maf.TAU;
 
   const jitter = 0.01;
   directionalLight.position.set(
