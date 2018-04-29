@@ -10,7 +10,7 @@ const group = new THREE.Group();
 
 // abuse the map uniform for the matcap
 function getMaterial(color, roughness) {
-  const map = new THREE.TextureLoader().load('/assets/LitSphere_test_04.jpg');
+  const map = new THREE.TextureLoader().load('./assets/LitSphere_test_04.jpg');
   const material = new THREE.MeshStandardMaterial({color, metalness: .1, roughness, map});
   material.onBeforeCompile = (shader) =>{
     shader.vertexShader = shader.vertexShader.replace(
