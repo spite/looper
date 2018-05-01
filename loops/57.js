@@ -110,12 +110,12 @@ scene.add( light );
 camera.zoom = 1.;
 camera.fov = 90;
 camera.updateProjectionMatrix();
-camera.position.set(0,6,0);
+camera.position.set(5,5,5);
 renderer.setClearColor(0,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-camera.target = new THREE.Vector3(0,-2,0);
+camera.target = new THREE.Vector3(0,0,0);
 camera.lookAt(camera.target);
 
 const loopDuration = 4;
@@ -125,12 +125,14 @@ function draw(startTime) {
   const time = ( .001 * (performance.now()-startTime)) % loopDuration;
   const t = time / loopDuration;
   const f = Maf.parabola(t,4);
+  const f2 = Maf.parabola((t+.5)%1,4);
 
   for (let j=0; j<objects.length; j++) {
-    const a = (easings.InOutQuad(f)*Maf.PI) * Math.sin(Maf.TAU*j/objects.length);// + t * 4.*Math.PI;
-    objects[j].rotation.x = a;
+    const a = (easings.InOutQuad(f)*Maf.PI) * Math.sin(Maf.TAU*j/objects.length);
+    const a2 = (easings.InOutQuad(f2)*Maf.PI) * Math.sin(Math.PI/2+Maf.TAU*j/objects.length);
+    objects[j].rotation.x = a+a2;
   }
-  group.rotation.x = t * Maf.PI;
+  group.rotation.x = t * Maf.TAU;
 
   const jitter = 0.01;
   directionalLight.position.set(
@@ -144,9 +146,9 @@ function draw(startTime) {
     1+Maf.randomInRange(-jitter,jitter),
   );
   camera.position.set(
-    0+Maf.randomInRange(-jitter,jitter),
-    7+Maf.randomInRange(-jitter,jitter),
-    0+Maf.randomInRange(-jitter,jitter),
+    4+Maf.randomInRange(-jitter,jitter),
+    4+Maf.randomInRange(-jitter,jitter),
+    4+Maf.randomInRange(-jitter,jitter),
   );
 
   renderer.render(scene, camera);
