@@ -151,7 +151,7 @@ function draw(startTime) {
   group1.rotation.y = t * Maf.PI / 4;
   group2.rotation.y = t * Maf.PI / 4;
 
-  const jitter = 0.01;
+  const jitter = 0.0;
   directionalLight.position.set(
     1+Maf.randomInRange(-jitter,jitter),
     1+Maf.randomInRange(-jitter,jitter),
