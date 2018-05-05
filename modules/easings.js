@@ -51,9 +51,9 @@ const Easings = {
   },
   InOutBounce : function (t){
     if (t < 0.5){
-      return inBounce (t*2) * 0.5;
+      return Easings.InBounce (t*2) * 0.5;
     }
-    return outBounce ( t*2-1 ) * 0.5 + 1 * 0.5;
+    return Easings.OutBounce ( t*2-1 ) * 0.5 + 1 * 0.5;
   },
   InElastic : function (t, amplitude, period){
     if (typeof period == 'undefined') {
