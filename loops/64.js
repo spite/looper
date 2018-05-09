@@ -82,12 +82,12 @@ function addGroup(num) {
   return objects;
 }
 
-const objects = addGroup(400);
+const objects = addGroup(800);
 
 scene.add(group);
 scene.scale.set(.5,.5,.5);
 
-const loopDuration = 3;
+const loopDuration = 2;
 const s = 4;
 const tmpVector = new THREE.Vector3();
 let prevTime = -1;
@@ -114,7 +114,7 @@ function draw(startTime) {
     c.mesh.rotation.x = c.offset + t * Maf.TAU * c.speed;
   });
 
-  group.rotation.z = time * Maf.TAU / loopDuration;
+  //group.rotation.z = time * Maf.TAU / loopDuration;
 
   /*const jitter = 0.01;
   directionalLight.position.set(
