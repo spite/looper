@@ -87,9 +87,8 @@ const objects = addGroup(400);
 scene.add(group);
 scene.scale.set(.5,.5,.5);
 
-const loopDuration = 4;
+const loopDuration = 3;
 const s = 4;
-const DEPTH = 5;
 const tmpVector = new THREE.Vector3();
 let prevTime = -1;
 const prev = new THREE.Vector3();
