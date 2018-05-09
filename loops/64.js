@@ -82,7 +82,7 @@ function addGroup(num) {
   return objects;
 }
 
-const objects = addGroup(800);
+const objects = addGroup(400);
 
 scene.add(group);
 scene.scale.set(.5,.5,.5);
