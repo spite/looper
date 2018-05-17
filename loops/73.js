@@ -79,7 +79,7 @@ diffuseColor.rgb *= vec3(.5 + .25 * clamp(vNoise,0.,1.));
   return material;
 }
 
-const geo = new THREE.IcosahedronBufferGeometry(2., 7);
+const geo = new THREE.IcosahedronBufferGeometry(2., 6);
 const mat = getMaterial();
 const mesh = new THREE.Mesh(geo, mat);
 mesh.customDepthMaterial = getMaterial(true);
