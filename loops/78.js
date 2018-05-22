@@ -5,6 +5,7 @@ import easings from '../modules/easings.js';
 import voronoise2d from '../shaders/voronoise2d.js';
 import hsl2rgb from '../shaders/hsl2rgb.js';
 import RoundedBoxGeometry from '../third_party/three-rounded-box.js';
+import pointOnSphere from '../modules/points-sphere.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();
@@ -133,8 +134,10 @@ renderer.setClearColor(0x101010,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3;
 const cameraOffset = new THREE.Vector3();
+const spherePoints = pointOnSphere(64);
+let frame = 0;
 
 function draw(startTime) {
 
@@ -148,6 +151,22 @@ function draw(startTime) {
   if (mesh.material.uniforms) {
     mesh.material.uniforms.time.value = .5 + .5 * Math.cos((time/loopDuration)*Maf.TAU);
   }
+
+  /*const jitter = 0.01;
+  directionalLight.position.set(
+    1+Maf.randomInRange(-jitter,jitter),
+    1+Maf.randomInRange(-jitter,jitter),
+    1+Maf.randomInRange(-jitter,jitter),
+  );
+  directionalLight2.position.set(
+    1+Maf.randomInRange(-jitter,jitter),
+    2+Maf.randomInRange(-jitter,jitter),
+    1+Maf.randomInRange(-jitter,jitter),
+  );
+
+  frame++;
+  frame %= 64;
+  scene.position.copy(spherePoints[frame]).multiplyScalar(jitter);*/
 
   renderer.render(scene, camera);
 }
