@@ -10,19 +10,27 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 
 const geo = new THREE.IcosahedronBufferGeometry(.1,3);
-const mat = new THREE.MeshStandardMaterial();
+const mat = new THREE.MeshStandardMaterial({metalness:0, roughness:.25});
 const objects = [];
 for (let y=0; y<20; y++) {
   for (let x=0; x<20; x++) {
     const mesh = new THREE.Mesh(
       geo,
-      mat
+      mat.clone()
     );
-    mesh.scale.set(1,.5,2);
+    mesh.scale.set(1,1,.5);
     mesh.position.set(.25*(x-9.5),.25*(y-9.5),0);
     mesh.receiveShadow = mesh.castShadow = true;
     group.add(mesh);
-    objects.push({x,y,mesh});
+
+    const p = mesh.position.clone();
+    p.x *= .1;
+    p.y *= .05;
+    const rotation = curl(p).clone();
+    rotation.multiplyScalar(Maf.PI);
+    const offset = y * 20 + x;
+    mesh.material.color.setHSL(offset/400,.5,.5);
+    objects.push({x,y,offset,mesh,rotation});
   }
 }
 
@@ -50,25 +58,19 @@ renderer.setClearColor(0x101010,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 3;
+const loopDuration = 2;
 
 function draw(startTime) {
 
   const time = ( .001 * (performance.now()-startTime)) % loopDuration;
   const t = time / loopDuration;
-  const t2 = ( t + .5 ) % 1;
 
   objects.forEach( o => {
-    const p1 = o.mesh.position.clone();
-    p1.multiplyScalar(-.05 + .1 * Maf.parabola(easings.InOutQuad(t),1));
-    const c1 = curl(p1);
-    c1.multiplyScalar(Maf.TAU);
-    const p2 = o.mesh.position.clone();
-    p2.multiplyScalar(-.05 + .1 * Maf.parabola(easings.InOutQuad(t2),1));
-    const c2 = curl(p2);
-    c2.multiplyScalar(Maf.TAU);
-    const c = c1.add(c2);
-    o.mesh.rotation.set(c.x,c.y,c.z);
+    const c = o.rotation;
+    const offset = o.offset / 400;
+    const f = Maf.parabola(easings.InOutQuad((t+offset)%1),1);
+    o.mesh.scale.x = 1 + f;
+    o.mesh.rotation.set(c.x*f,c.y*f,c.z*f);
   })
 
   renderer.render(scene, camera);
