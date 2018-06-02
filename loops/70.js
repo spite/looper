@@ -263,7 +263,7 @@ ${shader.fragmentShader}`;
 float nn1 = snoise(2.*vPos + vec3(t1,0.,2.*t1)) + snoise(2.*vPos + vec3(4.*t1,2.*t1,0.));
 float nn2 = snoise(2.*vPos + vec3(t2,0.,2.*t2)) + snoise(2.*vPos + vec3(4.*t2,2.*t2,0.));
 float n = .5+.5*mix(nn1,nn2,1.-time);
-diffuseColor.rgb = vec3(1.);
+diffuseColor.rgb = vec3(1.-smoothstep(.3,.6,n));
 if(n>.5) {
   discard;
 }

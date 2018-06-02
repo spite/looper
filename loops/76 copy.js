@@ -2,10 +2,8 @@ import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
 import Maf from '../modules/maf.js';
 import easings from '../modules/easings.js';
-import voronoise2d from '../shaders/voronoise2d.js';
-import hsl2rgb from '../shaders/hsl2rgb.js';
+import noise3d from '../shaders/noise3d.js';
 import RoundedBoxGeometry from '../third_party/three-rounded-box.js';
-import pointOnSphere from '../modules/points-sphere.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();
@@ -28,8 +26,8 @@ function getMaterial() {
   pos = position;
   vUv = uv;`);
 
-    shader.fragmentShader = `${voronoise2d}
-${hsl2rgb}
+    shader.fragmentShader = `${noise3d}
+
 ${shader.fragmentShader}`;
 
    shader.fragmentShader = shader.fragmentShader.replace(
@@ -52,42 +50,52 @@ vec3 perturbNormalArb( vec3 surf_pos, vec3 surf_norm, vec2 dHdxy ) {
 
 #define M_PI 3.1415926535897932384626433832795
 
-float pattern(vec2 p, vec2 c) {
-  return voronoise2d(p, c.x, c.y);
+float fBm(in vec3 p) {
+    float sum = 0.0;
+    float amp = 1.0;
+    for(int i = 0; i < 4; i++) {
+        sum += amp * noise3d(p);
+        amp *= 0.5;
+        p *= 2.0;
+    }
+    return sum;
+}
+
+float pattern(vec3 p) {
+  float freq = .5;
+  float xPeriod = 2.;
+  float yPeriod = 1.;
+  float zPeriod = .5;
+  float amp = 1.;
+  return abs(sin(freq * dot(p,vec3(xPeriod, yPeriod, zPeriod)) + amp * fBm(pos)));
 }
 `);
 
    shader.fragmentShader = shader.fragmentShader.replace(
       `vec4 diffuseColor = vec4( diffuse, opacity );`,
       `vec4 diffuseColor = vec4( diffuse, opacity );
-  vec2 uv = vUv * vec2(120.,20.);
-  float strip = pattern(uv, vec2(time,0.));
-  float e = .01;
-  float gold1 = pattern(uv+vec2(e,0.), vec2(time,0.));
-  float gold2 = pattern(uv+vec2(0.,e), vec2(time,0.));
-  e = .1;
-  float v1 = pattern(uv+vec2(e,0.), vec2(time,0.));
-  float v2 = pattern(uv+vec2(0.,e), vec2(time,0.));
+  float strip = pattern(pos);
+  float e = .001;
+  float v1 = pattern(pos+vec3(e,0.,0.));
+  float v2 = pattern(pos+vec3(0.,e,0.));
   vec2 stripOffset = vec2(v1-strip,v2-strip);
-  float modifiedMetalness = .1;
-  float modifiedRoughness = .2 + .3 * strip;
-  diffuseColor.rgb = hsl2rgb(vec3(0.+.1*strip,.75+.25*strip,.25+.5*strip));
-  if((abs(gold1-strip)+abs(gold2-strip))>.0001){
-    diffuseColor.rgb = hsl2rgb(vec3(0.+.1*strip,.5+.25*strip,.5*strip));
-    modifiedRoughness = 0.;
-    modifiedMetalness = 0.;
-  }`);
+  float c = .5 + .5 * strip;
+  if(pos.x>0.) {
+    c = 1. - c;
+  }
+  if(pos.y>0.) {
+    c = 1. - c;
+  }
+  if(pos.z>0.) {
+    c = 1. - c;
+  }
+  float modifiedRoughness = .2 + .3 * c;
+  diffuseColor.rgb = vec3(stripOffset.y);`);
 
     shader.fragmentShader = shader.fragmentShader.replace(
       '#include <roughnessmap_fragment>',
       `#include <roughnessmap_fragment>
       roughnessFactor = modifiedRoughness;`
-    );
-
-    shader.fragmentShader = shader.fragmentShader.replace(
-      '#include <metalnessmap_fragment>',
-      `#include <metalnessmap_fragment>
-      metalnessFactor = modifiedMetalness;`
     );
 
     shader.fragmentShader = shader.fragmentShader.replace(
@@ -104,7 +112,8 @@ float pattern(vec2 p, vec2 c) {
 }
 
 const mesh = new THREE.Mesh(
-  new THREE.TorusKnotBufferGeometry(2.5,1,100,36),
+  new RoundedBoxGeometry(5,5,5,.5,10),
+  //new THREE.TorusKnotBufferGeometry(2.5,1,200,36),
   getMaterial()
 );
 mesh.receiveShadow = mesh.castShadow = true;
@@ -130,43 +139,25 @@ scene.add( light );
 
 camera.position.set(10,-10,10);
 camera.lookAt(group.position);
-renderer.setClearColor(0x101010,1);
+renderer.setClearColor(0xffffff,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 3;
+const loopDuration = 4;
 const cameraOffset = new THREE.Vector3();
-const spherePoints = pointOnSphere(64);
-let frame = 0;
 
 function draw(startTime) {
 
   const time = ( .001 * (performance.now()-startTime)) % loopDuration;
-  const t = (2 * time / loopDuration)%1;
+  const t = time / loopDuration;
   const t2 = easings.InOutQuad(t);
 
   mesh.material.opacity = 1 * time / loopDuration;
-  mesh.rotation.y = Math.PI/8 + t2 * Maf.TAU;
+  mesh.rotation.y = t2 * Maf.TAU;
   mesh.rotation.x = Math.sin(t2*Maf.TAU) * Math.PI/8;
   if (mesh.material.uniforms) {
-    mesh.material.uniforms.time.value = .5 + .5 * Math.cos((time/loopDuration)*Maf.TAU);
+    mesh.material.uniforms.time.value = .5 + .5 * Math.sin(t*Maf.TAU);
   }
-
-  /*const jitter = 0.01;
-  directionalLight.position.set(
-    1+Maf.randomInRange(-jitter,jitter),
-    1+Maf.randomInRange(-jitter,jitter),
-    1+Maf.randomInRange(-jitter,jitter),
-  );
-  directionalLight2.position.set(
-    1+Maf.randomInRange(-jitter,jitter),
-    2+Maf.randomInRange(-jitter,jitter),
-    1+Maf.randomInRange(-jitter,jitter),
-  );
-
-  frame++;
-  frame %= 64;
-  scene.position.copy(spherePoints[frame]).multiplyScalar(jitter);*/
 
   renderer.render(scene, camera);
 }
