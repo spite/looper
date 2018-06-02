@@ -104,7 +104,7 @@ float pattern(vec2 p, vec2 c) {
 }
 
 const mesh = new THREE.Mesh(
-  new THREE.TorusKnotBufferGeometry(2.5,1,100,36),
+  new THREE.TorusKnotBufferGeometry(2.5,1,200,36),
   getMaterial()
 );
 mesh.receiveShadow = mesh.castShadow = true;
