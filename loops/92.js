@@ -58,7 +58,7 @@ function draw(startTime) {
 
   objects.forEach( (o,i) => {
     o.pivot.position.y = 1 * Math.sin(t*Maf.TAU+.5*i);
-    o.mesh.material.color.setHSL((i/RINGS + t)%1,.65,.5);
+    o.mesh.material.color.setHSL((i/RINGS - t)%1,.65,.5);
   });
 
   group.rotation.y = t * Maf.TAU;
