@@ -8,7 +8,6 @@ const canvas = renderer.domElement;
 const camera = getCamera();
 const scene = new THREE.Scene();
 const group = new THREE.Group();
-const circle = new THREE.Group();
 
 const objects = [];
 const RINGS = 20;
