@@ -14,7 +14,6 @@ const r = .5;
 const geo = new RoundedBoxGeometry(r,.5*r,2*r,.05,5);
 const material = new THREE.MeshStandardMaterial({color: 0xdedede, metalness: .1, roughness: 0});
 const metalMaterial = new THREE.MeshStandardMaterial({color: 0x404040, metalness: .5, roughness: 0});
-//const pegGeo = new THREE.
 const lineGeo = new RoundedBoxGeometry(r,.1,.1,.05,5);
 const pegGeo = new THREE.IcosahedronGeometry(.05,3);
 
