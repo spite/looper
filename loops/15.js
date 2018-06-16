@@ -1,6 +1,7 @@
 import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
 import noise from '../third_party/perlin.js';
+import Maf from '../modules/maf.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();

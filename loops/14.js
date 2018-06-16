@@ -3,6 +3,7 @@ import {renderer, getCamera} from '../modules/three.js';
 import easings from '../modules/easings.js';
 import {Curves} from '../third_party/THREE.CurveExtras.js';
 import RoundedCylinderGeometry from '../modules/three-rounded-cylinder.js';
+import Maf from '../modules/maf.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera();
