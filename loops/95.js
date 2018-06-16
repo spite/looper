@@ -56,7 +56,7 @@ renderer.setClearColor(0,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3.5;
 
 function draw(startTime) {
 
@@ -78,8 +78,6 @@ function draw(startTime) {
     o.piece.rotation.z = o.rz + o.sz * t * Maf.TAU;
     o.piece2.rotation.copy(o.piece.rotation);
   });
-
-  //group.rotation.y = t * Maf.TAU;
 
   renderer.render(scene, camera);
 }
