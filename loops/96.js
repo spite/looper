@@ -40,6 +40,7 @@ for (let j=0; j<PIECES; j++) {
 
   objects.push({piece, pivot, pivotR});
 }
+
 group.scale.setScalar(.5);
 scene.add(group);
 
