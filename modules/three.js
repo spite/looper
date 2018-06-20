@@ -11,8 +11,8 @@ function getWebGLRenderer() {
 
 const renderer = getWebGLRenderer();
 
-function getCamera() {
-  return new THREE.PerspectiveCamera(35,1,.1,100);
+function getCamera(fov) {
+  return new THREE.PerspectiveCamera(fov?fov:35,1,.1,100);
 }
 
 export { renderer, getCamera };
