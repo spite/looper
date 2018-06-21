@@ -81,7 +81,6 @@ function draw(startTime) {
 
   objects.forEach( (o,i) => {
     o.pivot.rotation.z = t * Maf.PI;
-    //o.pivot.rotation.x = .2 + .2 * Math.sin(t*Maf.TAU);
   });
 
   renderer.render(scene, camera);
