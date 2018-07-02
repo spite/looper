@@ -70,7 +70,7 @@ renderer.setClearColor(0,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3;
 
 function draw(startTime) {
 
