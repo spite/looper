@@ -23,8 +23,6 @@ for (let j=0; j<RINGS; j++) {
   const y = r * Math.sin(a);
   const z = 9 - j*2;
   pivot.position.set(x,y,z);
-  //pivot.rotation.x = Math.PI / 2;
-  //pivot.rotation.y = a + Math.PI/4;
   const pivot2 = new THREE.Group();
   pivot.add(pivot2);
   const offset = j % 2;

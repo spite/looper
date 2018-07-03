@@ -140,7 +140,7 @@ function draw(startTime) {
   const t = time / loopDuration;
 
   mesh.material.opacity = t;
-  mesh.rotation.y  = Maf.TAU * t;
+  mesh.rotation.y = Maf.TAU * t;
 
   renderer.render(scene, camera);
 }
