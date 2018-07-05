@@ -42,10 +42,6 @@ function getMaterial() {
 
 #define M_PI 3.1415926535897932384626433832795
 
-float round(float a) {
-  return floor(a + 0.5);
-}
-
 // form https://www.shadertoy.com/view/4ljBWd
 
 float pattern( vec2 u ) {
