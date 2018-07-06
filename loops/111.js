@@ -42,7 +42,6 @@ function getMaterial() {
 
 #define M_PI 3.1415926535897932384626433832795
 
-// form https://www.shadertoy.com/view/XdKXz3
 float pattern( vec2 uv ) {
 
   vec2 u = uv * 2. * vec2(20.,1.732*3.);
