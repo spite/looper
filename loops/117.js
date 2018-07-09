@@ -1,6 +1,5 @@
 import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
-import {Curves} from '../third_party/THREE.CurveExtras.js';
 import Maf from '../modules/maf.js';
 import easings from '../modules/easings.js';
 
