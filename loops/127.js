@@ -66,7 +66,7 @@ renderer.setClearColor(0,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 2.5;
+const loopDuration = 2;
 const cameraOffset = new THREE.Vector3();
 
 function draw(startTime) {
@@ -81,7 +81,6 @@ function draw(startTime) {
     const delay = Math.sqrt(dx*dx+dy*dy) + a/(Maf.TAU/2);
     let tt = Maf.mod(t - delay, 1);
 
-    //o.pivot.rotation.x = easings.InOutQuint(tt) * Maf.TAU;
     o.pivot.rotation.y = tt * Maf.TAU;
   });
 
