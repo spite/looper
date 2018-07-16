@@ -13,6 +13,7 @@ const blackMaterial = new THREE.MeshStandardMaterial({color:0x000000});
 
 const MAX = 30;
 const SIDES = 6;
+
 const objects = [];
 for (let j=0; j<MAX; j++) {
   const r = MAX-j;
