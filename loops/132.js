@@ -64,7 +64,7 @@ renderer.setClearColor(0,1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 3;
+const loopDuration = 2;
 const cameraOffset = new THREE.Vector3();
 
 function draw(startTime) {
@@ -73,14 +73,14 @@ function draw(startTime) {
   const t = time / loopDuration;
 
   objects.forEach( (o, id) => {
-    const dx = .1 * o.x;
-    const dy = .1 * o.y;
+    const dx = .05 * o.x;
+    const dy = .05 * o.y;
     const delay = Math.sqrt(dx*dx+dy*dy);
     let tt = Maf.mod(t - delay, 1);
 
     o.pivot.position.z = Math.sin(easings.InOutQuint(tt) * Maf.TAU);
   });
-  group.rotation.z = t * Maf.TAU;
+  //group.rotation.z = t * Maf.TAU;
 
   renderer.render(scene, camera);
 }
