@@ -93,7 +93,6 @@ function draw(startTime) {
 
   const tt = easings.InOutCubic(t);
   objects.forEach( (o,id) => {
-    //o.scale.setScalar(Maf.parabola(Maf.mod(t+2*id/MAX,1),1));
     o.mesh.position.y =  10 * Math.sin((.5+tt+Maf.parabola(tt,1)*id/MAX)*Maf.TAU);
   });
   camera.rotation.z = .1*Math.sin(t*Maf.TAU);
