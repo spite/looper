@@ -1,6 +1,5 @@
 import THREE from '../third_party/three.js';
 import {renderer, getCamera} from '../modules/three.js';
-import easings from '../modules/easings.js';
 import createAkiraCapsule from '../modules/akira-capsule.js';
 import Maf from '../modules/maf.js';
 
