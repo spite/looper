@@ -58,7 +58,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.gammaOutput = true;
 renderer.gammaFactor = 1.;
 
-const loopDuration = 3.5;
+const loopDuration = 3;
 
 function draw(startTime) {
 
