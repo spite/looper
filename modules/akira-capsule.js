@@ -8,8 +8,9 @@ const redMaterial = new THREE.MeshStandardMaterial({color: 0x4060a6, metalness: 
 
 function createAkiraCapsule() {
 
-//  const redMaterial = new THREE.MeshStandardMaterial({color: 0xb70000, metalness: 0, roughness: .2, transparent: true});
-//  redMaterial.color.setHSL(Maf.randomInRange(0,1),.75,.5);
+  // for random colored capsule
+  //  const redMaterial = new THREE.MeshStandardMaterial({color: 0xb70000, metalness: 0, roughness: .2, transparent: true});
+  //  redMaterial.color.setHSL(Maf.randomInRange(0,1),.75,.5);
 
   const piece = new THREE.Group();
   const border = .1;
