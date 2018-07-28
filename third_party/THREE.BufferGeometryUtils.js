@@ -1,4 +1,5 @@
 import THREE from '../third_party/three.js';
+
 /**
  * @author mrdoob / http://mrdoob.com/
  */
