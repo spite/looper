@@ -110,13 +110,9 @@ function draw(startTime) {
       const y2 = r2 * Math.sin(a2);
       m.position.set(x2,0,y2);
       m.scale.setScalar(.06+.04*Math.sin(t*Maf.TAU+id*Maf.TAU/RINGS))
-      //m.position.x = Math.sin(t*Maf.TAU);
-      //m.rotation.y = -a2 + Maf.PI/2;
     })
-
   });
 
- // group.rotation.x = Maf.PI / 16 * Math.sin(t*Maf.TAU);
 
   renderer.render(scene, camera);
 }
