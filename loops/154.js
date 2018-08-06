@@ -21,9 +21,6 @@ const m = new THREE.Matrix4().makeRotationX(Maf.PI /2);
 geo.applyMatrix(m);
 const mats = palette.range.map( (c) => new THREE.MeshStandardMaterial({color: c, metalness: .1, roughness: .5}));
 
-const center = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(.1,3),mats[4]);
-group.add(center);
-
 for (let j=0; j<RINGS; j++) {
   const pivot = new THREE.Group();
   const meshes = [];
@@ -71,8 +68,8 @@ scene.add( light );
 camera.position.set(0,6,0);
 camera.lookAt(new THREE.Vector3(0,0,0));
 camera.rotation.z = 3*Math.PI/4;
-renderer.setClearColor(0x260006,1);
-scene.fog = new THREE.FogExp2( palette.base[0], 0.05 );
+renderer.setClearColor(palette.range[3],1);
+scene.fog = new THREE.FogExp2( palette.range[3], 0.1 );
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
