@@ -35,6 +35,7 @@ function RoundedFlatTorus(radius1, radius2, radius3, radius4, steps=18, segments
     for (let i=0; i<pts.length; i++) {
       const n = vv.clone().normalize().cross(uu);
       geometry.faces.push(new THREE.Face3(i, i+1, p, n));
+      geometry.faceVertexUvs[0].push([new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2()]);
     }
 
     const sin2 = Math.sin(angleStart+angleLength);
@@ -46,6 +47,7 @@ function RoundedFlatTorus(radius1, radius2, radius3, radius4, steps=18, segments
     for (let i=0; i<pts.length; i++) {
       const n = vv2.clone().normalize().cross(uu).multiplyScalar(-1);
       geometry.faces.push(new THREE.Face3(p2,ptr + i+1, ptr + i, n));
+      geometry.faceVertexUvs[0].push([new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2()]);
     }
   }
 
