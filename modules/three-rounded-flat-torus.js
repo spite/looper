@@ -14,7 +14,7 @@ function RoundedFlatTorus(radius1, radius2, radius3, radius4, steps=18, segments
     const y = Math.pow(Math.abs(Math.sin(ao)),radius4||.5)*r*Math.sign(Math.sin(ao));
     pts.push(new THREE.Vector3(cx+radius2*x,cy+radius3*y,0));
   }
-  //pts.push(pts[0].clone());
+  pts.push(pts[0].clone());
   const geometry = new THREE.LatheGeometry( pts, segments, angleStart, angleLength );
   geometry.computeVertexNormals();
   geometry.computeFaceNormals();
@@ -32,9 +32,9 @@ function RoundedFlatTorus(radius1, radius2, radius3, radius4, steps=18, segments
     geometry.vertices.push(vv);
     const p = geometry.vertices.length - 1;
     const uu = new THREE.Vector3(0,1,0);
+    const n = vv.clone().normalize().cross(uu);
     for (let i=0; i<pts.length; i++) {
-      const n = vv.clone().normalize().cross(uu);
-      geometry.faces.push(new THREE.Face3(i, i+1, p, n));
+      geometry.faces.push(new THREE.Face3(i, (i+1)%pts.length, p, n));
       geometry.faceVertexUvs[0].push([new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2()]);
     }
 
@@ -44,9 +44,9 @@ function RoundedFlatTorus(radius1, radius2, radius3, radius4, steps=18, segments
     geometry.vertices.push(vv2);
     const p2 = geometry.vertices.length - 1;
     const ptr = l - pts.length;
+    const n2 = vv2.clone().normalize().cross(uu);
     for (let i=0; i<pts.length; i++) {
-      const n = vv2.clone().normalize().cross(uu).multiplyScalar(-1);
-      geometry.faces.push(new THREE.Face3(p2,ptr + i+1, ptr + i, n));
+      geometry.faces.push(new THREE.Face3(p2,ptr + (i+1)%pts.length, ptr + i, n2));
       geometry.faceVertexUvs[0].push([new THREE.Vector2(), new THREE.Vector2(), new THREE.Vector2()]);
     }
   }
