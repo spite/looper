@@ -13,7 +13,6 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 
 const meshes = [];
-const rings = [];
 const RINGS = 36;
 const mat = new THREE.MeshStandardMaterial({color: palette.range[2], metalness: .1, roughness: .4});
 const mat2 = new THREE.MeshStandardMaterial({color: palette.range[3], metalness: .1, roughness: .4});
