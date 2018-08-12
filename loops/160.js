@@ -19,8 +19,8 @@ const mats = [];
 palette.range.forEach( (c) => {
   mats.push(new THREE.MeshStandardMaterial({color: c, metalness: .1, roughness: .4}));
 });
-const l = Maf.TAU / (2*SIDES);
-const geo = new RoundedFlatTorus(10,10,20,.25,18,36,0,2*l,true);
+const l = Maf.TAU / SIDES;
+const geo = new RoundedFlatTorus(10,10,20,.25,18,36,0,l,true);
 for (let j=0; j<RINGS; j++) {
   const pivot = new THREE.Group();
   const a = j * Maf.TAU / RINGS;
