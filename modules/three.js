@@ -15,4 +15,8 @@ function getCamera(fov) {
   return new THREE.PerspectiveCamera(fov?fov:35,1,.1,100);
 }
 
-export { renderer, getCamera };
+function getOrthoCamera(w,h) {
+  return new THREE.OrthographicCamera(-w,w,h,-h,-100,100);
+}
+
+export { renderer, getCamera, getOrthoCamera };
