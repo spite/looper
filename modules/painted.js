@@ -102,7 +102,7 @@ void main() {
 `;
 
 
-function Painted(renderer) {
+function Painted(renderer, params = {}) {
 
   const w = renderer.getSize().width;
   const h = renderer.getSize().height;
@@ -167,7 +167,7 @@ function Painted(renderer) {
   function render(scene, camera) {
     renderer.render(scene, camera, colorFBO);
     antialiasPass.shader.uniforms.inputTexture.value = colorFBO.texture;
-    antialiasPass.shader.uniforms.minLevel.value = .2;
+    antialiasPass.shader.uniforms.minLevel.value = params.minLevel || .2;
     antialiasPass.render();
     edgesPass.render();
     blurHPass.shader.uniforms.inputTexture.value = edgesPass.fbo.texture;
