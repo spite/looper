@@ -98,6 +98,7 @@ function draw(startTime) {
       const ss = (s * (.15 * Math.pow(d * 5, 1.3)));
       m.scale.z = m.scale.y = ss;
       m.scale.x = m.userData.scale * ss;
+      m.visible = (m.scale.x > .001);
     });
 
   });
