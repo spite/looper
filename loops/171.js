@@ -10,7 +10,7 @@ import Painted from '../modules/painted.js';
 
 const painted = Painted(renderer, { minLevel: -.1 });
 
-palette.range = ["#FFFFFF", "#FE2F04", "#0D5B93", "#0E4366", "#C74619", "#F5B067", "#F5C893", "#477C93"]; //["#070707", "#B8D00D", "#FFFFFF", "#59620A", "#C6C99E", "#515343", "#78870B"];//["#665609", "#FEFEFD", "#CCCA06", "#C7C1A1", "#A19848", "#86782E", "#4F3B00"];
+palette.range = ["#FFFFFF", "#FE2F04", "#0D5B93", "#0E4366", "#C74619", "#F5B067", "#F5C893"]; //["#070707", "#B8D00D", "#FFFFFF", "#59620A", "#C6C99E", "#515343", "#78870B"];//["#665609", "#FEFEFD", "#CCCA06", "#C7C1A1", "#A19848", "#86782E", "#4F3B00"];
 const canvas = renderer.domElement;
 const camera = getOrthoCamera(3, 3);
 const scene = new THREE.Scene();
@@ -80,11 +80,11 @@ camera.position.set(0, 6, 6);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 camera.rotation.z = -3 * Math.PI / 4;
 renderer.setClearColor(palette.range[6], 1);
-scene.fog = new THREE.FogExp2(palette.range[6], 0.07);
+scene.fog = new THREE.FogExp2(palette.range[6], 0.09);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 3;
+const loopDuration = 2.5;
 const cameraOffset = new THREE.Vector3();
 
 function draw(startTime) {
