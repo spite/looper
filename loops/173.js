@@ -21,7 +21,7 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 
 const N = 400;
-const mat = new THREE.MeshStandardMaterial({ color: 0xb70000, metalness: .1, roughness: .05 });
+const mat = new THREE.MeshStandardMaterial({ color: 0xb70000, metalness: .1, roughness: .4 });
 const r = 2;
 
 const sphere = new THREE.Mesh(
@@ -98,7 +98,7 @@ function draw(startTime) {
   mesh.castShadow = mesh.receiveShadow = true;
   group.add(mesh);
 
-  group.rotation.x = t * Maf.PI - Maf.PI / 4;
+  group.rotation.x = t * Maf.PI + Maf.PI / 4;
   group.rotation.z = t * Maf.PI - Maf.PI / 4;
   group.rotation.y = Maf.PI;
 
