@@ -93,15 +93,7 @@ function draw(startTime) {
 
   mesh.scale.setScalar(1 + .25 * Math.sin(t * Maf.TAU));
   mesh.rotation.y = t * Maf.TAU;
-  // mesh2.scale.setScalar(1 + .25 * Math.cos(t * Maf.TAU));
 
-  /*const mesh2 = new THREE.Mesh(geometry, mat);
-  mesh2.castShadow = mesh2.receiveShadow = true;
-  mesh.scale.setScalar(.75 + .5 * Maf.parabola(Maf.mod(t + .5, 1), 1));
-  group.add(mesh2);*/
-
-  //group.rotation.x = t * Maf.TAU + Maf.PI / 4;
-  //group.rotation.z = t * Maf.TAU - Maf.PI / 4;
   group.rotation.x = t * Maf.TAU - Maf.PI / 2 - Maf.PI / 4;
 
   painted.render(scene, camera);
