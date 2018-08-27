@@ -5,7 +5,6 @@ import easings from '../modules/easings.js';
 import { palette2 as palette } from '../modules/floriandelooij.js';
 import OrbitControls from '../third_party/THREE.OrbitControls.js';
 import { InstancedGeometry, getInstancedMeshStandardMaterial, getInstancedDepthMaterial } from '../modules/instanced.js';
-import RoundedBoxGeometry from '../third_party/three-rounded-box.js';
 
 import Painted from '../modules/painted.js';
 
@@ -104,7 +103,7 @@ scene.fog = new THREE.FogExp2(palette.range[5], 0.06);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3;
 
 function draw(startTime) {
 
