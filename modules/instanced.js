@@ -1,9 +1,9 @@
 import THREE from '../third_party/three.js';
 
 class InstancedGeometry {
-  geometry = new THREE.InstancedBufferGeometry();
 
   constructor(baseGeometry) {
+    this.geometry = new THREE.InstancedBufferGeometry();
     this.geometry.index = baseGeometry.index;
     this.geometry.addAttribute(
       'position', baseGeometry.getAttribute('position'));
