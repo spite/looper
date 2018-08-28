@@ -15,7 +15,7 @@ palette.range = ["#FFFFFF", "#FE2F04", "#0D5B93", "#0E4366", "#C74619", "#F5B067
 
 const canvas = renderer.domElement;
 const camera = getOrthoCamera(2.5, 2.5);
-//const controls = new OrbitControls(camera, canvas);
+const controls = new OrbitControls(camera, canvas);
 const scene = new THREE.Scene();
 const group = new THREE.Group();
 
