@@ -94,7 +94,7 @@ scene.fog = new THREE.FogExp2(palette.range[5], 0.1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3;
 
 const r1 = 1;
 const r2 = .5;
