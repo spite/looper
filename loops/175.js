@@ -19,9 +19,9 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 
 const sphereGeometry = new THREE.BoxBufferGeometry(1, .5, 1);
-const material = getInstancedMeshStandardMaterial(false);
+const material = getInstancedMeshStandardMaterial({ color: 0xcccccc, metalness: .1, roughness: .2 });
 const depthMaterial = getInstancedDepthMaterial();
-const instancedGeometry = new InstancedGeometry(sphereGeometry);
+const instancedGeometry = new InstancedGeometry(sphereGeometry, { colors: false });
 const instancedMesh = new THREE.Mesh(instancedGeometry.geometry, material);
 instancedMesh.frustumCulled = false;
 instancedMesh.castShadow = true;
@@ -29,10 +29,9 @@ instancedMesh.receiveShadow = true;
 instancedMesh.customDepthMaterial = depthMaterial;
 group.add(instancedMesh);
 
-const posValues = instancedGeometry.posValues;
-const quatValues = instancedGeometry.quatValues;
-const scaleValues = instancedGeometry.scaleValues;
-const colorValues = instancedGeometry.colorValues;
+const posValues = instancedGeometry.positions.values;
+const quatValues = instancedGeometry.quaternions.values;
+const scaleValues = instancedGeometry.scales.values;
 
 function add(ptr, x, y, z, scale, angle) {
   posValues[ptr * 3] = x;
@@ -50,11 +49,6 @@ function add(ptr, x, y, z, scale, angle) {
   scaleValues[ptr * 3 + 0] = scale;
   scaleValues[ptr * 3 + 1] = scale;
   scaleValues[ptr * 3 + 2] = scale;
-
-  colorValues[ptr * 4 + 0] = .8;
-  colorValues[ptr * 4 + 1] = .8;
-  colorValues[ptr * 4 + 2] = .8;
-  colorValues[ptr * 4 + 3] = 1;
 }
 
 let ptr = 0;
@@ -111,7 +105,7 @@ function draw(startTime) {
   const t = time / loopDuration;
 
   group.rotation.y = t * Maf.TAU / OBJECTS;
-  const z = .075 * Math.exp(.4 * 2 * t); //0 + Math.exp(2 * t + 4);
+  const z = .075 * Math.exp(.4 * 2 * t);
   group.scale.setScalar(z);
 
   painted.render(scene, camera);

@@ -1,73 +1,98 @@
 import THREE from '../third_party/three.js';
 
+class InstancedAttributeArray {
+
+  constructor(length, size, dynamic) {
+    this.length = length;
+    this.size = size;
+    this.values = new Float32Array(length * size);
+    this.attribute = new THREE.InstancedBufferAttribute(this.values, size);
+    this.attribute.setDynamic(dynamic);
+  }
+
+  update(count) {
+    this.attribute.updateRange = { offset: 0, count: count * this.size };
+    this.attribute.needsUpdate = true;
+  }
+}
+
 class InstancedGeometry {
 
-  constructor(baseGeometry) {
+  constructor(baseGeometry, options = {}) {
+
+    this.options = options;
+
     this.geometry = new THREE.InstancedBufferGeometry();
     this.geometry.index = baseGeometry.index;
-    this.geometry.addAttribute(
-      'position', baseGeometry.getAttribute('position'));
+    this.geometry.addAttribute('position', baseGeometry.getAttribute('position'));
     this.geometry.addAttribute('normal', baseGeometry.getAttribute('normal'));
-    this.geometry.addAttribute('uv', baseGeometry.getAttribute('uv'));
+    //this.geometry.addAttribute('uv', baseGeometry.getAttribute('uv'));
 
-    const MAX_SIZE = 100000;
+    const MAX_SIZE = options.size || 100000;
 
-    this.posValues = new Float32Array(MAX_SIZE * 3);
-    this.posAttribute = new THREE.InstancedBufferAttribute(this.posValues, 3);
     // Dynamic BufferAttribute means the renderer will look up the draw range
     // property, assigned with .updateRange().
-    this.posAttribute.setDynamic(true);
-    this.geometry.addAttribute(
-      'instancePosition', this.posAttribute);
 
-    this.quatValues = new Float32Array(MAX_SIZE * 4);
-    this.quatAttribute = new THREE.InstancedBufferAttribute(this.quatValues, 4);
-    this.quatAttribute.setDynamic(true);
-    this.geometry.addAttribute('instanceQuaternion', this.quatAttribute);
+    const dynamic = options.dynamic !== undefined ? options.dynamic : true;
 
-    this.scaleValues = new Float32Array(MAX_SIZE * 3);
-    this.scaleAttribute =
-      new THREE.InstancedBufferAttribute(this.scaleValues, 3);
-    this.scaleAttribute.setDynamic(true);
-    this.geometry.addAttribute('instanceScale', this.scaleAttribute);
+    this.positions = new InstancedAttributeArray(MAX_SIZE, 3, dynamic);
+    this.geometry.addAttribute('instancePosition', this.positions.attribute);
 
-    this.colorValues = new Float32Array(MAX_SIZE * 4);
-    this.colorAttribute =
-      new THREE.InstancedBufferAttribute(this.colorValues, 4);
-    this.colorAttribute.setDynamic(true);
-    this.geometry.addAttribute('instanceColor', this.colorAttribute);
+    this.quaternions = new InstancedAttributeArray(MAX_SIZE, 4, dynamic);
+    this.geometry.addAttribute('instanceQuaternion', this.quaternions.attribute);
+
+    this.scales = new InstancedAttributeArray(MAX_SIZE, 3, dynamic);
+    this.geometry.addAttribute('instanceScale', this.scales.attribute);
+
+    if (this.options.colors) {
+      this.colors = new InstancedAttributeArray(MAX_SIZE, 4, dynamic);
+      this.geometry.addAttribute('instanceColor', this.colors.attribute);
+    }
+
+    if (this.options.roughness) {
+      this.roughness = new InstancedAttributeArray(MAX_SIZE, 1, dynamic);
+      this.geometry.addAttribute('instanceRoughness', this.roughness.attribute);
+    }
+
+    if (this.options.metalness) {
+      this.metalness = new InstancedAttributeArray(MAX_SIZE, 1, dynamic);
+      this.geometry.addAttribute('instanceMetalness', this.metalness.attribute);
+    }
 
     this.update(0);
   }
 
   update(count) {
-    this.posAttribute.updateRange = { offset: 0, count: count * 3 };
-    this.posAttribute.needsUpdate = true;
-    this.quatAttribute.updateRange = { offset: 0, count: count * 4 };
-    this.quatAttribute.needsUpdate = true;
-    this.scaleAttribute.updateRange = { offset: 0, count: count * 3 };
-    this.scaleAttribute.needsUpdate = true;
-    this.colorAttribute.updateRange = { offset: 0, count: count * 4 };
-    this.colorAttribute.needsUpdate = true;
+    this.positions.update(count);
+    this.quaternions.update(count);
+    this.scales.update(count);
+    if (this.options.colors) this.colors.update(count);
+    if (this.options.roughness) this.roughness.update(count);
+    if (this.options.metalness) this.metalness.update(count);
 
     this.geometry.maxInstancedCount = count;
   }
 }
 
-function getInstancedMeshStandardMaterial(transparent = false) {
+function getInstancedMeshStandardMaterial(options = {}, instanceOptions = {}) {
   let material;
-  if (transparent) {
+  if (options.transparent) {
     material = new THREE.MeshPhongMaterial({
-      color: 0xffffff,
-      wireframe: !true,
+      color: options.color || 0xffffff,
+      wireframe: options.wireframe || false,
       transparent: true,
-      depthWrite: false,
+      depthWrite: options.depthWrite || false,
+      depthTest: options.depthTest || true,
     });
   } else {
     material = new THREE.MeshStandardMaterial({
-      color: 0xffffff,
-      metalness: .1,
-      roughness: .2,
+      color: options.color || 0xffffff,
+      transparent: false,
+      wireframe: options.wireframe || false,
+      metalness: options.metalness || .5,
+      roughness: options.roughness || .5,
+      depthWrite: options.depthWrite || true,
+      depthTest: options.depthTest || true,
     });
   }
 
@@ -76,7 +101,11 @@ function getInstancedMeshStandardMaterial(transparent = false) {
 attribute vec4 instanceQuaternion;
 attribute vec3 instanceScale;
 attribute vec4 instanceColor;
+attribute float instanceRoughness;
+attribute float instanceMetalness;
 varying vec4 VIColor;
+varying float VIRoughness;
+varying float VIMetalness;
 vec3 applyTRS( vec3 position, vec3 translation, vec4 quaternion, vec3 scale ) {
   position *= scale;
   position += 2.0 * cross( quaternion.xyz, cross( quaternion.xyz, position ) + quaternion.w * position );
@@ -85,23 +114,49 @@ vec3 applyTRS( vec3 position, vec3 translation, vec4 quaternion, vec3 scale ) {
 ${shader.vertexShader}`;
 
     shader.vertexShader = shader.vertexShader.replace(
-      '#include <begin_vertex>', `#include <begin_vertex>
+      '#include <begin_vertex>',
+      `#include <begin_vertex>
 transformed = applyTRS(position, instancePosition, instanceQuaternion, instanceScale);
 VIColor = instanceColor;
+VIRoughness = instanceRoughness;
+VIMetalness = instanceMetalness;
 `);
 
     shader.vertexShader = shader.vertexShader.replace(
-      '#include <defaultnormal_vertex>', `#include <defaultnormal_vertex>
+      '#include <defaultnormal_vertex>',
+      `#include <defaultnormal_vertex>
 transformedNormal = normalMatrix * applyTRS(objectNormal, vec3(0.), instanceQuaternion, vec3(1.));
 `);
 
     shader.fragmentShader = `varying vec4 VIColor;
+varying float VIRoughness;
+varying float VIMetalness;
 ${shader.fragmentShader}`;
 
-    shader.fragmentShader = shader.fragmentShader.replace(
-      'vec4 diffuseColor = vec4( diffuse, opacity );',
-      `vec4 diffuseColor = vec4(diffuse,opacity)*VIColor;`);
+    if (instanceOptions.colors) {
+      shader.fragmentShader = shader.fragmentShader.replace(
+        'vec4 diffuseColor = vec4( diffuse, opacity );',
+        `vec4 diffuseColor = VIColor;`);
+    }
   };
+
+  material.onAfterIncludes = function(type, source) {
+
+    if (type === 1) {
+      if (instanceOptions.roughness) {
+        source = source.replace(
+          'float roughnessFactor = roughness;',
+          `float roughnessFactor = VIRoughness;`);
+      }
+      if (instanceOptions.metalness) {
+        source = source.replace(
+          'float metalnessFactor = metalness;',
+          `float metalnessFactor = VIMetalness;`);
+      }
+    }
+    return source;
+  }
+
   return material;
 }
 
@@ -128,13 +183,15 @@ varying vec2 vUv;
 ${shader.vertexShader}`;
 
     shader.vertexShader = shader.vertexShader.replace(
-      '#include <begin_vertex>', `#include <begin_vertex>
+      '#include <begin_vertex>',
+      `#include <begin_vertex>
 VIColor = instanceColor;
 vUv = uv;
 `);
 
     shader.vertexShader = shader.vertexShader.replace(
-      '#include <project_vertex>', `#include <project_vertex>
+      '#include <project_vertex>',
+      `#include <project_vertex>
 mvPosition = modelViewMatrix * vec4(instancePosition,1.) + vec4(instanceScale * position,0.);
 gl_Position = projectionMatrix * mvPosition;
 `);
@@ -146,7 +203,7 @@ ${shader.fragmentShader}`;
 
     shader.fragmentShader = shader.fragmentShader.replace(
       'vec4 diffuseColor = vec4( diffuse, opacity );',
-      `vec4 diffuseColor = vec4(diffuse,opacity)*VIColor;
+      `vec4 diffuseColor = VIColor;
 float l = length(vUv);
 if (l>1./4.) { discard; }`);
   };
@@ -168,7 +225,8 @@ vec3 applyTRS( vec3 position, vec3 translation, vec4 quaternion, vec3 scale ) {
 ${shader.vertexShader}`;
 
     shader.vertexShader = shader.vertexShader.replace(
-      '#include <begin_vertex>', `#include <begin_vertex>
+      '#include <begin_vertex>',
+      `#include <begin_vertex>
 transformed = applyTRS(position, instancePosition, instanceQuaternion, instanceScale);
 `);
   };
@@ -187,7 +245,8 @@ varying vec2 vUv;
 ${shader.vertexShader}`;
 
     shader.vertexShader = shader.vertexShader.replace(
-      '#include <project_vertex>', `#include <project_vertex>
+      '#include <project_vertex>',
+      `#include <project_vertex>
 mvPosition = modelViewMatrix * vec4(instancePosition,1.) + vec4(instanceScale * position,0.);
 gl_Position = projectionMatrix * mvPosition;
 vUv = uv;
