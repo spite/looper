@@ -168,10 +168,6 @@ function draw(startTime) {
   instancedGeometry.quaternions.update(N);
   instancedGeometry.scales.update(N);
   instancedGeometry.colors.update(N);
-  //instancedGeometry.update(N);
-
-  //group.rotation.y = .5 * Math.sin(t * Maf.TAU);
-  //group.rotation.x = .25 * Math.cos(t * Maf.TAU);
 
   painted.render(scene, camera);
 }
