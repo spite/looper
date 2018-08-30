@@ -13,7 +13,6 @@ import Painted from '../modules/painted.js';
 
 const painted = Painted(renderer, { minLevel: -.05 });
 
-//palette.range = ["#B81D21", "#FFFFFF", "#299AE0", "#D5B3B3", "#CF4E53", "#FDB25A", "#B81D21"];
 palette.range = ["#FFFFFF", "#0D5B93", "#0E4366", "#F5B067", "#C74619", "#FE2F04", "#F5C893", "#477C93", "#FFFFFF"];
 
 const canvas = renderer.domElement;
@@ -73,7 +72,7 @@ scene.fog = new THREE.FogExp2(palette.range[3], 0.1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 2;
+const loopDuration = 1.5;
 
 const r1 = 1.5;
 const r2 = .5;
@@ -115,7 +114,7 @@ function draw(startTime) {
 
   var path = new THREE.CatmullRomCurve3(vertices);
   const frames = path.computeFrenetFrames(OBJECTS, true);
-  const offset = 4 * t / OBJECTS;
+  const offset = 2 * t / OBJECTS;
 
   for (let ptr = 0; ptr < OBJECTS; ptr++) {
     const p = path.getPointAt(Maf.mod(ptr / OBJECTS + offset, 1));
@@ -132,7 +131,7 @@ function draw(startTime) {
     quatValues[ptr * 4 + 2] = q.z;
     quatValues[ptr * 4 + 3] = q.w;
 
-    const s = .04 + .0125 * easings.InOutQuad(.5 + .5 * Math.sin(6 * ((ptr / OBJECTS) + offset) * Maf.TAU + t * Maf.TAU));
+    const s = .04 + .0125 * easings.InOutQuad(.5 + .5 * Math.sin(3 * ((ptr / OBJECTS) + offset) * Maf.TAU + t * Maf.TAU));
     scaleValues[ptr * 3 + 0] = s;
     scaleValues[ptr * 3 + 1] = s;
     scaleValues[ptr * 3 + 2] = s;
