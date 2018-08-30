@@ -65,3 +65,7 @@ header {
 canvas {
   box-shadow: 0 0 5px rgba(0,0,0,.5);
 }
+
+.back, .next {
+  background-color: rgb(15, 145, 30);
+}
