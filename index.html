@@ -16,7 +16,29 @@
     <div class="recordPanel">
       <a href="#" class="btn orange" id="start">Record</a>
     </div>
+    
+    <div>
+      <button class="btn back" style="margin-right: 4px" onclick="back()" >Before</button>
+      <button class="btn next" onclick="next()" >Next</button>
+    </div>
   </header>
+  
+  <script>
+    function getIndex() {
+      return parseInt(window.location.hash.replace('#', ''));
+    }
+    function back() {
+      let index = getIndex();  
+
+      // beginning, dont do anything
+      if (index === 1) return;
+      window.location.hash = --index;
+    }
+    function next() {
+      let index = getIndex();
+      window.location.hash = ++index;
+    }
+  </script>
   <script src="js/CCapture.all.min.js"></script>
   <script async type="module" src="modules/looper.js"></script>
 </body>
