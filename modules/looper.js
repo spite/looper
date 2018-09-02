@@ -11,7 +11,11 @@ async function init() {
 
   async function reload() {
     if (module && module.canvas) {
-      document.body.removeChild(module.canvas);
+      try {
+        document.body.removeChild(module.canvas);
+      } catch (e) {
+
+      }
     }
     module = await loadModule();
   }

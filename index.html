@@ -14,30 +14,33 @@
     <h1>Looper</h1>
     <h2>A tool to create looperinos · <a href="https://github.com/spite/looper" >GitHub</a> | <b>Chrome and Safari Tech Preview only</b></h2>
     <div class="recordPanel">
-      <a href="#" class="btn orange" id="start">Record</a>
-    </div>
-    
-    <div>
-      <button class="btn back" style="margin-right: 4px" onclick="back()" >Before</button>
-      <button class="btn next" onclick="next()" >Next</button>
+      <a href="#" class="btn orange" id="start">⚫ Record</a>
+      <a href="#" id="backButton" class="btn green">◀&nbsp;&nbsp;Previous</a>
+      <a href="#" id="nextButton" class="btn green">Next&nbsp;&nbsp;▶</a>
     </div>
   </header>
-  
   <script>
-    function getIndex() {
-      return parseInt(window.location.hash.replace('#', ''));
-    }
-    function back() {
-      let index = getIndex();  
+  function getIndex() {
+    return parseInt(window.location.hash.replace('#', ''));
+  }
 
-      // beginning, dont do anything
-      if (index === 1) return;
-      window.location.hash = --index;
-    }
-    function next() {
-      let index = getIndex();
-      window.location.hash = ++index;
-    }
+  function prev(e) {
+    let index = getIndex();
+
+    // beginning, dont do anything
+    if (index === 1) return;
+    window.location.hash = `${--index}`;
+    e.preventDefault();
+  }
+
+  function next(e) {
+    let index = getIndex();
+    window.location.hash = ++index;
+    e.preventDefault();
+  }
+
+  document.getElementById('backButton').addEventListener('click', (e) => prev(e));
+  document.getElementById('nextButton').addEventListener('click', (e) => next(e));
   </script>
   <script src="js/CCapture.all.min.js"></script>
   <script async type="module" src="modules/looper.js"></script>

@@ -60,12 +60,20 @@ header {
 
 .orange:hover {
   background-color: #FF983C;
+  color: #CD6509;
+}
+
+.green {
+  text-shadow: 0 -1px 0 #096d14;
+  background-color: rgb(15, 145, 30);
+  box-shadow: 0px 5px 0px 0px #096d14;
+}
+
+.green:hover {
+  background-color: #26af36;
+  color: #096d14;
 }
 
 canvas {
-  box-shadow: 0 0 5px rgba(0,0,0,.5);
-}
-
-.back, .next {
-  background-color: rgb(15, 145, 30);
+  box-shadow: 0 0 5px rgba(0, 0, 0, .5);
 }
