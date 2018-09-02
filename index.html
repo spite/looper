@@ -41,6 +41,11 @@
 
   document.getElementById('backButton').addEventListener('click', (e) => prev(e));
   document.getElementById('nextButton').addEventListener('click', (e) => next(e));
+
+  const cur = getIndex();
+  if (isNaN(cur) || cur === '' || cur === undefined) {
+    window.location.hash = 1;
+  }
   </script>
   <script src="js/CCapture.all.min.js"></script>
   <script async type="module" src="modules/looper.js"></script>
