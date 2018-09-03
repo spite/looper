@@ -6,7 +6,7 @@ class gradientLinear {
     this.colors = colors.map((c) => new THREE.Color(c));
   }
   getAt(t) {
-    const from = Math.floor(t * this.colors.length);
+    const from = Math.floor(t * this.colors.length * .9999);
     const to = Maf.clamp(from + 1, 0, this.colors.length - 1);
     const fc = this.colors[from];
     const ft = this.colors[to];
