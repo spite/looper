@@ -73,7 +73,7 @@ scene.fog = new THREE.FogExp2(palette.range[6], 0.065);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3;
 
 const m = new THREE.Matrix4();
 const center = new THREE.Vector3(0, 0, 0);
@@ -90,11 +90,11 @@ function draw(startTime) {
 
   for (let ptr = 0; ptr < OBJECTS; ptr++) {
 
-    const r = 1;
+    const r = 1 + .1 * easings.InOutQuad(.5 + .5 * Math.cos(6 * ptr * Maf.TAU / OBJECTS + 2 * t * Maf.TAU));
     const a = ptr * Maf.TAU / OBJECTS;
     b.set(r * Math.cos(a), 0, r * Math.sin(a));
     const offset = ((ptr % LOOPS) % LINES) / LINES;
-    const a2 = ((ptr % LOOPS) * Maf.TAU / LOOPS) + offset * Maf.TAU + ptr * Maf.TAU / OBJECTS - t * Maf.TAU;
+    const a2 = -(((ptr % LOOPS) * Maf.TAU / LOOPS) + offset * Maf.TAU + ptr * Maf.TAU / OBJECTS + t * Maf.TAU);
     const r2 = .5;
     p.set(r2 * Math.cos(a2), r2 * Math.sin(a2), 0);
     p.applyAxisAngle(up, -a);
@@ -128,8 +128,8 @@ function draw(startTime) {
   instancedGeometry.scales.update(OBJECTS);
   instancedGeometry.colors.update(OBJECTS);
 
-  camera.rotation.z = Math.sin(t * Maf.TAU) * Maf.TAU / 16;
-  //group.rotation.y = t * Maf.PI / LOOPS;
+  //camera.rotation.z = Math.sin(t * Maf.TAU) * Maf.TAU / 16;
+  group.rotation.y = t * Maf.PI;
 
   painted.render(scene, camera);
 }
