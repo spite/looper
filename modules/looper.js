@@ -1,3 +1,5 @@
+import * as emptyModule from '../loops/empty.js';
+
 async function loadModule() {
   const num = window.location.hash.substr(1) || 1;
   const module = await
@@ -17,7 +19,12 @@ async function init() {
 
       }
     }
-    module = await loadModule();
+    try {
+      module = await loadModule();
+    } catch (e) {
+      module = emptyModule;
+      console.log(e);
+    }
   }
 
   const capturer = new CCapture({
