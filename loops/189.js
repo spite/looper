@@ -130,15 +130,9 @@ function draw(startTime) {
     const dy = posValues[ptr * 3 + 2];
     const d = Math.sqrt(dx * dx + dy * dy);
     const phase = .75 * Math.sqrt(dx * dx + dy * dy);
-    const a = .1 * d; //6 * Math.atan2(dx, dy) / Maf.TAU;
+    const a = t + .1 * d;
     const v = Math.cos(phase + t * Maf.TAU);;
     posValues[ptr * 3 + 1] = v;
-
-    /*q.set(0, t * Maf.TAU / 6 + Maf.map(-1, 1, 0, Maf.TAU / 6, v), 0, 1).normalize();
-    quatValues[ptr * 4 + 0] = q.x;
-    quatValues[ptr * 4 + 1] = q.y;
-    quatValues[ptr * 4 + 2] = q.z;
-    quatValues[ptr * 4 + 3] = q.w;*/
 
     const s = Maf.map(-1, 1, .5, 1., v);
     scaleValues[ptr * 3] = s;
@@ -152,7 +146,6 @@ function draw(startTime) {
   }
 
   instancedGeometry.positions.update(OBJECTS);
-  //instancedGeometry.quaternions.update(OBJECTS);
   instancedGeometry.scales.update(OBJECTS);
   instancedGeometry.colors.update(OBJECTS);
 
