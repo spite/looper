@@ -10,7 +10,7 @@ import easings from '../modules/easings.js';
 
 import Painted from '../modules/painted.js';
 
-const painted = Painted(renderer, { minLevel: .2 });
+const painted = Painted(renderer, { minLevel: -.05 });
 
 palette.range = ["#E9660A", "#FABC3F", "#F5DDA9", "#C63512", "#FECC54"];
 
@@ -109,7 +109,7 @@ scene.fog = new THREE.FogExp2(palette.range[2], 0.065);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 2;
+const loopDuration = 1.5;
 
 const q = new THREE.Quaternion();
 const axis = new THREE.Vector3(1, 0, 0);
