@@ -130,7 +130,7 @@ function draw(startTime) {
     colorValues[ptr * 4 + 2] = c.b;
   }
 
-  //instancedGeometry.positions.update(OBJECTS);
+  instancedGeometry.positions.update(OBJECTS);
   //instancedGeometry.quaternions.update(OBJECTS);
   //instancedGeometry.scales.update(OBJECTS);
   instancedGeometry.colors.update(OBJECTS);
