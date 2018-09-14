@@ -124,7 +124,7 @@ function draw(startTime) {
 
     const c = gradient.getAt(h);
     const hsl = c.getHSL();
-    c.setHSL(hsl.h - .01 * s, hsl.s - .2, hsl.l);
+    c.setHSL(hsl.h - .01, hsl.s - .2, hsl.l);
     colorValues[ptr * 4 + 0] = c.r;
     colorValues[ptr * 4 + 1] = c.g;
     colorValues[ptr * 4 + 2] = c.b;
