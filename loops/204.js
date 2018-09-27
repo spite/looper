@@ -4,8 +4,6 @@ import Maf from '../modules/maf.js';
 import { palette2 as palette } from '../modules/floriandelooij.js';
 import OrbitControls from '../third_party/THREE.OrbitControls.js';
 import { InstancedGeometry, getInstancedMeshStandardMaterial, getInstancedDepthMaterial } from '../modules/instanced.js';
-import { gradientLinear } from '../modules/gradient.js';
-import RoundedExtrudedPolygonGeometry from '../modules/three-rounded-extruded-polygon.js';
 import easings from '../modules/easings.js';
 
 import Painted from '../modules/painted.js';
@@ -19,8 +17,6 @@ const camera = getOrthoCamera(2.5, 2.5);
 const controls = new OrbitControls(camera, canvas);
 const scene = new THREE.Scene();
 const group = new THREE.Group();
-
-const gradient = new gradientLinear(palette.range);
 
 const geometry = new THREE.BoxBufferGeometry(.5, .5, 1);
 const material = getInstancedMeshStandardMaterial({ color: 0xffffff, metalness: .1, roughness: .4 }, { colors: !true });
@@ -36,7 +32,6 @@ group.add(instancedMesh);
 const posValues = instancedGeometry.positions.values;
 const quatValues = instancedGeometry.quaternions.values;
 const scaleValues = instancedGeometry.scales.values;
-//const colorValues = instancedGeometry.colors.values;
 
 const RING = 100;
 const INNER_ARMS = 12;
@@ -58,10 +53,6 @@ for (let j = 0; j < OBJECTS; j++) {
   quatValues[ptr * 4 + 1] = 0;
   quatValues[ptr * 4 + 2] = 0;
   quatValues[ptr * 4 + 3] = 1;
-  /*colorValues[ptr * 4] = .5;
-  colorValues[ptr * 4 + 1] = .5;
-  colorValues[ptr * 4 + 2] = .5;
-  colorValues[ptr * 4 + 3] = 1;*/
   ptr++;
 }
 
@@ -249,8 +240,6 @@ function draw(startTime) {
   instancedGeometry.positions.update(OBJECTS);
   instancedGeometry.quaternions.update(OBJECTS);
   instancedGeometry.scales.update(OBJECTS);
-  //instancedGeometry.colors.update(OBJECTS);
-
 
   painted.render(scene, camera);
 }
