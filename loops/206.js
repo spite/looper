@@ -5,9 +5,7 @@ import { palette2 as palette } from '../modules/floriandelooij.js';
 import OrbitControls from '../third_party/THREE.OrbitControls.js';
 import { InstancedGeometry, getInstancedMeshStandardMaterial, getInstancedDepthMaterial } from '../modules/instanced.js';
 import { gradientLinear } from '../modules/gradient.js';
-import RoundedExtrudedPolygonGeometry from '../modules/three-rounded-extruded-polygon.js';
 import easings from '../modules/easings.js';
-import pointsOnSphere from '../modules/points-sphere.js';
 
 import Painted from '../modules/painted.js';
 
@@ -101,13 +99,6 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const loopDuration = 3;
-
-const q = new THREE.Quaternion();
-const m = new THREE.Matrix4();
-const up = new THREE.Vector3(0, 1, 0);
-const tmp = new THREE.Vector3(0, 0, 0);
-const mRot = new THREE.Matrix4();
-const dir = new THREE.Vector3();
 
 function draw(startTime) {
 
