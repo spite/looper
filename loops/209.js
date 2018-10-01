@@ -106,7 +106,7 @@ scene.fog = new THREE.FogExp2(palette.range[6], .3);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 3;
+const loopDuration = 2.5;
 
 const q = new THREE.Quaternion();
 const m = new THREE.Matrix4();
