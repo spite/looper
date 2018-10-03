@@ -100,7 +100,7 @@ function draw(startTime) {
     c.mesh.material.uniforms.color.value.copy(gradient.getAt(Maf.mod(id/SIDES,1)));
   });
 
-  camera.position.set(20 + Maf.randomInRange(-jitter,jitter),0+ Maf.randomInRange(-jitter,jitter),0+ Maf.randomInRange(-jitter,jitter));
+  //camera.position.set(20 + Maf.randomInRange(-jitter,jitter),0+ Maf.randomInRange(-jitter,jitter),0+ Maf.randomInRange(-jitter,jitter));
   //camera.rotation.z = Maf.randomInRange(-angleJitter,angleJitter);
 
   painted.render(scene, camera);
