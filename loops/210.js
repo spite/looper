@@ -98,8 +98,6 @@ function draw(startTime) {
     c.mesh.material.uniforms.color.value.copy(gradient.getAt(Maf.mod(id/SIDES,1)));
   });
 
- // group.rotation.y = time * Maf.TAU / loopDuration;
-
   painted.render(scene, camera);
 }
 
