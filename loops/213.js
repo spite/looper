@@ -24,8 +24,6 @@ const controls = new OrbitControls(camera, canvas);
 camera.position.set(8.6, 4, 8);
 camera.lookAt(group.position);
 renderer.setClearColor(0xF2E9D9, 1);
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const strokeTexture = new THREE.TextureLoader().load('./assets/stroke.png');
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
@@ -33,7 +31,7 @@ const resolution = new THREE.Vector2(canvas.width, canvas.height);
 const POINTS = 100;
 const meshes = [];
 
-function prepareMesh(w) {
+function prepareMesh(w, c) {
 
   var geo = new Float32Array(POINTS * 3);
   for (var j = 0; j < geo.length; j += 3) {
@@ -46,7 +44,7 @@ function prepareMesh(w) {
   const material = new MeshLineMaterial({
     useMap: true,
     map: strokeTexture,
-    color: gradient.getAt(Maf.randomInRange(0, 1)),
+    color: gradient.getAt(c),
     opacity: .9,
     resolution: resolution,
     sizeAttenuation: true,
@@ -63,29 +61,40 @@ function prepareMesh(w) {
   mesh.g = g;
 
   return mesh;
-
 }
 
-for (let i = 0; i < 10; i++) {
+const COPIES = 3;
+for (let i = 0; i < 2; i++) {
   const w = Maf.randomInRange(.8, 1.2);
-  const mesh = prepareMesh(w);
-  group.add(mesh);
-  mesh.rotation.set(Maf.randomInRange(0, Maf.TAU), Maf.randomInRange(0, Maf.TAU), Maf.randomInRange(0, Maf.TAU));
-  meshes.push({
-    mesh,
-    radius: Maf.randomInRange(.8, 1.2),
-    offset: Maf.randomInRange(0, Maf.TAU),
-    range: Maf.TAU / 10,
-    a: Math.round(Maf.randomInRange(2, 5)),
-    b: Math.round(Maf.randomInRange(2, 5)),
-    c: Math.round(Maf.randomInRange(2, 5)),
-    d: Math.round(Maf.randomInRange(2, 5)),
-    e: Math.round(Maf.randomInRange(2, 5)),
-  });
+  const radius = Maf.randomInRange(.8, 1.2);
+  const color = Maf.randomInRange(0, 1);
+  const offset = Maf.randomInRange(0, Maf.TAU);
+  const range = Maf.TAU / 10;
+  const a = 5; //Math.round(Maf.randomInRange(2, 5));
+  const b = 4; //Math.round(Maf.randomInRange(2, 5));
+  const c = 5; //Math.round(Maf.randomInRange(2, 5));
+  const d = 1; //Math.round(Maf.randomInRange(2, 5));
+  const e = 2; //Math.round(Maf.randomInRange(2, 5));
+  for (let j = 0; j < COPIES; j++) {
+    const mesh = prepareMesh(w, color);
+    group.add(mesh);
+    mesh.rotation.y = j * Maf.TAU / COPIES;
+    meshes.push({
+      mesh,
+      radius,
+      offset,
+      range,
+      a,
+      b,
+      c,
+      d,
+      e,
+    });
+  }
 }
 scene.add(group);
 
-const loopDuration = 6;
+const loopDuration = 4;
 
 function draw(startTime) {
 
@@ -108,6 +117,8 @@ function draw(startTime) {
     }
     g.setGeometry(geo);
   });
+
+  group.rotation.y = t * Maf.TAU / COPIES;
 
   painted.render(scene, camera);
 }
