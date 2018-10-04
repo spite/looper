@@ -8,10 +8,10 @@ import OrbitControls from '../third_party/THREE.OrbitControls.js';
 
 import Painted from '../modules/painted.js';
 
-const painted = Painted(renderer, { minLevel: -.5 });
+const painted = Painted(renderer, { minLevel: -.2 });
 
-palette.range = ["#296888", "#C39B4B", "#A24218", "#092B44", "#FCFCFB", "#093588"];
-//palette.range = ["#000000", "202020"];
+//palette.range = ["#296888", "#C39B4B", "#A24218", "#092B44", "#FCFCFB", "#093588"];
+palette.range = ["#444444", "#555555"];
 
 const gradient = new gradientLinear(palette.range);
 
@@ -30,10 +30,10 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const strokeTexture = new THREE.TextureLoader().load('./assets/stroke.png');
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
 
-const POINTS = 20;
+const POINTS = 100;
 const meshes = [];
 
-function prepareMesh() {
+function prepareMesh(w) {
 
   var geo = new Float32Array(POINTS * 3);
   for (var j = 0; j < geo.length; j += 3) {
@@ -50,7 +50,7 @@ function prepareMesh() {
     opacity: .9,
     resolution: resolution,
     sizeAttenuation: true,
-    lineWidth: .75,
+    lineWidth: w,
     near: camera.near,
     far: camera.far,
     depthTest: false,
@@ -67,14 +67,15 @@ function prepareMesh() {
 }
 
 for (let i = 0; i < 10; i++) {
-  const mesh = prepareMesh();
+  const w = Maf.randomInRange(.8, 1.2);
+  const mesh = prepareMesh(w);
   group.add(mesh);
   mesh.rotation.set(Maf.randomInRange(0, Maf.TAU), Maf.randomInRange(0, Maf.TAU), Maf.randomInRange(0, Maf.TAU));
   meshes.push({
     mesh,
     radius: Maf.randomInRange(.8, 1.2),
     offset: Maf.randomInRange(0, Maf.TAU),
-    range: Maf.randomInRange(Maf.TAU / 32, Maf.TAU / 10),
+    range: Maf.TAU / 10,
     a: Math.round(Maf.randomInRange(2, 5)),
     b: Math.round(Maf.randomInRange(2, 5)),
     c: Math.round(Maf.randomInRange(2, 5)),
@@ -84,7 +85,7 @@ for (let i = 0; i < 10; i++) {
 }
 scene.add(group);
 
-const loopDuration = 4;
+const loopDuration = 6;
 
 function draw(startTime) {
 
