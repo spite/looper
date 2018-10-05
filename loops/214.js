@@ -9,10 +9,10 @@ import { Curves } from '../third_party/THREE.CurveExtras.js';
 
 import Painted from '../modules/painted.js';
 
-const painted = Painted(renderer, { minLevel: -.2 });
+const painted = Painted(renderer, { minLevel: -.5 });
 
-palette.range = ["#296888", "#C39B4B", "#A24218", "#FCFCFB", "#093588"];
-//palette.range = ["#444444", "#555555"];
+palette.range = ["#296888", "#C39B4B", "#A24218", "#FCFCFB", "#093588", "#ffffff"];
+//palette.range = ["#000000", "#555555"];
 
 const gradient = new gradientLinear(palette.range);
 const curve = new THREE.Curves.GrannyKnot();
@@ -23,11 +23,11 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 const controls = new OrbitControls(camera, canvas);
 
-camera.position.set(12, 0, 12);
+camera.position.set(.5, 15.5, -6.7);
 camera.lookAt(group.position);
-renderer.setClearColor(0xF2E9D9, 1);
+renderer.setClearColor(0x04031c, 1);
 
-const strokeTexture = new THREE.TextureLoader().load('./assets/stroke.png');
+const strokeTexture = new THREE.TextureLoader().load('./assets/PaintBrushStroke05.png');
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
 
 const POINTS = 50;
@@ -44,17 +44,18 @@ function prepareMesh(w, c) {
   g.setGeometry(geo, function(p) { return p; });
 
   const material = new MeshLineMaterial({
-    useMap: true,
     map: strokeTexture,
+    useMap: true,
     color: gradient.getAt(c),
-    opacity: .9,
     resolution: resolution,
     sizeAttenuation: true,
     lineWidth: w,
     near: camera.near,
     far: camera.far,
+    depthWrite: false,
     depthTest: false,
     transparent: true,
+    opacity: .85,
   });
 
   var mesh = new THREE.Mesh(g.geometry, material);
@@ -65,12 +66,12 @@ function prepareMesh(w, c) {
 }
 
 const spread = .5;
-for (let i = 0; i < 40; i++) {
-  const w = Maf.randomInRange(.8, 1.2);
+for (let i = 0; i < 10; i++) {
+  const w = 2 * Maf.randomInRange(.8, 1.2);
   const radius = .05 * Maf.randomInRange(4.5, 5.5);
-  const color = Maf.randomInRange(0, 1);
-  const offset = Maf.randomInRange(0, .125 * Maf.TAU);
-  const range = .125 * Maf.TAU;
+  const color = i / 10; //Maf.randomInRange(0, 1);
+  const offset = Maf.randomInRange(0, .01 * Maf.TAU);
+  const range = 1 + Maf.randomInRange(0, .01 * Maf.TAU);
   const mesh = prepareMesh(w, color);
   mesh.position.set(Maf.randomInRange(-spread, spread), Maf.randomInRange(-spread, spread), Maf.randomInRange(-spread, spread));
   group.add(mesh);
@@ -99,7 +100,7 @@ function draw(startTime) {
     const r = m.radius;
     for (var j = 0; j < geo.length; j += 3) {
       const t2 = Maf.TAU - (t * Maf.TAU + j * range / geo.length + m.offset);
-      const p = curve.getPoint(Maf.mod(t2 / Maf.TAU, 1));
+      const p = curve.getPoint(1 - Maf.mod(t2 / Maf.TAU, 1));
       geo[j] = r * p.x;
       geo[j + 1] = r * p.y;
       geo[j + 2] = r * p.z;
