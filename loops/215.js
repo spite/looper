@@ -52,10 +52,11 @@ function prepareMesh(w, c) {
     lineWidth: w,
     near: camera.near,
     far: camera.far,
-    depthWrite: false,
-    depthTest: false,
+    alphaTest: .5,
+    depthWrite: true,
+    depthTest: true,
     transparent: true,
-    opacity: .85,
+    opacity: 1,
   });
 
   var mesh = new THREE.Mesh(g.geometry, material);
