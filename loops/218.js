@@ -76,7 +76,7 @@ group.add(pivot);
 scene.add(group);
 group.scale.setScalar(.1);
 
-const loopDuration = 4;
+const loopDuration = 3;
 
 function fbm(x, y, z) {
   let value = 0.;
