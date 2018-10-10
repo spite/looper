@@ -8,7 +8,7 @@ import OrbitControls from '../third_party/THREE.OrbitControls.js';
 
 import Painted from '../modules/painted.js';
 
-const painted = Painted(renderer, { minLevel: -.4 });
+const painted = Painted(renderer, { minLevel: -.2 });
 
 palette.range = ["#EC1602", "#FE6702", "#F19C99", "#E5605D", "#FEF7F7"];
 
@@ -22,7 +22,7 @@ const controls = new OrbitControls(camera, canvas);
 
 camera.position.set(5, -2.5, -15);
 camera.lookAt(group.position);
-renderer.setClearColor(0xc6e0e4, 1);
+renderer.setClearColor(0x989db3, 1);
 
 const strokeTexture = new THREE.TextureLoader().load('./assets/stroke.png');
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
@@ -86,7 +86,7 @@ for (let i = 0; i < LINES; i++) {
 group.scale.setScalar(.75);
 scene.add(group);
 
-const loopDuration = 4;
+const loopDuration = 3.5;
 const tmpVector = new THREE.Vector3();
 const tmpMat = new THREE.Matrix4();
 
