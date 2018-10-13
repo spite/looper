@@ -9,9 +9,9 @@ import { Curves } from '../third_party/THREE.CurveExtras.js';
 
 import Painted from '../modules/painted.js';
 
-const painted = Painted(renderer, { minLevel: -.4 });
+const painted = Painted(renderer, { minLevel: -.3 });
 
-palette.range = ["#74C204", "#F64602", "#230A02", "#BE2304", "#DBD0C3", "#D29062", "#59320B", "#689E04"];
+palette.range = ["#BB2508", "#480607", "#230306", "#DECCC9", "#FD6202", "#6E5053", "#A8605D", "#FCAD49"];
 
 const gradient = new gradientLinear(palette.range);
 const curve = new THREE.Curves.TrefoilKnot();
@@ -24,9 +24,9 @@ const controls = new OrbitControls(camera, canvas);
 
 camera.position.set(15, 21, -3);
 camera.lookAt(group.position);
-renderer.setClearColor(0xc5eeb7, 1);
+renderer.setClearColor(0xfdf1cd, 1);
 
-const strokeTexture = new THREE.TextureLoader().load('./assets/brush2.png');
+const strokeTexture = new THREE.TextureLoader().load('./assets/stroke.png');
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
 
 const POINTS = 200;
@@ -51,11 +51,11 @@ function prepareMesh(w, c) {
     lineWidth: w,
     near: camera.near,
     far: camera.far,
-    alphaTest: .85 * .5,
+    alphaTest: .75 * .5,
     depthWrite: true,
     depthTest: true,
     transparent: true,
-    opacity: .85,
+    opacity: .75,
   });
 
   var mesh = new THREE.Mesh(g.geometry, material);
@@ -69,24 +69,25 @@ const spread = 1.2;
 const LINES = 40;
 const REPEAT = 3;
 for (let i = 0; i < LINES; i++) {
-  const w = 3 * Maf.randomInRange(.8, 1.2);
+  const w = 1 * Maf.randomInRange(.8, 1.2);
   const radius = .05 * Maf.randomInRange(4.5, 5.5);
   const color = i % palette.range.length;
-  const offset = Maf.randomInRange(0, Maf.TAU / 3);
-  const range = Maf.randomInRange(Maf.TAU / 16, Maf.TAU / 8);
+  const offset = Maf.randomInRange(0, Maf.TAU / 6);
+  const range = Maf.TAU / 6; //Maf.randomInRange(Maf.TAU / 16, Maf.TAU / 8);
   const x = Maf.randomInRange(-spread, spread);
   const y = Maf.randomInRange(-spread, spread);
   const z = Maf.randomInRange(-spread, spread);
-  const mesh = prepareMesh(w, color);
-  mesh.position.set(x, y, z);
-  group.add(mesh);
-  meshes.push({
-    mesh,
-    radius,
-    offset,
-    range,
-  });
-
+  for (let j = 0; j < REPEAT; j++) {
+    const mesh = prepareMesh(w, color);
+    mesh.position.set(x, y, z);
+    group.add(mesh);
+    meshes.push({
+      mesh,
+      radius,
+      offset: offset + j * Maf.TAU / 3,
+      range,
+    });
+  }
 }
 group.scale.setScalar(.75);
 scene.add(group);
