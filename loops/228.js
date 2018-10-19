@@ -21,7 +21,7 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 const controls = new OrbitControls(camera, canvas);
 
-camera.position.set(4.6, -21.5, 9.5);
+camera.position.set(3.7, -12.7, 13);
 camera.lookAt(group.position);
 renderer.setClearColor(0xd0e6f9, 1);
 renderer.shadowMap.enabled = true;
