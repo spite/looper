@@ -66,12 +66,8 @@ for (let j = 0; j < LINES; j++) {
   const mesh = prepareMesh(1, Maf.randomInRange(0, 1));
   group.add(mesh);
   mesh.scale.setScalar(1 + .1 * j);
-  //mesh.rotation.set(Maf.randomInRange(0, Maf.TAU), Maf.randomInRange(0, Maf.TAU), Maf.randomInRange(0, Maf.TAU));
   mesh.rotation.y = j * .5 * Maf.TAU / LINES;
-  const offset = 0; //j * Maf.TAU / LINES;
-  const twist = 1; //Maf.randomInRange(.25, 2);
-  const range = .25; //Maf.randomInRange(.1, .25);
-  meshes.push({ mesh, offset, twist, range });
+  meshes.push({ mesh });
 }
 group.scale.setScalar(1.5);
 scene.add(group);
@@ -85,11 +81,11 @@ function draw(startTime) {
   const t = time / loopDuration;
 
   meshes.forEach((m) => {
-    const q = m.twist; //easings.InOutQuad(.5 + .5 * Math.cos(Maf.PI + t * Maf.TAU + m.offset));
+    const q = 1;
     const vertices = new Float32Array(N * 3);
     for (let i = 0; i < N; i++) {
       const tw = 2.5 * Math.PI * q;
-      const th = m.range * i * Maf.TAU / N + (t + m.offset) * 1 * Maf.TAU;
+      const th = .25 * i * Maf.TAU / N + t * Maf.TAU;
 
       const ph = Math.cos(th) * tw;
       const y = r * Math.cos(th);
@@ -100,11 +96,8 @@ function draw(startTime) {
       vertices[i * 3 + 1] = y;
       vertices[i * 3 + 2] = z;
     }
-    //m.mesh.rotation.y = m.offset + t * Maf.TAU;
     m.mesh.g.setGeometry(vertices);
   })
-
-  //group.rotation.y = t * Maf.TAU;
 
   painted.render(scene, camera);
 }
