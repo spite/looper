@@ -69,7 +69,8 @@ for (let j = 0; j < LINES; j++) {
   mesh.scale.setScalar(scale);
   mesh.rotation.y = j * Maf.TAU / LINES;
   const offset = Maf.randomInRange(-Maf.TAU, Maf.TAU);
-  meshes.push({ mesh, offset });
+  const vertices = new Float32Array(N * 3);
+  meshes.push({ mesh, offset, vertices });
 }
 group.scale.setScalar(1.5);
 scene.add(group);
@@ -84,7 +85,7 @@ function draw(startTime) {
 
   meshes.forEach((m) => {
     const q = 1;
-    const vertices = new Float32Array(N * 3);
+    const vertices = m.vertices;
     for (let i = 0; i < N; i++) {
       const tw = 2.5 * Math.PI * q;
       const th = .25 * i * Maf.TAU / N + (t + m.offset) * 1 * Maf.TAU;
