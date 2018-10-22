@@ -65,7 +65,7 @@ const meshes = [];
 for (let j = 0; j < LINES; j++) {
   const mesh = prepareMesh(Maf.randomInRange(.75, 1.5), Maf.randomInRange(0, 1));
   group.add(mesh);
-  const scale = (Math.random() < .5) ? (.5 + .1 * j) : 2 * (.5 + .1 * j);
+  const scale = (.5 + .1 * j) * (Math.random() < .5) ? 1 : 2;
   mesh.scale.setScalar(scale);
   mesh.rotation.y = j * Maf.TAU / LINES;
   const offset = Maf.randomInRange(-Maf.TAU, Maf.TAU);
