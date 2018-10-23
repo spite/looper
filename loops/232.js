@@ -99,8 +99,6 @@ function draw(startTime) {
     const g = l.mesh.g;
     l.mesh.rotation.y = -(t * Maf.TAU - easings.InQuad(Maf.parabola(t, 1)) * id * Maf.PI / lines.length);
     l.mesh.position.y = 2 * Math.sin(t * Maf.TAU) * 5 * Maf.parabola(id / lines.length, 1);
-    //l.mesh.rotation.x = .1 * Maf.TAU * Math.cos(t * Maf.TAU + .5 * id / lines.length);
-    //l.mesh.rotation.z = .1 * Maf.TAU * Math.sin(t * Maf.TAU + .5 * id / lines.length);
   });
 
   group.rotation.y = -t * Maf.TAU;
