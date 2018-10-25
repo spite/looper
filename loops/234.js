@@ -11,7 +11,7 @@ import Painted from '../modules/painted.js';
 
 const painted = Painted(renderer, { minLevel: -.4 });
 
-palette.range = ["#F76B29", "#FAFAF9", "#0594B5", "#A84C1F", "#AFADA9", "#1B525D", "#8D836C"];
+palette.range = ["#FA6014", "#FB9516", "#F72D0D", "#F6BEAA", "#420907", "#FBA767", "#9D1D16", "#FD778C"];
 
 const gradient = new gradientLinear(palette.range);
 
