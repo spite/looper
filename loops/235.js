@@ -71,7 +71,7 @@ for (let i = 0; i < SIDES; i++) {
 }
 scene.add(group);
 
-const loopDuration = 4;
+const loopDuration = 3.5;
 
 function draw(startTime) {
 
