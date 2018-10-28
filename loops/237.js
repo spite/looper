@@ -51,7 +51,7 @@ for (let i = 0; i < SIDES; i++) {
     depthTest: false,
     transparent: true,
     opacity: .75,
-    alphaTest: .75 * .5,
+    //alphaTest: .75 * .5,
   });
   var g = new MeshLine();
   g.setGeometry(geo);
@@ -97,7 +97,7 @@ function draw(startTime) {
       vertices[j * 3 + 2] = -j / (10 * H);
     }
     c.mesh.material.uniforms.opacity.value = .75 * easings.InOutQuad(s) ** 2;
-    c.mesh.material.uniforms.alphaTest.value = c.mesh.material.uniforms.opacity.value * .5;
+    //c.mesh.material.uniforms.alphaTest.value = c.mesh.material.uniforms.opacity.value * .5;
     c.mesh.g.setGeometry(vertices);
   });
 
