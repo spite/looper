@@ -26,6 +26,7 @@ camera.lookAt(group.position);
 renderer.setClearColor(0xF2E9D9, 1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.sortObjects = false;
 
 const N = 18;
 const circleRadius = 2;
