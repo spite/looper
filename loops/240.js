@@ -44,9 +44,9 @@ function prepareMesh(points, w, color) {
     lineWidth: w,
     near: camera.near,
     far: camera.far,
-    alphaTest: .75 * .5,
-    depthWrite: true,
-    depthTest: true,
+    //alphaTest: .75 * .5,
+    depthWrite: false,
+    depthTest: false,
     transparent: true,
     opacity: .75,
   });
