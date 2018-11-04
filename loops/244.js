@@ -44,7 +44,7 @@ function fbm(x, y, z) {
     z *= 2.;
     amplitude *= .5;
   }
-  return 2 * squareTurbulence(.2 + value) - 1;
+  return 2 * squareTurbulence(.3 + value) - 1;
 }
 
 function turbulence(x, y, z) {
@@ -63,9 +63,10 @@ function turbulence(x, y, z) {
 
 function f(x, y, z, t) {
   const s = 1;
+  const ts = 2;
   const t2 = Maf.mod(t + .5, 1);
-  const n1 = fbm((x + t) * s, y * s, z * s);
-  const n2 = fbm(x * s, y * s, (z + t2) * s);
+  const n1 = fbm((x + ts * t) * s, y * s, z * s);
+  const n2 = fbm(x * s, y * s, (z + ts * t2) * s);
   return (.5 + .5 * Math.cos(t * Maf.TAU - Maf.PI)) * n1 + (.5 + .5 * Math.cos(t2 * Maf.TAU - Maf.PI)) * n2;
 }
 
@@ -220,7 +221,8 @@ function draw(startTime) {
     const p = points[j];
     const n = f(p.x, p.y, p.z, t);
     if (n > 0) {
-      vertices.push({ point: p.clone().multiplyScalar(1 + .1 * n), scale: 2 * n, n });
+      const en = easings.InOutQuad(n);
+      vertices.push({ point: p.clone().multiplyScalar(1 + .1 * en), scale: 1.5 * en, n: en });
       total++;
     }
   }
