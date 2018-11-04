@@ -17,7 +17,7 @@ import rgbShift from '../shaders/rgb-shift.js';
 import ShaderPass from '../modules/shader-pass.js';
 import softLight from '../shaders/soft-light.js';
 
-const palette = ["#BEBDC0", "#E3E2E2", "#ffffff"];
+const palette = ["#B1C9DD", "#ffffff"];
 const gradient = new gradientLinear(palette);
 
 const canvas = renderer.domElement;
@@ -70,7 +70,7 @@ function f(x, y, z, t) {
   return (.5 + .5 * Math.cos(t * Maf.TAU - Maf.PI)) * n1 + (.5 + .5 * Math.cos(t2 * Maf.TAU - Maf.PI)) * n2;
 }
 
-const sphere = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(.95, 3), new THREE.MeshStandardMaterial({ color: 0x2d7cff, roughness: .3, metalness: .01 }));
+const sphere = new THREE.Mesh(new THREE.IcosahedronBufferGeometry(.95, 3), new THREE.MeshStandardMaterial({ color: 0x5F94CA, roughness: .1, metalness: 0 }));
 sphere.castShadow = sphere.receiveShadow = true;
 group.add(sphere);
 
@@ -122,9 +122,9 @@ scene.add(ambientLight);
 const light = new THREE.HemisphereLight(0x776E88, 0xffffff, .5);
 scene.add(light);
 
-camera.position.set(-3.05, 3.33, 1.49);
+camera.position.set(3.3, -.19, 3.41);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
-renderer.setClearColor(0x202020, 1);
+renderer.setClearColor(0x275FA6, 1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
