@@ -7,6 +7,7 @@ function getFBO(w, h, options = {}) {
     minFilter: options.minFilter || THREE.LinearFilter,
     magFilter: options.magFilter || THREE.LinearFilter,
     format: options.format || THREE.RGBAFormat,
+    type: options.type || THREE.UnsignedByteType,
     stencilBuffer: options.stencilBuffer || false,
     depthBuffer: options.depthBuffer || true
   });
