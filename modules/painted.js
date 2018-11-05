@@ -27,7 +27,7 @@ ${fxaa}
 ${levelRange}
 
 void main() {
-  gl_FragColor = vec4(levelRange(fxaa(inputTexture, vUv ).rgb,minLevel, maxLevel),1.);
+  gl_FragColor = vec4(levelRange(fxaa(inputTexture, vUv ).rgb, vec3(minLevel), vec3(maxLevel)),1.);
 }
 `;
 
