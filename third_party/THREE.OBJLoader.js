@@ -1,10 +1,8 @@
 import THREE from '../third_party/three.js';
-import { LoaderUtils } from '../third_party/THREE.LoaderUtils.js';
 
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-
 
 // o object_name | g group_name
 var object_pattern = /^[og]\s*(.+)?/;
