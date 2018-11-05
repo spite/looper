@@ -3,11 +3,8 @@ import { renderer, getCamera } from '../modules/three.js';
 import Maf from '../modules/maf.js';
 import OrbitControls from '../third_party/THREE.OrbitControls.js';
 import easings from '../modules/easings.js';
-import noise from '../third_party/perlin.js';
-import pointsOnSphere from '../modules/points-sphere.js';
 import { InstancedGeometry, getInstancedMeshStandardMaterial, getInstancedDepthMaterial } from '../modules/instanced.js';
 import { sphericalToCartesian, cartesianToSpherical } from '../modules/conversions.js';
-import { gradientLinear } from '../modules/gradient.js';
 import { OBJLoader } from '../third_party/THREE.OBJLoader.js';
 
 import { getFBO } from '../modules/fbo.js';
@@ -18,15 +15,11 @@ import rgbShift from '../shaders/rgb-shift.js';
 import ShaderPass from '../modules/shader-pass.js';
 import softLight from '../shaders/soft-light.js';
 import colorDodge from '../shaders/color-dodge.js';
-import { gammaCorrect, levelRange, finalLevels } from '../shaders/levels.js';
 
 import { fs as shockwaveFragmentShader } from './245/shockwave-fs.js';
 import { vs as shockwaveVertexShader } from './245/shockwave-vs.js';
 import { fs as backdropFragmentShader } from './245/backdrop-fs.js';
 import { vs as backdropVertexShader } from './245/backdrop-vs.js';
-
-const palette = ["#B1C9DD", "#ffffff"];
-const gradient = new gradientLinear(palette);
 
 const canvas = renderer.domElement;
 const camera = getCamera(35);
