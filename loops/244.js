@@ -16,6 +16,7 @@ import fxaa from '../shaders/fxaa.js';
 import rgbShift from '../shaders/rgb-shift.js';
 import ShaderPass from '../modules/shader-pass.js';
 import softLight from '../shaders/soft-light.js';
+import { gammaCorrect, levelRange, finalLevels } from '../shaders/levels.js';
 
 const palette = ["#B1C9DD", "#ffffff"];
 const gradient = new gradientLinear(palette);
@@ -157,10 +158,13 @@ uniform sampler2D inputTexture;
 
 varying vec2 vUv;
 ${rgbShift}
+${gammaCorrect}
+${levelRange}
+${finalLevels}
 
 void main() {
   vec4 color = rgbShift(inputTexture, vUv, vec2(40.,0.));
-  gl_FragColor = color;
+  gl_FragColor = vec4(finalLevels(color.rgb,vec3(17., 54., 101.)/255., vec3(1.), vec3(255., 255.,255. )/255.),1.);
 }
 `;
 
