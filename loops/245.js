@@ -193,7 +193,7 @@ function Post(renderer, params = {}) {
   const h = renderer.getSize().height;
 
   const backFBO = getFBO(w, h);
-  const shockwaveFBO = getFBO(w, h, { type: THREE.HalfFloat });
+  const shockwaveFBO = getFBO(w, h, { type: THREE.HalfFloat, minFilter: THREE.NearestFilter, magFilter: THREE.NearestFilter });
 
   const distortShader = new THREE.RawShaderMaterial({
     uniforms: {
