@@ -246,7 +246,7 @@ renderer.setClearColor(0, 1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 6;
 
 const target = new THREE.Vector3();
 
