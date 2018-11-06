@@ -123,6 +123,10 @@ directionalLight.position.set(-2, 2, 2);
 directionalLight.castShadow = true;
 directionalLight.shadow.camera.near = -1;
 directionalLight.shadow.camera.far = 10;
+directionalLight.shadow.camera.left = -.75;
+directionalLight.shadow.camera.top = .75;
+directionalLight.shadow.camera.right = .75;
+directionalLight.shadow.camera.bottom = -.75;
 scene.add(directionalLight);
 
 const directionalLight2 = new THREE.DirectionalLight(0xffffff, .5);
@@ -130,6 +134,10 @@ directionalLight2.position.set(1, 2, 1);
 directionalLight2.castShadow = true;
 directionalLight2.shadow.camera.near = -4;
 directionalLight2.shadow.camera.far = 10;
+directionalLight2.shadow.camera.left = -.75;
+directionalLight2.shadow.camera.top = .75;
+directionalLight2.shadow.camera.right = .75;
+directionalLight2.shadow.camera.bottom = -.75;
 scene.add(directionalLight2);
 
 const ambientLight = new THREE.AmbientLight(0xffffff, .5);
