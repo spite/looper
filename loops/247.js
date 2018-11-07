@@ -41,7 +41,7 @@ baseGeometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Maf.PI / 2));
 baseGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, .5 * HEIGHT, 0));
 const baseMaterial = prepassMaterial;
 const loader = new THREE.TextureLoader();
-const normalTexture = loader.load('../assets/WaterNormal.jpg');
+const normalTexture = loader.load('./assets/WaterNormal.jpg');
 const lightMaterial = new THREE.MeshStandardMaterial({
   color: 0x202020,
   metalness: .1,
