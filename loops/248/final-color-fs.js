@@ -1,5 +1,5 @@
 import rgbShift from '../../shaders/rgb-shift.js';
-import { finalLevels } from '../../shaders/levels.js';
+import { gammaCorrect, levelRange, finalLevels } from '../../shaders/levels.js';
 
 const fs = `
 precision highp float;
@@ -10,6 +10,8 @@ uniform sampler2D inputTexture;
 
 varying vec2 vUv;
 ${rgbShift}
+${gammaCorrect}
+${levelRange}
 ${finalLevels}
 
 void main() {
