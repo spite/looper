@@ -48,6 +48,8 @@ for (let j = 0; j < 100; j++) {
   distort(geometry);
 }
 
+// textures from https://withprop.artstation.com/projects/Y5d3w
+
 const material = new THREE.MeshStandardMaterial({
   roughness: .5,
   metalness: 0,
@@ -198,7 +200,7 @@ scene.add(light);
 
 camera.position.set(13, -4, -.25);
 const target = new THREE.Vector3(0, 0, 0);
-renderer.setClearColor(0x776E88, 1);
+renderer.setClearColor(0, 1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
