@@ -198,7 +198,6 @@ camera.position.set(6.5, 9.2, -2.3);
 camera.position.set(9.76, 1.24, 0.51);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 renderer.setClearColor(0x370000, 1);
-//scene.fog = new THREE.FogExp2(0x776E88, .3);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
