@@ -23,7 +23,8 @@ ${ditherNoise}
 void main() {
   vec4 color = fxaa(inputTexture, vUv);
   vec4 finalColor = softLight(color, vec4(vec3(vignette(vUv, vignetteBoost, vignetteReduction)),1.));
-  finalColor = softLight(finalColor, .5+vec4(.001*ditherNoise(vUv,0.)));
+  float n =ditherNoise(vUv,0.);
+  finalColor = softLight(finalColor, vec4(.5+.001*n)) + .01*n;
   gl_FragColor = finalColor;
 }
 `;

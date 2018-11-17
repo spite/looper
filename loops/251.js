@@ -29,7 +29,7 @@ group.add(body);
 
 const gradient = new gradientLinear(["#e12a46", "#f6eb44", "#6feb69"]);
 
-const coneGeometry = new THREE.CylinderBufferGeometry(.05, 1, 1, 72, 10, !true);
+const coneGeometry = new THREE.CylinderBufferGeometry(.075, 1, 1, 72, 10, !true);
 coneGeometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Maf.PI / 2));
 coneGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0., .5));
 //const coneMaterial = new THREE.MeshNormalMaterial({ side: THREE.DoubleSide });
