@@ -26,7 +26,9 @@ class InstancedGeometry {
     this.geometry.index = baseGeometry.index;
     this.geometry.addAttribute('position', baseGeometry.getAttribute('position'));
     this.geometry.addAttribute('normal', baseGeometry.getAttribute('normal'));
-    //this.geometry.addAttribute('uv', baseGeometry.getAttribute('uv'));
+    if (options.hasUVs) {
+      this.geometry.addAttribute('uv', baseGeometry.getAttribute('uv'));
+    }
 
     const MAX_SIZE = options.size || 100000;
 
@@ -87,6 +89,8 @@ function getInstancedMeshStandardMaterial(options = {}, instanceOptions = {}) {
   } else {
     material = new THREE.MeshStandardMaterial({
       color: options.color || 0xffffff,
+      map: options.map,
+      normalMap: options.normalMap,
       transparent: false,
       wireframe: options.wireframe || false,
       metalness: options.metalness || .5,
