@@ -11,9 +11,7 @@ import { fs as stripesFragmentShader } from './250/stripes-fs.js';
 import { getFBO } from '../modules/fbo.js';
 import orthoVertexShader from '../shaders/ortho.js';
 import ShaderPass from '../modules/shader-pass.js';
-import ShaderPingPongPass from '../modules/shader-ping-pong-pass.js';
 
-import { fs as combineFragmentShader } from './250/combine-fs.js';
 import { fs as finalFragmentShader } from './250/final-fs.js';
 import { fs as finalColorFragmentShader } from './250/final-color-fs.js';
 
