@@ -1,3 +1,7 @@
+// r: radius
+// theta: 0-Pi
+// phi: 0-Tau
+
 function sphericalToCartesian(r, theta, phi) {
   const x = r * Math.sin(theta) * Math.cos(phi);
   const y = r * Math.sin(theta) * Math.sin(phi);
