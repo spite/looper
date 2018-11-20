@@ -42,8 +42,8 @@ void main() {
   vec3 dcol = mix(c2,c1,d.r);
 
   vec4 c = vec4(dcol, 1.) * d.g ;
-  vec4 color = clamp((b*(1.-d.a)+c) + g + .5*bloom.r,vec4(0.), vec4(1.));
-  vec4 finalColor = softLight(color, vec4(vec3(vignette(vUv, vignetteBoost, vignetteReduction)),1.));
+  vec4 color = clamp((b*(1.-d.a)+c) +1.* g + 1.*.5*bloom.r,vec4(0.), vec4(1.));
+  vec4 finalColor =  softLight(color, vec4(vec3(vignette(vUv, vignetteBoost, vignetteReduction)),1.));
 
   gl_FragColor = screen(finalColor,finalColor,1.);
 }`;

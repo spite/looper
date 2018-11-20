@@ -116,7 +116,7 @@ for (let i = 0; i < 10000; i++) {
   vertices.push(p.x, p.y, p.z);
 }
 dustGeometry.addAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
-const dustMaterial = new THREE.PointsMaterial({ size: .05, sizeAttenuation: true, depthWrite: false, opacity: .1, transparent: true });
+const dustMaterial = new THREE.PointsMaterial({ size: .05, map: loader.load('./loops/253/dust.png'), sizeAttenuation: true, depthWrite: false, opacity: .1, transparent: true });
 dustMaterial.color.setHSL(1.0, 0.3, 0.7);
 const particles = new THREE.Points(dustGeometry, dustMaterial);
 group.add(particles);
@@ -230,8 +230,6 @@ function Post(renderer, params = {}) {
     }
 
     combinePass.render(true);
-    //finalPass.render();
-    //finalColorPass.render(true);
   }
 
   return {
@@ -268,7 +266,7 @@ renderer.setClearColor(0, 0);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 10;
+const loopDuration = 6;
 
 function draw(startTime) {
 
