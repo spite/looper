@@ -30,7 +30,7 @@ const group = new THREE.Group();
 const loader = new THREE.TextureLoader();
 const envTexture = loader.load('./loops/254/envmap.jpg');
 
-const resolution = 100;
+const resolution = 200;
 const material = new THREE.MeshBasicMaterial();
 const effect = new MarchingCubes(resolution, material, true, false);
 effect.position.set(0, 0, 0);
@@ -53,7 +53,7 @@ while (blobs < BLOBS) {
     const offset = Maf.randomInRange(.25 * Maf.TAU, .5 * Maf.TAU);
     const max = Maf.randomInRange(.125 * Maf.TAU, .5 * Maf.TAU);
     let step = Maf.randomInRange(.005, .05);
-    const phi = Maf.randomInRange(-Maf.PI / 2, Maf.PI / 2);
+    const phi = Maf.randomInRange(0, Maf.TAU);
     const oStrength = Maf.randomInRange(.005, .01);
     axis.set(Maf.randomInRange(-1, 1), Maf.randomInRange(-1, 1), Maf.randomInRange(-1, 1)).normalize();
     const angle = Maf.randomInRange(-.5, .5);
@@ -64,11 +64,11 @@ while (blobs < BLOBS) {
       tmpVector.x = r * Math.sin(theta) * Math.cos(phi);
       tmpVector.y = r * Math.sin(theta) * Math.sin(phi);
       tmpVector.z = r * Math.cos(theta);
-      tmpVector.applyAxisAngle(axis, angle + .1 * a);
-      const strength = oStrength * (1. - Maf.parabola((a - offset) / max, 1));
+      tmpVector.applyAxisAngle(axis, angle + .5 * a);
+      const strength = oStrength * (.2 + .8 * (1. - Maf.parabola((a - offset) / max, 1)));
       effect.addBall(tmpVector.x + .5, tmpVector.y + .5, tmpVector.z + .5, strength, subtract);
       blobs++;
-      step += Maf.randomInRange(0, .01 * strength);
+      step += Maf.randomInRange(0, .005 * strength);
     }
   }
 }
@@ -85,6 +85,7 @@ const mesh = new THREE.Mesh(
   effect.generateBufferGeometry(),
   coffeeMaterial
 );
+mesh.geometry.applyMatrix(new THREE.Matrix4().makeRotationX(Maf.PI / 2));
 mesh.scale.setScalar(6);
 group.add(mesh);
 
@@ -239,7 +240,7 @@ renderer.setClearColor(0, 0);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 5;
 
 function draw(startTime) {
 
