@@ -57,6 +57,7 @@ while (blobs < BLOBS) {
     const oStrength = Maf.randomInRange(.005, .01);
     axis.set(Maf.randomInRange(-1, 1), Maf.randomInRange(-1, 1), Maf.randomInRange(-1, 1)).normalize();
     const angle = Maf.randomInRange(-.5, .5);
+    const rot = Math.random() > .5 ? Maf.randomInRange(.001, .005) : Maf.randomInRange(.5, 1.);
     for (let a = offset; a < offset + max; a += step) {
       const theta = a;
       const subtract = Maf.randomInRange(2, 3);
@@ -64,8 +65,8 @@ while (blobs < BLOBS) {
       tmpVector.x = r * Math.sin(theta) * Math.cos(phi);
       tmpVector.y = r * Math.sin(theta) * Math.sin(phi);
       tmpVector.z = r * Math.cos(theta);
-      tmpVector.applyAxisAngle(axis, angle + .5 * a);
-      const strength = oStrength * (.2 + .8 * (1. - Maf.parabola((a - offset) / max, 1)));
+      tmpVector.applyAxisAngle(axis, angle + rot * a);
+      const strength = oStrength * (.1 + .9 * (1. - Maf.parabola((a - offset) / max, 1)));
       effect.addBall(tmpVector.x + .5, tmpVector.y + .5, tmpVector.z + .5, strength, subtract);
       blobs++;
       step += Maf.randomInRange(0, .005 * strength);
