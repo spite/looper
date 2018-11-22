@@ -30,7 +30,7 @@ const group = new THREE.Group();
 const loader = new THREE.TextureLoader();
 const envTexture = loader.load('./loops/254/envmap.jpg');
 
-const resolution = 200;
+const resolution = 100;
 const material = new THREE.MeshBasicMaterial();
 const effect = new MarchingCubes(resolution, material, true, false);
 effect.position.set(0, 0, 0);
