@@ -43,10 +43,8 @@ void main() {
 
   color += .5*bloom;
 
-  vec4 rBlur = radialBlur(inputTexture,vec2(.5)*resolution,1.,resolution, vUv);
-
   vec4 finalColor = softLight(color, vec4(vec3(vignette(vUv, vignetteBoost, vignetteReduction)),1.));
-  finalColor = screen(finalColor, rBlur,.5);
+  //finalColor = screen(finalColor, rBlur,.5);
   finalColor.rgb = finalLevels(finalColor.rgb, vec3(21./255.), vec3(1.), vec3(1.));
   finalColor = screen(finalColor,finalColor,1.);
   gl_FragColor = finalColor;

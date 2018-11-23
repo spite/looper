@@ -141,7 +141,7 @@ camera.position.set(5, 3, 6);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 renderer.setClearColor(0, 0);
 
-const loopDuration = 4;
+const loopDuration = 8;
 
 function draw(startTime) {
 

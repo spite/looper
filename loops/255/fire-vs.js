@@ -200,7 +200,7 @@ void main() {
 
   float a = time*2.*PI;
   vec3 offset = 1.*vec3(sin(a), cos(a), .2*sin(a+34.32));
-  float noise = 10.0 *  -.10 * turbulence( .05 * position + offset );
+  float noise = abs(turbulence( .05 * position + 2.*offset ));
   float b = 5.0 * pnoise( 0.05 * position + vec3( 2.0 * offset ), vec3( 10.0 ) );
   float displacement = - 5. * noise + b;
   vDisplacement = displacement;
