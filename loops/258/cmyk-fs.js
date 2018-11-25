@@ -10,6 +10,8 @@ uniform float frequency;
 
 varying vec2 vUv;
 
+// https://github.com/glslify/glsl-halftone/blob/master/index.glsl
+
 vec3 mod289(vec3 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
 }
