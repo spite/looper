@@ -19,16 +19,23 @@ const scene = new THREE.Scene();
 const group = new THREE.Group();
 
 const torus = new THREE.Mesh(
-  new THREE.TorusKnotBufferGeometry(3, 1, 200, 36),
+  new THREE.TorusBufferGeometry(3, .5, 200, 36),
   new THREE.MeshStandardMaterial({
     color: 0xff8a00,
     roughness: .4,
     metalness: 0
   })
 );
+torus.geometry.applyMatrix(new THREE.Matrix4().makeRotationX(.1 * Maf.PI));
 torus.castShadow = torus.receiveShadow = true;
-
 group.add(torus);
+const t2 = torus.clone();
+t2.rotation.y = Maf.TAU / 3;
+group.add(t2);
+const t3 = torus.clone();
+t3.rotation.y = 2 * Maf.TAU / 3;
+group.add(t3);
+
 scene.add(group);
 
 function Post(renderer, params = {}) {
@@ -103,7 +110,7 @@ scene.fog = new THREE.FogExp2(0x776E88, .04);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 2;
 
 const persistence = .001;
 
@@ -112,8 +119,7 @@ function draw(startTime) {
   const time = (.001 * (performance.now() - startTime)) % loopDuration;
   const t = time / loopDuration;
 
-  torus.rotation.y = t * Maf.TAU;
-  group.rotation.z = t * Maf.TAU;
+  group.rotation.y = t * Maf.TAU / 3;
 
   post.render(scene, camera, t * Maf.TAU);
 }
