@@ -200,7 +200,7 @@ function draw(startTime) {
     slices.forEach((slice, i) => {
       slice.position.x = Maf.parabola(easings.InOutQuad(t2), 1) * Math.sin(t2 * Maf.TAU + i * Maf.TAU / slices.length);
     });
-    group.rotation.y = easings.InOutQuad(t2) * Maf.PI;
+    group.rotation.y = t2 * Maf.PI;
   } else {
     group1.visible = false;
     group2.visible = true;
@@ -208,7 +208,7 @@ function draw(startTime) {
     slices2.forEach((slice, i) => {
       slice.position.y = Maf.parabola(easings.InOutQuad(t2), 1) * Math.sin(t2 * Maf.TAU + i * Maf.TAU / slices.length);
     });
-    group.rotation.y = easings.InOutQuad(t2) * Maf.PI;
+    group.rotation.y = t2 * Maf.PI;
   }
 
   post.render(scene, camera);
