@@ -58,7 +58,7 @@ const colorMat = new THREE.RawShaderMaterial({
   side: THREE.DoubleSide
 });
 
-const NUM = 20;
+const NUM = 24;
 let socks = [];
 const loader = new OBJLoader();
 loader.load('./loops/260/sock.obj', (res) => {
@@ -171,7 +171,7 @@ renderer.setClearColor(0x776E88, 1);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3;
 
 function draw(startTime) {
 
@@ -179,11 +179,11 @@ function draw(startTime) {
   const t = time / loopDuration;
 
   socks.forEach((sock, i) => {
-    sock.pivot2.position.y = .1 - .2 * easings.InOutQuad(.5 + .5 * Math.cos(1 * t * Maf.TAU + 1 * i * Maf.TAU / socks.length));
-    sock.pivot2.rotation.x = .5 - 2 * easings.InOutQuad(.5 + .5 * Math.sin(1 * t * Maf.TAU + 1 * i * Maf.TAU / socks.length));
-    sock.mesh.rotation.y = -.4 + .8 * easings.Linear(.5 + .5 * Math.sin(2 * t * Maf.TAU + 1 * i * Maf.TAU / socks.length));
+    sock.pivot2.position.y = -.1 + .2 * easings.OutQuint(.5 + .5 * Math.cos(1 * t * Maf.PI + 1 * i * Maf.TAU / socks.length));
+    sock.pivot2.rotation.x = .5 - 2 * easings.InOutQuint(.5 + .5 * Math.sin(1 * t * Maf.PI + 1 * i * Maf.TAU / socks.length));
+    sock.mesh.rotation.y = .4 - .8 * easings.Linear(.5 + .5 * Math.sin(2 * t * Maf.PI + 2 * i * Maf.TAU / socks.length));
   });
-  group.rotation.y = t * Maf.TAU;
+  group.rotation.y = t * Maf.PI;
 
   post.render(scene, camera);
 }
