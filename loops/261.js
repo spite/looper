@@ -240,21 +240,21 @@ function draw(startTime) {
   const h = .5;
   for (let i = 0; i < skates.length; i++) {
     const s = skates[i];
-    const a = i * Maf.TAU / skates.length + t * Maf.TAU;
+    const a = i * Maf.TAU / skates.length + t * Maf.PI;
     const r = 4;
     const m = s.mesh;
     const x = r * Math.cos(a);
     const y = h * Math.sin(a);
     const z = r * Math.sin(a);
     m.position.set(x, y, z);
-    const a2 = (i + .1) * Maf.TAU / skates.length + t * Maf.TAU;
+    const a2 = (i + .1) * Maf.TAU / skates.length + t * Maf.PI;
     target.set(
       r * Math.cos(a2),
       h * Math.sin(a2),
       r * Math.sin(a2)
     );
     m.lookAt(target);
-    if (s.mat.uniforms) s.mat.uniforms.time.value = i * Maf.TAU / skates.length + 4 * t * Maf.TAU;
+    if (s.mat.uniforms) s.mat.uniforms.time.value = i * Maf.TAU / skates.length + 4 * t * Maf.PI;
   }
   particles.rotation.x = .01 * Math.cos(t * Maf.TAU);
   particles.rotation.y = .01 * Math.sin(t * Maf.TAU);
