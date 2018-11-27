@@ -93,8 +93,8 @@ function getInstancedMeshStandardMaterial(options = {}, instanceOptions = {}) {
       normalMap: options.normalMap,
       transparent: false,
       wireframe: options.wireframe || false,
-      metalness: options.metalness || .5,
-      roughness: options.roughness || .5,
+      metalness: options.metalness !== undefined ? options.metalness : .5,
+      roughness: options.roughness !== undefined ? options.roughness : .5,
       depthWrite: options.depthWrite || true,
       depthTest: options.depthTest || true,
     });
