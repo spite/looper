@@ -61,19 +61,23 @@ vNormal = normal;
 
 vec3 p = position;
 float factor = .3 * sin(time);
-float theta = p.x*factor;
-float sint = sin(theta);
-float cost = cos(theta);
+if(factor != 0.) {
+  float theta = p.x*factor;
+  float sint = sin(theta);
+  float cost = cos(theta);
 
-transformed.x = -(p.y-1.0/factor)*sint;
-transformed.y =  (p.y-1.0/factor)*cost + 1.0/factor;
-transformed.z= p.z;
+  transformed.x = -(p.y-1.0/factor)*sint;
+  transformed.y =  (p.y-1.0/factor)*cost + 1.0/factor;
+  transformed.z= p.z;
+} else {
+  transformed = position;
+}
 
 p = transformed;
 factor = -.2;
-theta = p.z * factor;
-sint = sin(theta);
-cost = cos(theta);
+float theta = p.z * factor;
+float sint = sin(theta);
+float cost = cos(theta);
 
 transformed.z = -(p.x-1.0/factor)*sint;
 transformed.x =  (p.x-1.0/factor)*cost + 1.0/factor;
