@@ -172,7 +172,7 @@ const m2 = new THREE.Matrix4();
 const q = new THREE.Quaternion();
 const tmp = new THREE.Vector3();
 
-const loopDuration = 4;
+const loopDuration = 3.5;
 
 function makeCircle(ptr, r, y, length, a, t) {
   for (let k = 0; k < length; k++) {
@@ -193,7 +193,7 @@ function makeCircle(ptr, r, y, length, a, t) {
     posValues2[ptr * 3 + 2] = (r + t * d) * Math.sin(ra);
 
     m.makeRotationY(-ra);
-    m2.makeRotationZ(a - t * Maf.TAU + 0 * f * Maf.TAU);
+    m2.makeRotationZ(a - t * Maf.TAU);
     m.multiply(m2);
     q.setFromRotationMatrix(m);
     quatValues[ptr * 4 + 0] = q.x;
@@ -202,7 +202,7 @@ function makeCircle(ptr, r, y, length, a, t) {
     quatValues[ptr * 4 + 3] = q.w;
 
     m.makeRotationY(-ra);
-    m2.makeRotationZ(a - t * Maf.TAU + 0 * f * Maf.TAU);
+    m2.makeRotationZ(a - t * Maf.TAU - .1 * y * Maf.TAU);
     m.multiply(m2);
     q.setFromRotationMatrix(m);
     quatValues2[ptr * 4 + 0] = q.x;
