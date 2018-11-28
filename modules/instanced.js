@@ -85,6 +85,7 @@ function getInstancedMeshStandardMaterial(options = {}, instanceOptions = {}) {
       transparent: true,
       depthWrite: options.depthWrite || false,
       depthTest: options.depthTest || true,
+      side: options.side || THREE.FrontSide,
     });
   } else {
     material = new THREE.MeshStandardMaterial({
@@ -97,6 +98,7 @@ function getInstancedMeshStandardMaterial(options = {}, instanceOptions = {}) {
       roughness: options.roughness !== undefined ? options.roughness : .5,
       depthWrite: options.depthWrite || true,
       depthTest: options.depthTest || true,
+      side: options.side || THREE.FrontSide,
     });
   }
 
