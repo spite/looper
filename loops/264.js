@@ -10,8 +10,8 @@ import { getFBO } from '../modules/fbo.js';
 import orthoVertexShader from '../shaders/ortho.js';
 import ShaderPass from '../modules/shader-pass.js';
 
-import { fs as finalFragmentShader } from './263/final-fs.js';
-import { fs as finalColorFragmentShader } from './263/final-color-fs.js';
+import { fs as finalFragmentShader } from './264/final-fs.js';
+import { fs as finalColorFragmentShader } from './264/final-color-fs.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera(45);
