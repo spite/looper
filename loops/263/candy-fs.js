@@ -86,7 +86,6 @@ void main() {
   vec3 color = baseColor + .5*pow(rim,2.) + .1*pow(1.-rim,2.);
   vec3 light = .5*smoothstep(vec3(.9),vec3(1.),refColor) + .5*smoothstep(vec3(.9),vec3(1.),envColor);
   color += 1.*light * 2.*pow((1.-rim),.8);
-
   color *= .8 + .2 * ( 1. - ((1.-stick.rgb) * (1.-rim)));
   color = screen(vec4(color,1.),vec4(rimColor,1.) * pow(1.-rim,2.),.5).xyz;
   gl_FragColor = vec4(color, 1.);

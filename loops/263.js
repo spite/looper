@@ -12,7 +12,6 @@ import { getFBO } from '../modules/fbo.js';
 import orthoVertexShader from '../shaders/ortho.js';
 import ShaderPass from '../modules/shader-pass.js';
 
-import { fs as combineFragmentShader } from './263/combine-fs.js';
 import { fs as finalFragmentShader } from './263/final-fs.js';
 import { fs as finalColorFragmentShader } from './263/final-color-fs.js';
 
@@ -84,22 +83,12 @@ function Post(renderer, params = {}) {
   mesh.material.uniforms.stickTexture.value = stickFBO.texture;
   mesh.material.uniforms.resolution.value.set(w, h);
 
-  const combineShader = new THREE.RawShaderMaterial({
-    uniforms: {
-      resolution: { value: new THREE.Vector2(w, h) },
-      inputTexture: { value: colorFBO.texture },
-    },
-    vertexShader: orthoVertexShader,
-    fragmentShader: combineFragmentShader,
-  });
-  const combinePass = new ShaderPass(renderer, combineShader, w, h, THREE.RGBAFormat, THREE.UnsignedByteType, THREE.LinearFilter, THREE.LinearFilter, THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping);
-
   const finalShader = new THREE.RawShaderMaterial({
     uniforms: {
       resolution: { value: new THREE.Vector2(w, h) },
       vignetteBoost: { value: .5 },
       vignetteReduction: { value: .5 },
-      inputTexture: { value: combinePass.fbo.texture },
+      inputTexture: { value: colorFBO.texture },
     },
     vertexShader: orthoVertexShader,
     fragmentShader: finalFragmentShader,
@@ -123,7 +112,6 @@ function Post(renderer, params = {}) {
     mesh.visible = true;
     renderer.setClearColor(0xf98b15, 1);
     renderer.render(scene, camera, colorFBO);
-    combinePass.render();
     finalPass.render();
     finalColorPass.render(true);
   }
@@ -157,7 +145,7 @@ scene.add(light);
 
 camera.position.set(2.5, -1, -4);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
-renderer.setClearColor(0xf98b15, 1);
+renderer.setClearColor(0, 0); //0xf98b15, 1);
 const fog = new THREE.FogExp2(0xf98b15, .05);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
