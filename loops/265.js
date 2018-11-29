@@ -93,7 +93,7 @@ for (let p = 0; p < OBJECTS; p++) {
 }
 
 var loader = new THREE.TextureLoader();
-loader.load('./loops/254/envmap.jpg', function(res) {
+loader.load('./loops/263/envmap.jpg', function(res) {
   var equiToCube = new EquirectangularToCubemap(renderer);
   bodyMaterial.envMap = equiToCube.convert(res, 1024);
   bodyMaterial.envMapIntensity = .25;
@@ -173,7 +173,7 @@ scene.fog = new THREE.FogExp2(color, .03);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 4;
+const loopDuration = 3;
 const mRot = new THREE.Matrix4().makeRotationX(Maf.PI);
 const mRot2 = new THREE.Matrix4();
 
@@ -185,6 +185,8 @@ function draw(startTime) {
   let ptr = 0;
   for (let p = 0; p < points.length; p++) {
     const f = (easings.OutQuad(Maf.mod(t + offsets[p].offset, 1)));
+    //const aa = Maf.mod(Math.atan2(points[p].z, points[p].x), Maf.TAU);
+    //const f = Maf.mod(t + .1 * offsets[p].offset + 2 * aa / Maf.TAU, 1); //(easings.OutQuad(Maf.mod(t + offsets[p].offset, 1)));
     const offset = 2;
     tmp.set(points[p].x, points[p].y, points[p].z).multiplyScalar(1 + .2 * easings.InOutQuad(Maf.parabola(f, 1) * offset));
     bodyPosValues[ptr * 3 + 0] = tmp.x;
