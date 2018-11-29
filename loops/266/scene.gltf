@@ -1,0 +1,650 @@
+{
+  "accessors": [
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 192,
+      "max": [
+        1.9638999700546265,
+        -4.1754798889160156,
+        2.8074500560760498
+      ],
+      "min": [
+        -2.750499963760376,
+        -6.0211300849914551,
+        2.3544399738311768
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 2304,
+      "componentType": 5126,
+      "count": 192,
+      "max": [
+        0.97442328929901123,
+        0.97199195623397827,
+        0.99779105186462402
+      ],
+      "min": [
+        -0.98983389139175415,
+        -0.92782634496688843,
+        -0.99999582767486572
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 288,
+      "max": [
+        191
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 4608,
+      "componentType": 5126,
+      "count": 107,
+      "max": [
+        2.9929299354553223,
+        6.100949764251709,
+        2.3654499053955078
+      ],
+      "min": [
+        -2.9929299354553223,
+        -6.1009597778320312,
+        1.5827900171279907
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 5892,
+      "componentType": 5126,
+      "count": 107,
+      "max": [
+        1,
+        1,
+        1
+      ],
+      "min": [
+        -1,
+        -1,
+        0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 1152,
+      "componentType": 5125,
+      "count": 270,
+      "max": [
+        106
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 7176,
+      "componentType": 5126,
+      "count": 80,
+      "max": [
+        2.8078999519348145,
+        5.9393901824951172,
+        0.034499999135732651
+      ],
+      "min": [
+        -2.8078999519348145,
+        -5.9393901824951172,
+        -0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 8136,
+      "componentType": 5126,
+      "count": 80,
+      "max": [
+        1,
+        1,
+        0
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 2232,
+      "componentType": 5125,
+      "count": 120,
+      "max": [
+        79
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 9096,
+      "componentType": 5126,
+      "count": 96,
+      "max": [
+        2.879810094833374,
+        6.0086297988891602,
+        0.79606997966766357
+      ],
+      "min": [
+        -2.8798201084136963,
+        -6.0086297988891602,
+        0.034499999135732651
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 10248,
+      "componentType": 5126,
+      "count": 96,
+      "max": [
+        0.99719703197479248,
+        0.99740105867385864,
+        -0.072050072252750397
+      ],
+      "min": [
+        -0.99719703197479248,
+        -0.99740105867385864,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 2712,
+      "componentType": 5125,
+      "count": 192,
+      "max": [
+        95
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 11400,
+      "componentType": 5126,
+      "count": 1624,
+      "max": [
+        1.6982400417327881,
+        6.2804398536682129,
+        3.7672700881958008
+      ],
+      "min": [
+        -3.1454799175262451,
+        -4.266510009765625,
+        1.5814000368118286
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 30888,
+      "componentType": 5126,
+      "count": 1624,
+      "max": [
+        1,
+        0.99996060132980347,
+        0.99996441602706909
+      ],
+      "min": [
+        -1,
+        -0.9999735951423645,
+        -0.99999415874481201
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 3480,
+      "componentType": 5125,
+      "count": 2532,
+      "max": [
+        1623
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 50376,
+      "componentType": 5126,
+      "count": 206,
+      "max": [
+        3.0125699043273926,
+        6.1247000694274902,
+        1.5827900171279907
+      ],
+      "min": [
+        -3.0125799179077148,
+        -6.1247000694274902,
+        0.79606997966766357
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 52848,
+      "componentType": 5126,
+      "count": 206,
+      "max": [
+        1,
+        1,
+        0.90793079137802124
+      ],
+      "min": [
+        -1,
+        -1,
+        -1
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 13608,
+      "componentType": 5125,
+      "count": 366,
+      "max": [
+        205
+      ],
+      "min": [
+        0
+      ],
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "simserg (https://sketchfab.com/simserg)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/models/d3825852d4264688af04c6e6a48dab84",
+      "title": "Low poly bed"
+    },
+    "generator": "Sketchfab-3.18.6",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 15072,
+      "byteOffset": 0,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 55320,
+      "byteOffset": 15072,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 70392,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsRequired": [
+    "KHR_materials_pbrSpecularGlossiness"
+  ],
+  "extensionsUsed": [
+    "KHR_materials_pbrSpecularGlossiness"
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            0.069357137200000002,
+            0.0296975747,
+            0.012059688900000001,
+            1
+          ],
+          "glossinessFactor": 0.040000000000000001,
+          "specularFactor": [
+            0.071498477300000002,
+            0.031385924500000002,
+            0.0086129616999999995
+          ]
+        }
+      },
+      "name": "oreiller"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            0.82829211010000003,
+            0.63341219319999997,
+            0.44862437090000001,
+            1
+          ],
+          "glossinessFactor": 0.070000000000000007,
+          "specularFactor": [
+            0.82278575440000001,
+            0.63075713629999997,
+            0.44520119450000001
+          ]
+        }
+      },
+      "name": "Material.001"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "glossinessFactor": 0.47200000289999999,
+          "specularFactor": [
+            0.80000001190000003,
+            0.80000001190000003,
+            0.80000001190000003
+          ]
+        }
+      },
+      "name": "pieds"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            0.16111610570000001,
+            0.072277336299999995,
+            0.044184273199999999,
+            1
+          ],
+          "glossinessFactor": 0,
+          "specularFactor": [
+            0.052860646999999997,
+            0.011612245199999999,
+            0.0012141078999999999
+          ]
+        }
+      },
+      "name": "bois_pieds"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            0.048259345299999999,
+            0.0120675981,
+            0.0020002972999999999,
+            1
+          ],
+          "glossinessFactor": 0.14000000000000001,
+          "specularFactor": [
+            0.1542627969,
+            0.1067741574,
+            0.078061139900000007
+          ]
+        }
+      },
+      "name": "couverture"
+    },
+    {
+      "doubleSided": true,
+      "emissiveFactor": [
+        0,
+        0,
+        0
+      ],
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "glossinessFactor": 0,
+          "specularFactor": [
+            1,
+            1,
+            1
+          ]
+        }
+      },
+      "name": "support_lit"
+    }
+  ],
+  "meshes": [
+    {
+      "name": "oreiller_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0
+          },
+          "indices": 2,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "oreiller_1",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 4,
+            "POSITION": 3
+          },
+          "indices": 5,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "oreiller_2",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 7,
+            "POSITION": 6
+          },
+          "indices": 8,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "oreiller_3",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 10,
+            "POSITION": 9
+          },
+          "indices": 11,
+          "material": 3,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "oreiller_4",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 13,
+            "POSITION": 12
+          },
+          "indices": 14,
+          "material": 4,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "oreiller_5",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 16,
+            "POSITION": 15
+          },
+          "indices": 17,
+          "material": 5,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "name": "RootNode (gltf orientation matrix)",
+      "rotation": [
+        -0.70710678118654746,
+        -0,
+        -0,
+        0.70710678118654757
+      ]
+    },
+    {
+      "children": [
+        2
+      ],
+      "name": "RootNode (model correction matrix)"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "Root"
+    },
+    {
+      "children": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "matrix": [
+        -0.51000999999999996,
+        0,
+        0,
+        0,
+        0,
+        -0.51000999999999996,
+        0,
+        0,
+        0,
+        0,
+        0.51000999999999996,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "name": "oreiller"
+    },
+    {
+      "mesh": 0,
+      "name": "oreiller_0"
+    },
+    {
+      "mesh": 1,
+      "name": "oreiller_1"
+    },
+    {
+      "mesh": 2,
+      "name": "oreiller_2"
+    },
+    {
+      "mesh": 3,
+      "name": "oreiller_3"
+    },
+    {
+      "mesh": 4,
+      "name": "oreiller_4"
+    },
+    {
+      "mesh": 5,
+      "name": "oreiller_5"
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "OSG_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ]
+}
+
