@@ -17,7 +17,6 @@ import ShaderPingPongPass from '../modules/shader-ping-pong-pass.js';
 import { fs as blurFragmentShader } from './267/blur-fs.js';
 import { fs as combineFragmentShader } from './267/combine-fs.js';
 import { fs as finalFragmentShader } from './267/final-fs.js';
-import { fs as finalColorFragmentShader } from './267/final-color-fs.js';
 
 const canvas = renderer.domElement;
 const camera = getCamera(45);
@@ -133,16 +132,6 @@ function Post(renderer, params = {}) {
   });
   const finalPass = new ShaderPass(renderer, finalShader, w, h, THREE.RGBAFormat, THREE.UnsignedByteType, THREE.LinearFilter, THREE.LinearFilter, THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping);
 
-  const finalColorShader = new THREE.RawShaderMaterial({
-    uniforms: {
-      resolution: { value: new THREE.Vector2(w, h) },
-      inputTexture: { value: finalPass.fbo.texture },
-    },
-    vertexShader: orthoVertexShader,
-    fragmentShader: finalColorFragmentShader,
-  });
-  const finalColorPass = new ShaderPass(renderer, finalColorShader, w, h, THREE.RGBAFormat, THREE.UnsignedByteType, THREE.LinearFilter, THREE.LinearFilter, THREE.ClampToEdgeWrapping, THREE.ClampToEdgeWrapping);
-
   function render(scene, camera, t) {
     backdrop.visible = false;
     renderer.setClearColor(0, 0);
@@ -174,7 +163,6 @@ function Post(renderer, params = {}) {
 
     combinePass.render();
     finalPass.render(true);
-    //finalColorPass.render(true);
   }
 
   return {
