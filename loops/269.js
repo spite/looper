@@ -44,7 +44,7 @@ for (let j = 0; j < DONUTS; j++) {
   const seed = Maf.randomInRange(0, 100);
   const amount = Maf.randomInRange(.5, 1);
   const frostingMaterial = new THREE.MeshStandardMaterial({ color: colors[~~Maf.randomInRange(0, colors.length)], metalness: .2, roughness: .4 });
-  const donut = createSprinkledFrostedDonut(donutMaterial, frostingMaterial, seed, amount, 100);
+  const donut = createSprinkledFrostedDonut(donutMaterial, frostingMaterial, seed, amount, 500);
   pivot.position.set(p.x, p.y, p.z).multiplyScalar(r);
   pivot.lookAt(group.position);
   donut.donut.group.scale.setScalar(.5);

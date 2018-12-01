@@ -26,7 +26,7 @@ function bumpGeometry(geometry, amount, seed) {
 }
 
 function createDonutGeometry(outerRadius, innerRadius, seed) {
-  const geometry = new THREE.TorusBufferGeometry(outerRadius, innerRadius, 72, 100);
+  const geometry = new THREE.TorusBufferGeometry(outerRadius, innerRadius, 36, 50);
   return geometry;
 }
 
@@ -42,7 +42,7 @@ function innerBorder(a, seed, spread) {
 
 function createFrostingGeometry(outerRadius, innerRadius, seed) {
 
-  const geometry = new THREE.PlaneBufferGeometry(1, 1, 50, 100);
+  const geometry = new THREE.PlaneBufferGeometry(1, 1, 25, 50);
 
   const base = new THREE.Vector3();
   const p = new THREE.Vector3();

@@ -12,7 +12,7 @@ function createSprinkledFrostedDonut(donutMaterial, frostingMaterial, seed, amou
 
   const points = [];
   const raycast = new THREE.Raycaster();
-  const r = 5;
+  const r = 6;
   const position = new THREE.Vector3();
   const tmp = new THREE.Vector3();
   const m = new THREE.Matrix4();
