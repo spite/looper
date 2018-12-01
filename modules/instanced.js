@@ -90,8 +90,8 @@ function getInstancedMeshStandardMaterial(options = {}, instanceOptions = {}) {
   } else {
     material = new THREE.MeshStandardMaterial({
       color: options.color || 0xffffff,
-      map: options.map,
-      normalMap: options.normalMap,
+      map: options.map || null,
+      normalMap: options.normalMap || null,
       transparent: false,
       wireframe: options.wireframe || false,
       metalness: options.metalness !== undefined ? options.metalness : .5,
