@@ -26,8 +26,7 @@ CurvedLineCurve.prototype.constructor = CurvedLineCurve;
 
 CurvedLineCurve.prototype.getPoint = function(t) {
   const p = this.from.clone().lerp(this.to, t);
-  const p2 = this.from.clone().lerp(this.to, t).normalize();
-  return p.lerp(p2, .2);
+  return p;
 };
 
 
