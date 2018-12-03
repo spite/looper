@@ -32,7 +32,7 @@ CurvedLineCurve.prototype.getPoint = function(t) {
 
 function addLine(from, to) {
   const curve = new CurvedLineCurve(from, to);
-  const geometry = new THREE.TubeBufferGeometry(curve, 36, .01, 50, false);
+  const geometry = new THREE.TubeBufferGeometry(curve, 36, .005, 50, false);
   const mesh = new THREE.Mesh(geometry, material);
   group.add(mesh);
   return mesh;
