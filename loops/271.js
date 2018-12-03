@@ -108,7 +108,6 @@ scene.add(light);
 camera.position.set(0, 0, 5);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 renderer.setClearColor(0, 1);
-scene.fog = new THREE.FogExp2(0, .2);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -124,7 +123,7 @@ function draw(startTime) {
     group.rotation.z = Maf.PI / 4 + easings.InOutQuint(t2) * Maf.PI / 2;
   } else {
     const t2 = Maf.map(0, .5, 0, 1, t - .5);
-    group.rotation.x = Maf.PI / 3.3 + easings.InOutQuint(t2) * Maf.PI;
+    group.rotation.x = Maf.PI / 3.3 + easings.InOutQuint(t2) * Maf.PI / 2.54;
   }
 
   post.render(scene, camera);
