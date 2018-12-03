@@ -7,7 +7,7 @@ import orthoVertexShader from '../shaders/ortho.js';
 import vignette from '../shaders/vignette.js';
 import fxaa from '../shaders/fxaa.js';
 import rgbShift from '../shaders/rgb-shift.js';
-import { gammaCorrect, levelRange, finalLevels } from '../../shaders/levels.js';
+import { gammaCorrect, levelRange, finalLevels } from '../shaders/levels.js';
 
 const antialiasFragmentShader = `
 precision highp float;
