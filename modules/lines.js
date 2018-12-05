@@ -17,6 +17,7 @@ uniform vec2 resolution;
 uniform sampler2D inputTexture;
 uniform float minLevel;
 uniform float maxLevel;
+uniform float gamma;
 
 varying vec2 vUv;
 ${fxaa}
@@ -26,7 +27,7 @@ ${finalLevels}
 
 void main() {
   vec4 color = fxaa(inputTexture, vUv );
-  color.rgb = finalLevels(color.rgb, vec3(0.) / 255., vec3(1.5), vec3(255.)/ 255.);
+  color.rgb = finalLevels(color.rgb, vec3(minLevel), vec3(gamma), vec3(maxLevel));
   gl_FragColor = color;
 }
 `;
@@ -42,7 +43,7 @@ varying vec2 vUv;
 ${rgbShift}
 
 void main() {
-  gl_FragColor = rgbShift(inputTexture, vUv,resolution/20.);
+  gl_FragColor = rgbShift(inputTexture, vUv,resolution/40.);
 }
 `;
 
@@ -58,8 +59,9 @@ function Post(renderer, params = {}) {
     uniforms: {
       resolution: { value: new THREE.Vector2(w, h) },
       inputTexture: { value: colorFBO.texture },
-      minLevel: { value: 0 },
-      maxLevel: { value: .8 }
+      minLevel: { value: params.minLevel || 0 },
+      maxLevel: { value: params.maxLevel || .8 },
+      gamma: { value: params.gamma || 1.4 }
     },
     vertexShader: orthoVertexShader,
     fragmentShader: antialiasFragmentShader,
@@ -70,8 +72,6 @@ function Post(renderer, params = {}) {
     uniforms: {
       resolution: { value: new THREE.Vector2(w, h) },
       inputTexture: { value: antialiasPass.fbo.texture },
-      minLevel: { value: 0 },
-      maxLevel: { value: .8 }
     },
     vertexShader: orthoVertexShader,
     fragmentShader: rgbFragmentShader,
