@@ -116,6 +116,8 @@ function draw(startTime) {
       g.group.scale.setScalar(1);
       g.group.position.set(0, 0, 0);
     } else {
+      q.setFromAxisAngle(g.axis, 0);
+      g.group.quaternion.copy(q);
       const tt = Maf.map(0, .5, 0, 1, t2 - .5);
       const s = 1 - easings.InOutQuad(Maf.parabola(tt, 1));
       g.visible = s < .00001;
