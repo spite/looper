@@ -13,7 +13,7 @@ controls.screenSpacePanning = true;
 const scene = new THREE.Scene();
 const group = new THREE.Group();
 
-const post = new Post(renderer, { minLeveL: 0, maxLevel: .5 });
+const post = new Post(renderer, { minLeveL: .25, maxLevel: .35, gamma: .5 });
 
 const points = pointsOnSphere(10);
 
@@ -37,7 +37,7 @@ LineOfPoints.prototype.getPoint = function(t) {
 
 function addLine(points, material) {
   const curve = new LineOfPoints(points);
-  const geometry = new THREE.TubeBufferGeometry(curve, points.length - 1, .01, 4, false);
+  const geometry = new THREE.TubeBufferGeometry(curve, points.length - 1, .01, 18, false);
   const mesh = new THREE.Mesh(geometry, material);
   return mesh;
 }
@@ -47,51 +47,54 @@ const groups = [];
 const material = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide, transparent: true });
 
 const r = .75;
-const r2 = .5;
+const r2 = .5 * .75;
 
 function getPoint(a, a2) {
-  const x = r * Math.cos(a);
-  const y = 0;
-  const z = r * Math.sin(a);
   const x2 = r2 * Math.cos(a2);
   const y2 = r2 * Math.sin(a2);
   const z2 = 0;
   const p = new THREE.Vector3(x2, y2, z2);
   p.applyAxisAngle(up, -a);
-  p.x += x;
-  p.y += y;
-  p.z += z;
   return p;
 }
 
-const SIDES1 = 10;
-const SIDES2 = 6;
+const SIDES1 = 9;
+const SIDES2 = 4;
 const INC = 10;
 const padding = Maf.TAU / 15;
 
 const rings = [];
 const circles = [];
+const pivots = [];
+const tmp = new THREE.Vector3();
 
 const up = new THREE.Vector3(0, 1, 0);
 for (let a = 0; a < Maf.TAU; a += Maf.TAU / SIDES1) {
   for (let a2 = 0; a2 < Maf.TAU; a2 += Maf.TAU / SIDES2) {
+    const pivot = new THREE.Group();
+    tmp.set(Math.cos(a), 0, Math.sin(a)).multiplyScalar(r);
+    pivot.position.copy(tmp);
+    pivot.rotation.y = -a;
     for (let a3 = a2 + padding / SIDES2; a3 < a2 + Maf.TAU / SIDES2 - 2 * padding / SIDES2; a3 += (Maf.TAU - 2 * padding) / (SIDES2 * INC)) {
-      const from = getPoint(a, a3);
-      const to = getPoint(a, a3 + Maf.TAU / (SIDES2 * INC));
+      const from = getPoint(0, a3);
+      const to = getPoint(0, a3 + Maf.TAU / (SIDES2 * INC));
       const g = addLine([from, to], material);
-      group.add(g);
+      pivot.add(g);
       rings.push({ group: g, angle: a });
     }
+    pivots.push(pivot);
+    group.add(pivot);
     for (let a3 = a + padding / SIDES1; a3 < a + Maf.TAU / SIDES1 - 2 * padding / SIDES1; a3 += (Maf.TAU - 2 * padding) / (SIDES1 * INC)) {
-      const from = getPoint(a3, a2);
-      const to = getPoint(a3 + Maf.TAU / (SIDES1 * INC), a2);
+      tmp.set(Math.cos(a3), 0, Math.sin(a3)).multiplyScalar(r);
+      const from = getPoint(a3, a2).add(tmp);
+      tmp.set(Math.cos(a3 + Maf.TAU / (SIDES1 * INC)), 0, Math.sin(a3 + Maf.TAU / (SIDES1 * INC))).multiplyScalar(r);
+      const to = getPoint(a3 + Maf.TAU / (SIDES1 * INC), a2).add(tmp);
       const g = addLine([from, to], material);
       group.add(g);
       circles.push({ group: g, angle: a2 });
     }
   }
 }
-
 
 scene.add(group);
 
@@ -132,12 +135,15 @@ function draw(startTime) {
   const time = (.001 * (performance.now() - startTime)) % loopDuration;
   const t = time / loopDuration;
 
-  const a = Maf.PI / SIDES1;
-  rings.forEach((g, i) => {
-    g.group.rotation.y = easings.InOutQuint(Maf.mod(2 * t, 1)) * a + ~~(2 * t) * a;
+  const a = Maf.TAU / SIDES1;
+  const b = Maf.TAU / SIDES2;
+  const t1 = (t < .5) ? Maf.map(0, .5, 0, 1, t) : 0;
+  const t2 = (t > .5) ? Maf.map(0, .5, 0, 1, t - .5) : 0;
+  pivots.forEach((p, i) => {
+    p.rotation.z = easings.InOutQuint(t1) * b;
   });
   circles.forEach((g, i) => {
-    g.group.rotation.y = -easings.InOutQuint(Maf.mod(2 * t, 1)) * Maf.PI / SIDES1 - ~~(2 * t) * a;
+    g.group.rotation.y = easings.InOutQuint(t2) * a;
   });
   group.rotation.y = easings.Linear(Maf.mod(t + .5, 1)) * Maf.TAU / SIDES1;
 
