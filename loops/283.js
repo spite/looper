@@ -36,6 +36,7 @@ precision highp float;
 
 uniform float time;
 uniform float offset;
+uniform vec3 color;
 
 varying float vDepth;
 varying vec2 vUv;
@@ -47,7 +48,7 @@ ${parabola}
 
 void main(){
   if(mod(offset+10.*(time+vUv.x+.1*vUv.y),1.)<.75) discard;
-  gl_FragColor = vec4(vec3(vDepth),1.);
+  gl_FragColor = vec4(color*vDepth,1.);
 }
 `;
 
@@ -64,7 +65,8 @@ const geo = new THREE.TorusKnotBufferGeometry(1, .15, 200, 36);
 const mat = new THREE.RawShaderMaterial({
   uniforms: {
     time: { value: 0 },
-    offset: { value: 0 }
+    offset: { value: 0 },
+    color: { value: new THREE.Color(1, 1, 1) }
   },
   vertexShader,
   fragmentShader,
@@ -76,6 +78,7 @@ group.add(mesh);
 const geo2 = new THREE.TorusKnotBufferGeometry(1, .33, 200, 36);
 const mesh2 = new THREE.Mesh(geo2, mat.clone());
 mesh2.material.uniforms.offset.value = .5;
+mesh2.material.uniforms.color.value.setRGB(1, 0, 0);
 group.add(mesh2);
 
 scene.add(group);
@@ -107,7 +110,7 @@ scene.fog = new THREE.FogExp2(0, .2);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-const loopDuration = 5;
+const loopDuration = 6;
 const q = new THREE.Quaternion();
 const m = new THREE.Matrix4();
 const p = new THREE.Vector3();
