@@ -9,8 +9,8 @@ import vignette from '../shaders/vignette.js';
 import fxaa from '../shaders/fxaa.js';
 import rgbShift from '../shaders/rgb-shift.js';
 import { gammaCorrect, levelRange, finalLevels } from '../shaders/levels.js';
-import { blur5 } from '../../shaders/fast-separable-gaussian-blur.js';
-import screen from '../../shaders/screen.js';
+import { blur5 } from '../shaders/fast-separable-gaussian-blur.js';
+import screen from '../shaders/screen.js';
 
 const antialiasFragmentShader = `
 precision highp float;
