@@ -47,7 +47,7 @@ varying vec2 vUv;
 ${parabola}
 
 void main(){
-  if(mod(offset+5.*(time+vUv.x+.1*vUv.y),1.)<.95-.1*parabola(time,1.)) discard;
+  if(mod(offset+5.*(time+vUv.x+vUv.y/5.),1.)<.95-.1*parabola(time,1.)) discard;
   gl_FragColor = vec4(.5*color*vDepth*parabola(mod(vUv.y+vUv.x+time,1.),1.),1.);
 }
 `;
