@@ -85,7 +85,7 @@ function Post(renderer, params = {}) {
   const w = renderer.getSize().width;
   const h = renderer.getSize().height;
 
-  const colorFBO = getFBO(w, h, { format: THREE.RGBAFormat, type: THREE.FloatType });
+  const colorFBO = getFBO(w, h);
 
   const blurPasses = [];
   const levels = 5;
