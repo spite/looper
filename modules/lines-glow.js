@@ -140,9 +140,16 @@ function Post(renderer, params = {}) {
   function render(scene, camera) {
     renderer.render(scene, camera, colorFBO);
 
-    let offset = 4;
+    let offset = 1;
+    let tw = w;
+    let th = h;
     blurShader.uniforms.inputTexture.value = colorFBO;
     for (let j = 0; j < levels; j++) {
+      tw /= 2;
+      th /= 2;
+      tw = Math.round(tw);
+      th = Math.round(th);
+      blurShader.uniforms.resolution.value.set(tw, th);
       blurShader.uniforms.direction.value.set(offset, 0);
       const blurPass = blurPasses[j];
       blurPass.render();
