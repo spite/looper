@@ -138,7 +138,7 @@ const p = new THREE.Vector3();
 function draw(startTime) {
 
   const time = (.001 * (performance.now() - startTime)) % loopDuration;
-  const t = time / loopDuration;
+  const t = Maf.mod(time / loopDuration - .5, 1);
 
   mesh.material.uniforms.time.value = t;
   mesh2.material.uniforms.time.value = t;
