@@ -152,7 +152,7 @@ function draw(startTime) {
   mesh2.material.uniforms.time.value = t;
   mesh3.material.uniforms.time.value = t;
 
-  //group.rotation.z = t * Maf.TAU;
+  group.rotation.z = t * Maf.TAU;
 
   post.render(scene, camera);
 }
