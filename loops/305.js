@@ -72,7 +72,7 @@ void main(){
   float o1 = v(vUv, 0., t);
   float o2 = v(vUv, e, t);
   float o3 = v(vUv, -e, t);
-  float stripe = .5 +.5 * sin(3.*(1.*vUv.y+6.*vUv.x)*TAU+1.*3.*t*TAU);
+  float stripe = .5 +.5 * sin(3.*(1.*vUv.y+6.*vUv.x)*TAU-3.*3.*t*TAU);
   if(smoothstep(.1,.5,stripe) < .5) discard;
   float v = 1.-smoothstep(.45,.55,stripe);
   gl_FragColor = vec4(v*vDepth*(o1*color1+o2*color2+o3*color3)/1.,1.);
@@ -121,7 +121,7 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 camera.rotation.z -= Maf.PI / 2;
 renderer.setClearColor(0x010203, 1);
 
-const loopDuration = 4;
+const loopDuration = 6;
 
 function draw(startTime) {
 
