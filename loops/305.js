@@ -121,7 +121,7 @@ camera.lookAt(new THREE.Vector3(0, 0, 0));
 camera.rotation.z -= Maf.PI / 2;
 renderer.setClearColor(0x010203, 1);
 
-const loopDuration = 6;
+const loopDuration = 4;
 
 function draw(startTime) {
 
