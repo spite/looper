@@ -125,7 +125,7 @@ const mat = new THREE.RawShaderMaterial({
     speed: { value: 1 },
     offset: { value: 0 },
     color: { value: new THREE.Color(0x455b69) },
-    matCap: { value: loader.load('../assets/matcap3.jpg') }
+    matCap: { value: loader.load('./assets/matcap3.jpg') }
   },
   vertexShader,
   fragmentShader,
