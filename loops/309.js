@@ -79,10 +79,10 @@ void main(){
   vec2 p = vUv+vec2(t,-4.*t);
   p = mod(20.*p,20.);
   vec2 p2 = floor(p*s)/s;
-  float r = .1;
+  float r = .2;
   float a = 2.*time * TAU;
-  vec2 offset = r*vec2(cos(a),sin(a));
-  float stripe = noise2d(p2+offset);
+  vec2 offset = vec2(2.*r,r)*vec2(cos(a),sin(a));
+  float stripe = noise2d(1.25*p2+offset);
   float v = clamp(.5+stripe,0.,1.);
   float o = (o1+o2+o3);
   float gradient = 1.-smoothstep(.49,.51,length(mod(p*s,vec2(1.))-.5)/(.1+.9*v*o));
