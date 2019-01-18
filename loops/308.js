@@ -8,6 +8,7 @@ import { Curves } from '../third_party/THREE.CurveExtras.js';
 import { TubeBufferGeometry } from '../modules/three-tube-geometry.js';
 
 import { parabola } from '../shaders/functions.js';
+import screen from '../shaders/screen.js';
 
 const vertexShader = `
 precision highp float;
@@ -28,6 +29,7 @@ varying vec3 vPosition;
 varying vec2 vUv;
 varying float vDepth;
 varying float vRim;
+varying vec2 vN;
 
 #define PI 3.1415926535897932384626433832795
 #define TAU (2.*PI)
@@ -43,6 +45,9 @@ void main() {
   vec3 n = normalize( normalMatrix * normal );
   vRim = pow(abs(dot(e,n)),2.);
   vDepth = 1.5-20.*abs(gl_Position.z);
+  vec3 r = reflect( e, n );
+  float m = 2.82842712474619 * sqrt( r.z+1.0 );
+  vN = r.xy / m + .5;
 }
 `;
 
@@ -53,15 +58,18 @@ uniform float time;
 uniform float offset;
 uniform vec3 color;
 uniform float speed;
+uniform sampler2D matCap;
 
 varying vec2 vUv;
 varying float vDepth;
 varying float vRim;
+varying vec2 vN;
 
 #define PI 3.1415926535897932384626433832795
 #define TAU (2.*PI)
 
 ${parabola}
+${screen}
 
 float v(vec2 uv, float offset, float t){
   float l = 20.;
@@ -85,12 +93,14 @@ void main(){
   float o3 = v(uv, -e, t);
   float stripe = .5 +.5 * sin(10.*(uv.y+5.*uv.x)*TAU-5.*5.*t*TAU);
   float v = 1.-.95*smoothstep(.25,.75,stripe);
-  vec3 color = v*vDepth*(o1*color1+o2*color2+o3*color3)/1.;
+  vec3 color = vRim*v*vDepth*(o1*color1+o2*color2+o3*color3)/1.;
   if(i==0.) color.yz *= 0.;
   if(i==1.) color.xz *= 0.;
   if(i==2.) color.xy *= 0.;
   float d = smoothstep(.25,.75,1.-1.*length(uv2-.5));
-  gl_FragColor = vec4(vRim*color*d,1.);
+  gl_FragColor = vec4(color*d/1.,1.);
+  float b = texture2D(matCap,vN).r/3.;
+  gl_FragColor = screen(gl_FragColor, vec4(b), .5);
 }
 `;
 
@@ -107,12 +117,15 @@ const r = .2;
 const curve = new THREE.Curves.CinquefoilKnot();
 const geo = new TubeBufferGeometry(curve, 200, 6, 36, true);
 
+const loader = new THREE.TextureLoader();
+
 const mat = new THREE.RawShaderMaterial({
   uniforms: {
     time: { value: 0 },
     speed: { value: 1 },
     offset: { value: 0 },
-    color: { value: new THREE.Color(0x455b69) }
+    color: { value: new THREE.Color(0x455b69) },
+    matCap: { value: loader.load('../assets/matcap3.jpg') }
   },
   vertexShader,
   fragmentShader,
