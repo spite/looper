@@ -71,9 +71,9 @@ varying vec2 vN;
 ${parabola}
 ${screen}
 
-float v(vec2 uv, float offset, float t){
+float v(vec2 uv, float offset, float t, float speed){
   float l = 20.;
-  float o = .05 + .95*parabola(mod(1.*uv.x+1.*t+offset,1.),l);
+  float o = .05 + .95*parabola(mod(1.*uv.x+1.*t+offset+speed*time,1.),l);
   return o;
 }
 
@@ -88,11 +88,13 @@ void main(){
   float i = floor(mod(vUv.y*s.y*3.,3.));
   float e = 1./3.;
   float t = 2.*time/3.;
-  float o1 = v(uv, 0., t);
-  float o2 = v(uv, e, t);
-  float o3 = v(uv, -e, t);
-  float stripe = .5 +.5 * sin(5.*uv.y*TAU+2.*sin(9.*vUv.x*TAU+4.*time*TAU)-3.*time*TAU);
-  float v = 1.-.95*smoothstep(.25,.75,stripe);
+  float o1 = v(uv, 0., t,1.);
+  float o2 = v(uv, e, t,2.);
+  float o3 = v(uv, -e, t,3.);
+  float stripe1 = .5 +.5 * sin(5.*uv.y*TAU+2.*sin(3.*vUv.x*TAU+4.*time*TAU)-3.*time*TAU);
+  float stripe2 = .5 +.5 * sin(5.*uv.y*TAU+4.*sin(9.*vUv.x*TAU+4.*time*TAU)-3.*time*TAU+.5*e*TAU);
+  float stripe = stripe1+stripe2;
+  float v = stripe2;
   vec3 color = vRim*v*(o1*color1+o2*color2+o3*color3)/1.;
   if(i==0.) color.yz *= 0.;
   if(i==1.) color.xz *= 0.;
@@ -149,7 +151,7 @@ function draw(startTime) {
   const time = (.001 * (performance.now() - startTime)) % loopDuration;
   const t = time / loopDuration;
 
-  mesh.material.uniforms.time.value = t; // easings.InOutQuad(t);
+  mesh.material.uniforms.time.value = t;
   group.rotation.z = t * Maf.TAU / 3;
 
   post.render(scene, camera);
