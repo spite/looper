@@ -106,7 +106,7 @@ void main(){
 `;
 
 const canvas = renderer.domElement;
-const camera = getCamera(75, 1, .1, 10); //getOrthoCamera(2.25, 2.25);
+const camera = getCamera(75, 1, .1, 10);
 const controls = new OrbitControls(camera, canvas);
 controls.screenSpacePanning = true;
 const scene = new THREE.Scene();
