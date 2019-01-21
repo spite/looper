@@ -85,7 +85,7 @@ vec3 color1 = vec3(69., 91., 105.)/255.;
 vec3 color2 = vec3(249.,122.,77.)/255.;
 vec3 color3 = vec3(195.,58.,78.)/255.;
 
-#define TILES 8
+#define TILES 4
 
 void main(){
   float e = 1./3.;
@@ -104,7 +104,7 @@ void main(){
   p *= 1.0 - pow(min(1.0, 12.0 * dot(r, r)), 2.0);
 
   float o = (o1+o2+o3);
-  vec3 color = vRim*vec3(p*(o1*color1+o2*color2+o3*color3)/2.);
+  vec3 color = vRim*vec3(p*(o1*color1+o2*color2+o3*color3));
   color = clamp(color,vec3(0.),vec3(1.));
   vec3 b = texture2D(matCap,vN).xyz/5.;
   gl_FragColor = screen(vec4(color,1.), vec4(b,1.), .75);
