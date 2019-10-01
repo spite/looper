@@ -100,12 +100,9 @@ function draw(startTime) {
       vertices[i * 3 + 2] = z;
     }
     m.mesh.rotation.y = m.offset + t * Maf.TAU;
-    //m.mesh.scale.setScalar(1 + t * 5 * m.offset / Maf.TAU);
     m.mesh.material.uniforms.lineWidth.value = Maf.parabola(Maf.mod(t + m.offset, 1), 2);
     m.mesh.g.setGeometry(vertices);
   })
-
-  //group.rotation.y = t * Maf.TAU;
 
   painted.render(scene, camera);
 }
