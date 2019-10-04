@@ -10,7 +10,7 @@ import Painted from '../modules/painted.js';
 
 const painted = Painted(renderer, { minLevel: -.1 });
 
-palette.range = ["#532DD8", "#EA44B6", "#371ABE", "#FAD1DF", "#520D28", "#E0123A"];
+palette.range = ["#F62D62", "#FFFFFF", "#FDB600", "#F42D2D", "#544C98", "#ECACBC"];
 
 const gradient = new gradientLinear(palette.range);
 
@@ -23,7 +23,7 @@ controls.screenSpacePanning = true
 
 camera.position.set(35, 15, -35);
 camera.lookAt(group.position);
-renderer.setClearColor(0xf98b15, 1);
+renderer.setClearColor(0xd0e6f9, 1);
 
 const strokeTexture = new THREE.TextureLoader().load('./assets/brush4.png');
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
