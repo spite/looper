@@ -330,8 +330,7 @@ function MeshLineMaterial(parameters) {
     uniform float useMap;
     uniform float useAlphaMap;
     uniform float useDash;
-    uniform float dashArray;
-    uniform float dashRatio;
+    uniform vec2 dashArray;
     uniform float dashOffset;
     uniform float visibility;
     uniform float alphaTest;
@@ -342,13 +341,17 @@ function MeshLineMaterial(parameters) {
     varying float vCounters;
 
     void main() {
-
       vec4 c = vColor;
-      vec2 tuv = vUV * repeat + 0.*vec2(dashOffset,0.);
-      if( useMap == 1. ) c *= texture2D( map, tuv);
+      vec2 tuv = vUV * repeat;
+      if(useDash == 1.) {
+        tuv.x = mod((tuv.x + dashOffset),1.);
+      }
+      if( useMap == 1. ) c *= texture2D(map, tuv);
       if( useAlphaMap == 1. ) c.a *= texture2D( alphaMap, tuv ).a;
       if( useDash == 1. ){
-        c.a *= ceil(mod(vCounters + dashOffset, dashArray) - (dashArray * dashRatio));
+        if(mod(vCounters*repeat.x+dashOffset,1.)>(dashArray.x / (dashArray.x+dashArray.y))) {
+          c.a = 0.;
+        }
       }
       if( c.a < alphaTest ) discard;
       gl_FragColor = c;
@@ -376,10 +379,10 @@ function MeshLineMaterial(parameters) {
   this.sizeAttenuation = check(parameters.sizeAttenuation, 1);
   this.near = check(parameters.near, 1);
   this.far = check(parameters.far, 1);
-  this.dashArray = check(parameters.dashArray, 0);
+  this.dashArray = check(parameters.dashArray, new THREE.Vector2(1, 0));
   this.dashRatio = check(parameters.dashRatio, 0);
   this.dashOffset = check(parameters.dashOffset, 0);
-  this.useDash = (this.dashArray !== 0) ? 1 : 0;
+  this.useDash = (this.dashArray) ? 1 : 0;
   this.visibility = check(parameters.visibility, 1);
   this.alphaTest = check(parameters.alphaTest, 0);
   this.repeat = check(parameters.repeat, new THREE.Vector2(1, 1));
@@ -399,7 +402,6 @@ function MeshLineMaterial(parameters) {
       far: { value: this.far },
       dashArray: { value: this.dashArray },
       dashOffset: { value: this.dashOffset },
-      dashRatio: { value: this.dashRatio },
       useDash: { value: this.useDash },
       visibility: { value: this.visibility },
       alphaTest: { value: this.alphaTest },

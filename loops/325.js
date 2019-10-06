@@ -53,9 +53,8 @@ function prepareMesh(w, c) {
     depthTest: true,
     transparent: true,
     opacity: 1,
-    dashArray: 1,
+    dashArray: new THREE.Vector2(1, 1),
     dashOffset: 0,
-    dashRatio: .5,
   });
 
   var mesh = new THREE.Mesh(g.geometry, material);
