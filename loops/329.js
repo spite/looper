@@ -107,16 +107,17 @@ scene.add(group);
 const loopDuration = 3;
 const r = 2;
 
-function draw(t) {
+function draw(startTime) {
+
+  const time = (.001 * (performance.now() - startTime)) % loopDuration;
+  const t = time / loopDuration;
 
   meshes.forEach((m) => {
     const tt = Maf.mod(m.speed * t, 1);
-    //m.mesh.material.uniforms.dashArray.value.set(.5 + .5 * Maf.parabola(tt, 1), 2);
     m.mesh.material.uniforms.dashOffset.value = -1 * tt - m.offset;
   });
 
   group.rotation.y = t * Maf.TAU;
-  //group.rotation.z = easings.InQuad(Maf.parabola(t, 1)) * Maf.TAU / 16;
 
   painted.render(scene, camera);
 }
