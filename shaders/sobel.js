@@ -1,7 +1,7 @@
 const sobel = `
-vec3 sobel(sampler2D texture, vec2 uv) {
-  float x = 1.0 / resolution.x;
-  float y = 1.0 / resolution.y;
+vec3 sobel(sampler2D texture, vec2 uv, float thickness) {
+  float x = thickness * 1.0 / resolution.x;
+  float y = thickness * 1.0 / resolution.y;
   vec4 horizEdge = vec4( 0.0 );
   horizEdge -= texture2D( texture, vec2( uv.x - x, uv.y - y ) ) * 1.0;
   horizEdge -= texture2D( texture, vec2( uv.x - x, uv.y     ) ) * 2.0;
