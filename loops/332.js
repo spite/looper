@@ -10,8 +10,6 @@ import Painted from '../modules/painted.js';
 
 const painted = Painted(renderer, { minLevel: -.3 });
 
-palette.range = ["#FDFDFD", "#4D1439", "#CB4122", "#EC250A", "#110715", "#F8AC99", "#C6B7B0", "#B97A77"];
-palette.range = ["#050917", "#132F54", "#FB2309", "#E5A836", "#413F3F", "#E85F18", "#9F4E1C", "#949197"];
 palette.range = ["#E15626", "#B94720", "#100C18", "#A72417", "#C8371E", "#5D2F25", "#EDC09E"];
 const gradient = new gradientLinear(palette.range);
 
