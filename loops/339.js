@@ -1,18 +1,21 @@
-import THREE from '../third_party/three.js';
-import { renderer, getCamera } from '../modules/three.js';
-import { MeshLine, MeshLineMaterial } from '../modules/three-meshline.js';
-import Maf from '../modules/maf.js';
-import { palette2 as palette } from '../modules/floriandelooij.js';
-import { gradientLinear } from '../modules/gradient.js';
+import {curl, generateNoiseFunction, seedFunc} from '../modules/curl.js';
 import easings from '../modules/easings.js';
-import OrbitControls from '../third_party/THREE.OrbitControls.js';
+import {palette2 as palette} from '../modules/floriandelooij.js';
+import {gradientLinear} from '../modules/gradient.js';
+import Maf from '../modules/maf.js';
 import Painted from '../modules/painted.js';
-import { curl, generateNoiseFunction, seedFunc } from '../modules/curl.js';
-import { Curves } from '../third_party/THREE.CurveExtras.js';
+import {MeshLine, MeshLineMaterial} from '../modules/three-meshline.js';
+import {getCamera, renderer} from '../modules/three.js';
+import {Curves} from '../third_party/THREE.CurveExtras.js';
+import THREE from '../third_party/three.js';
+import OrbitControls from '../third_party/THREE.OrbitControls.js';
 
-const painted = Painted(renderer, { minLevel: -.4, maxLevel: 1., lightenPass: 0 });
+const painted =
+    Painted(renderer, {minLevel: -.4, maxLevel: 1., lightenPass: 0});
 
-palette.range = ["#2D5DEB", "#100A09", "#B82A0C", "#E7B31F", "#332848", "#E9E4D0", "#1E3E9A"];
+palette.range = [
+  '#2D5DEB', '#100A09', '#B82A0C', '#E7B31F', '#332848', '#E9E4D0', '#1E3E9A'
+];
 const gradient = new gradientLinear(palette.range);
 
 const canvas = renderer.domElement;
@@ -22,7 +25,8 @@ const group = new THREE.Group();
 const controls = new OrbitControls(camera, canvas);
 controls.screenSpacePanning = true
 
-camera.position.set(-0.38997204674241887, -0.1646326072361011, 0.3548472598819808);
+camera.position.set(
+    -0.38997204674241887, -0.1646326072361011, 0.3548472598819808);
 camera.lookAt(group.position);
 renderer.setClearColor(0xefb66c, 1);
 
@@ -37,9 +41,10 @@ const radius = 2;
 const lineWidth = 1;
 
 function prepareMesh(w, c) {
-
   var g = new MeshLine();
-  g.setGeometry(geo, function(p) { return p; });
+  g.setGeometry(geo, function(p) {
+    return p;
+  });
 
   const material = new MeshLineMaterial({
     map: strokeTexture,
@@ -67,9 +72,10 @@ function prepareMesh(w, c) {
   return mesh;
 }
 
-//const func = generateNoiseFunction();
-const func = seedFunc(97.68263150864752, -91.58398434260522, -74.55346962695187, -28.9538516983598, 49.5039169907555,
-  88.78083415868576);
+// const func = generateNoiseFunction();
+const func = seedFunc(
+    97.68263150864752, -91.58398434260522, -74.55346962695187,
+    -28.9538516983598, 49.5039169907555, 88.78083415868576);
 
 const curve = new THREE.Curves.TrefoilKnot();
 
@@ -77,12 +83,15 @@ const up = new THREE.Vector3(0, 1, 0);
 const LINES = 100;
 const meshes = [];
 for (let j = 0; j < LINES; j++) {
-  const mesh = prepareMesh(.0125 * Maf.randomInRange(.01, 1), Maf.randomInRange(0, 1));
+  const mesh =
+      prepareMesh(.0125 * Maf.randomInRange(.01, 1), Maf.randomInRange(0, 1));
   group.add(mesh);
   const offset = Maf.randomInRange(-1, 0);
   const vertices = new Float32Array(N * 3);
   const r = .5;
-  let p = new THREE.Vector3(Maf.randomInRange(-r, r), Maf.randomInRange(-r, r), Maf.randomInRange(-r, r));
+  let p = new THREE.Vector3(
+      Maf.randomInRange(-r, r), Maf.randomInRange(-r, r),
+      Maf.randomInRange(-r, r));
   let a1 = Maf.randomInRange(0, Maf.TAU);
   let a2 = Maf.randomInRange(0, Maf.TAU);
   const mat = new THREE.Matrix4();
@@ -115,7 +124,7 @@ for (let j = 0; j < LINES; j++) {
   mesh.g.setGeometry(vertices);
   mesh.scale.setScalar(5);
   const speed = 2 * Math.round(Maf.randomInRange(1, 3));
-  meshes.push({ mesh, offset, speed });
+  meshes.push({mesh, offset, speed});
 }
 group.scale.setScalar(.06);
 scene.add(group);
@@ -123,10 +132,9 @@ scene.add(group);
 const loopDuration = 5;
 const r = 2;
 
-function draw(t) {
-
-  //const time = (.001 * (performance.now() - startTime)) % loopDuration;
-  //const t = time / loopDuration;
+function draw(startTime) {
+  const time = (.001 * (performance.now() - startTime)) % loopDuration;
+  const t = time / loopDuration;
 
   meshes.forEach((m) => {
     const tt = Maf.mod(m.speed * t, 1);
@@ -138,4 +146,4 @@ function draw(t) {
   painted.render(scene, camera);
 }
 
-export { draw, loopDuration, canvas, renderer, camera };
+export {draw, loopDuration, canvas, renderer, camera};
