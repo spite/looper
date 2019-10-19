@@ -113,10 +113,10 @@ scene.add(group);
 const loopDuration = 5;
 const r = 2;
 
-function draw(t) {
+function draw(startTime) {
 
-  //const time = (.001 * (performance.now() - startTime)) % loopDuration;
-  //const t = time / loopDuration;
+  const time = (.001 * (performance.now() - startTime)) % loopDuration;
+  const t = time / loopDuration;
 
   meshes.forEach((m) => {
     const tt = Maf.mod(m.speed * t, 1);
