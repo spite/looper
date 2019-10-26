@@ -12,15 +12,16 @@
 <body>
   <header>
     <h1>Looper</h1>
-    <h2>A tool to create looperinos · <a href="https://github.com/spite/looper" >GitHub</a> | <b>Chrome and Safari Tech Preview only</b></h2>
+    <h2>A tool to create looperinos · <a href="https://github.com/spite/looper">GitHub</a></h2>
     <div class="recordPanel">
       <a href="#" class="btn orange" id="start">⚫ Record</a>
+      <a href="#" id="snapshotButton" class="btn orange">📸 Snapshot</a>
       <a href="#" id="backButton" class="btn green">◀&nbsp;&nbsp;Previous</a>
       <a href="#" id="nextButton" class="btn green">Next&nbsp;&nbsp;▶</a>
     </div>
   </header>
   <script>
-  function getIndex() {
+    function getIndex() {
     return parseInt(window.location.hash.replace('#', ''));
   }
 
