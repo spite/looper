@@ -79,7 +79,7 @@ const LINES = 100;
 const meshes = [];
 const m = new THREE.Matrix4();
 for (let j = 0; j < LINES; j++) {
-  const mesh = prepareMesh(.02 * Maf.randomInRange(.02 5, 2), Maf.randomInRange(0, 1));
+  const mesh = prepareMesh(.02 * Maf.randomInRange(.025, 2), Maf.randomInRange(0, 1));
   group.add(mesh);
   const offset = Maf.randomInRange(-1, 0);
   const vertices = new Float32Array(N * 3);
@@ -109,7 +109,7 @@ scene.add(group);
 const loopDuration = 5;
 const r = 2;
 
-function draw(startTime) {
+function draw(t) {
 
   const time = (.001 * (performance.now() - startTime)) % loopDuration;
   const t = time / loopDuration;
