@@ -9,9 +9,9 @@ import OrbitControls from '../third_party/THREE.OrbitControls.js';
 import Painted from '../modules/painted.js';
 import { QiChenAttractor } from '../modules/qi-chen-attractor.js';
 
-const painted = Painted(renderer, { minLevel: -.1, maxLevel: .9, lightenPass: 1 });
+const painted = Painted(renderer, { minLevel: -.1, maxLevel: .9, lightenPass: 0 });
 
-palette.range = ["#050302", "#F56204", "#0E7E8D", "#F20D06", "#E3D6A3", "#463B2F", "#A32F0D"];
+palette.range = ["#380DAF", "#0A0711", "#3A175F", "#F7F1F7", "#D51654", "#C3A0C9", "#5B28B7", "#A854AD"];
 const gradient = new gradientLinear(palette.range);
 
 const canvas = renderer.domElement;
@@ -23,11 +23,11 @@ controls.screenSpacePanning = true
 
 camera.position.set(-0.75, 0, 0.75);
 camera.lookAt(group.position);
-renderer.setClearColor(0xf2ebcf, 1);
+renderer.setClearColor(0x0, 1);
 
 const strokeTexture = new THREE.TextureLoader().load('./assets/brush2.png');
 strokeTexture.wrapS = strokeTexture.wrapT = THREE.RepeatWrapping;
-const strokeTexture2 = new THREE.TextureLoader().load('./assets/brush3.png');
+const strokeTexture2 = new THREE.TextureLoader().load('./assets/brush4.png');
 strokeTexture2.wrapS = strokeTexture2.wrapT = THREE.RepeatWrapping;
 const resolution = new THREE.Vector2(canvas.width, canvas.height);
 
@@ -79,7 +79,7 @@ const LINES = 200;
 const meshes = [];
 const m = new THREE.Matrix4();
 for (let j = 0; j < LINES; j++) {
-  const mesh = prepareMesh((.001 + .01 * j / LINES) * Maf.randomInRange(.025, 2), Maf.randomInRange(0, 1));
+  const mesh = prepareMesh(2 * (.001 + .01 * j / LINES) * Maf.randomInRange(.025, 2), Maf.randomInRange(0, 1));
   group.add(mesh);
   const offset = Maf.randomInRange(-1, 0);
   const vertices = new Float32Array(N * 3);
@@ -89,24 +89,24 @@ for (let j = 0; j < LINES; j++) {
     y: attractor.y + Maf.randomInRange(-r, r),
     z: attractor.z + Maf.randomInRange(-r, r)
   }
-  const scale = .01 * (.05 + .01 * j / LINES);
+  const scale = .025 * (.05 + .01 * j / LINES);
   const d = 0;
   for (let i = 0; i < N; i++) {
     p = attractor.generatePoint(p.x, p.y, p.z);
     vertices[i * 3] = d + scale * p.x;
-    vertices[i * 3 + 1] = scale * p.y;
+    vertices[i * 3 + 1] = 2 * scale * p.y;
     vertices[i * 3 + 2] = d + scale * p.z;
   }
   const l = Math.round(Maf.randomInRange(10, 10 + 5 * j / LINES));
   mesh.material.uniforms.dashArray.value.set(1, l);
-  mesh.material.uniforms.repeat.value.x = Math.round(Maf.randomInRange(2, 4));
+  mesh.material.uniforms.repeat.value.x = Math.round(Maf.randomInRange(1, 2));
   mesh.g.setGeometry(vertices);
   mesh.position.x = 0;
   mesh.position.z = -.1;
-  const speed = 1 + Math.round(.05 * Maf.randomInRange(0, 15 - l));
+  const speed = 1 + Math.round(.01 * Maf.randomInRange(0, 15 - l));
   meshes.push({ mesh, offset, speed });
 }
-group.scale.setScalar(1.5);
+group.scale.setScalar(1);
 scene.add(group);
 
 const loopDuration = 5;
