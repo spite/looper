@@ -1,4 +1,4 @@
-import grayscale from '../../../shaders/grayscale.js';
+import grayscale from '../../shaders/grayscale.js';
 
 const fs =
   `
