@@ -30,7 +30,7 @@ const loader = new THREE.TextureLoader();
 const geometry = new RoundedBoxGeometry(.1, .1, .1, .01, 4);
 const material = new THREE.RawShaderMaterial({
   uniforms: {
-    matCap: { value: loader.load('../../assets/matcap3.jpg') },
+    matCap: { value: loader.load('../assets/matcap3.jpg') },
     d: { value: d }
   },
   vertexShader: boxVertexShader,
